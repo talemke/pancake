@@ -2,6 +2,8 @@ package net.tassia.pancake.http;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
+import net.tassia.pancake.Pancake;
+import net.tassia.pancake.orm.Account;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,6 +11,8 @@ import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpRequest {
 	private final HttpExchange exchange;
@@ -16,15 +20,38 @@ public class HttpRequest {
 	private int code;
 	private byte[] data;
 	private String contentType;
+	private Map<String, String> cookies;
+	private Account account;
 
 	/* Constructor */
-	protected HttpRequest(HttpExchange exchange) {
+	protected HttpRequest(Pancake pancake, HttpExchange exchange) {
 		this.exchange = exchange;
 		this.response = null;
 		this.code = 200;
 		this.data = null;
-		this.contentType = "text/plain";
+		this.contentType = "text/html";
+		this.cookies = new HashMap<>();
+		this.account = null;
 
+		// Parse cookies
+		String cookiesStr = getRequestHeaders().getFirst("Cookie");
+		if (cookiesStr != null) {
+			String[] cookies = cookiesStr.split(";");
+			for (String cookie : cookies) {
+				cookie = cookie.trim();
+				String key = cookie.split("=", 2)[0];
+				String value = cookie.substring(key.length() + 1);
+				this.cookies.put(key, value);
+			}
+		}
+
+		// Check authentication
+		String sessionId = getCookie("PancakeSessionID");
+		if (sessionId != null) {
+			account = pancake.getHTTP().getAccountBySessionID(sessionId);
+		}
+
+		// Parse request body
 		InputStream in = exchange.getRequestBody();
 		if (in != null) {
 			try {
@@ -42,11 +69,15 @@ public class HttpRequest {
 
 
 
+
+
 	/* Generic */
 	public InetSocketAddress getRemoteAddress() {
 		return exchange.getRemoteAddress();
 	}
 	/* Generic */
+
+
 
 
 
@@ -78,6 +109,8 @@ public class HttpRequest {
 
 
 
+
+
 	/* Response */
 	protected byte[] getResponse() {
 		return response;
@@ -98,13 +131,15 @@ public class HttpRequest {
 
 
 
+
+
 	/* Response Headers */
-	public void addResponseHeader(String header, String value) {
+	public void setResponseHeader(String header, String value) {
 		removeResponseHeader(header);
-		setResponseHeader(header, value);
+		addResponseHeader(header, value);
 	}
 
-	public void setResponseHeader(String header, String value) {
+	public void addResponseHeader(String header, String value) {
 		exchange.getResponseHeaders().add(header, value);
 	}
 
@@ -112,6 +147,51 @@ public class HttpRequest {
 		exchange.getResponseHeaders().remove(header);
 	}
 	/* Response Headers */
+
+
+
+
+
+	/* Cookies */
+	public String getCookie(String key) {
+		return cookies.get(key);
+	}
+
+	public void setCookie(String key, String value) {
+		cookies.put(key, value);
+		addResponseHeader("Set-Cookie", key + "=" + value);
+	}
+	/* Cookies */
+
+
+
+
+
+	/* Authentication */
+	public boolean checkAuth() {
+		return account != null;
+	}
+
+	public Account getAuth() {
+		return account;
+	}
+	/* Authentication */
+
+
+
+
+
+
+	/* Redirect */
+	public void redirect(String to) {
+		setResponseCode(302);
+		setContentType("text/plain");
+		addResponseHeader("Location", to);
+		setResponse("Redirected.".getBytes(StandardCharsets.UTF_8));
+	}
+	/* Redirect */
+
+
 
 
 
@@ -145,6 +225,8 @@ public class HttpRequest {
 
 
 
+
+
 	/* Content Type */
 	public String getContentType() {
 		return contentType;
@@ -154,6 +236,8 @@ public class HttpRequest {
 		this.contentType = contentType;
 	}
 	/* Content Type */
+
+
 
 
 

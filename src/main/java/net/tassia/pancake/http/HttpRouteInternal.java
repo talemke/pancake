@@ -38,11 +38,9 @@ public class HttpRouteInternal {
 			matches.push(matcher.group(1));
 		}
 
-		// TODO: Check authorization
-
 		// Execute route
 		byte[] data = route.route(pancake, request, matches.toArray(new String[0]));
-		request.setResponse(data);
+		if (data != null) request.setResponse(data);
 		return true;
 	}
 }
