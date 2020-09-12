@@ -26,7 +26,7 @@ public class PancakeMySQL extends PancakeSQL {
 		String password = pancake.getConfig().mysqlPassword;
 
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?rewriteBatchedStatements=true";
+		String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?rewriteBatchedStatements=true&serverTimezone=UTC";
 		connection = DriverManager.getConnection(url, username, password);
 	}
 	/* Connect */

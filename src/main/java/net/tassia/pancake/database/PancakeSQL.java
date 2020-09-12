@@ -6,9 +6,8 @@ import net.tassia.pancake.orm.Email;
 import net.tassia.pancake.orm.Group;
 import net.tassia.pancake.orm.Inbox;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.nio.charset.StandardCharsets;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -29,8 +28,23 @@ public abstract class PancakeSQL extends PancakeDB {
 	/* Store Email */
 	@Override
 	public boolean storeEmail(Email email) throws SQLException {
-		// TODO
-		return false;
+		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_emails VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+
+		stmt.setString(1, email.getUUID().toString());
+		stmt.setLong(2, email.getTimestamp());
+		stmt.setString(3, email.getSender());
+		stmt.setString(4, email.getRecipient());
+		stmt.setString(5, new String(email.getData(), StandardCharsets.UTF_8));
+		stmt.setString(6, email.getHelo());
+		stmt.setString(7, email.getRemoteAddress());
+		stmt.setInt(8, email.isDeleted() ? 1 : 0);
+		stmt.setInt(9, email.isDraft() ? 1 : 0);
+		stmt.setInt(10, email.isOutgoing() ? 1 : 0);
+		stmt.setString(11, email.getAccount().getUUID().toString());
+		stmt.setString(12, email.getInbox() != null ? email.getInbox().getUUID().toString() : null);
+
+		stmt.execute();
+		return true;
 	}
 	/* Store Email */
 

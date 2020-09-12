@@ -32,23 +32,23 @@ public class Pancake {
 		this.logger = setupLogger();
 		logger.info("Initializing...");
 
-		logger.fine("- Initializing variables...");
+		logger.info("- Initializing variables...");
 		this.accounts = new ArrayList<>();
 		this.groups = new ArrayList<>();
 
-		logger.fine("- Loading configuration...");
+		logger.info("- Loading configuration...");
 		this.config = new PancakeConfiguration();
 
-		logger.fine("- Setting up executor service...");
+		logger.info("- Setting up executor service...");
 		this.executorService = setupExecutorService();
 
-		logger.fine("- Setting up database...");
+		logger.info("- Setting up database...");
 		this.database = setupDatabase();
 
-		logger.fine("- Setting up HTTP server...");
+		logger.info("- Setting up HTTP server...");
 		this.http = setupHTTP();
 
-		logger.fine("- Setting up SMTP server..");
+		logger.info("- Setting up SMTP server..");
 		this.smtp = setupSMTP();
 
 		logger.info("Successfully initialized!");
@@ -143,33 +143,33 @@ public class Pancake {
 	public void start() throws Exception {
 		logger.info("Starting...");
 
-		logger.fine("- Creating database connection...");
+		logger.info("- Creating database connection...");
 		database.connect();
 
-		logger.fine("- Loading groups...");
+		logger.info("- Loading groups...");
 		groups.clear();
 		for (Group group : database.fetchGroups()) {
 			groups.add(group);
 		}
 		groups.add(Group.ROOT);
 
-		logger.fine("- Loading accounts...");
+		logger.info("- Loading accounts...");
 		accounts.clear();
 		for (Account account : database.fetchAccounts()) {
 			accounts.add(account);
 		}
 		accounts.add(Account.ROOT);
 
-		logger.fine("- Starting HTTP server...");
-		getHTTP().start();
+		logger.info("- Starting HTTP server...");
+		// getHTTP().start();
 
-		logger.fine("- Starting SMTP server...");
-		// getSMTP().start();
+		logger.info("- Starting SMTP server...");
+		getSMTP().start();
 
-		// logger.fine("- Starting IMAP server...");
+		// logger.info("- Starting IMAP server...");
 		// TODO
 
-		// logger.fine("- Starting POP3 server...");
+		// logger.info("- Starting POP3 server...");
 		// TODO
 
 		logger.info("Successfully started all systems!");
