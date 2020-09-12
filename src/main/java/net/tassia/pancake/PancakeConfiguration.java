@@ -16,7 +16,7 @@ public class PancakeConfiguration {
 
 
 	public enum StorageDriver {
-		MySQL, SQLite;
-	}
+		MySQL, SQLite
+    }
 
 }

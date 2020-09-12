@@ -20,7 +20,7 @@ public class HttpRequest {
 	private int code;
 	private byte[] data;
 	private String contentType;
-	private Map<String, String> cookies;
+	private final Map<String, String> cookies;
 	private Account account;
 
 	/* Constructor */

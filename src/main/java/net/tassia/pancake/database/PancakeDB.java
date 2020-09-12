@@ -9,8 +9,6 @@ import net.tassia.pancake.orm.Inbox;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public abstract class PancakeDB {
 	private final String name;

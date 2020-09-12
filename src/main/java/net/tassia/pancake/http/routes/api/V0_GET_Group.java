@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
-import net.tassia.pancake.orm.Account;
 import net.tassia.pancake.orm.Group;
 import net.tassia.pancake.orm.structs.GroupJsonStructure;
 

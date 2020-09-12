@@ -2,7 +2,6 @@ package net.tassia.pancake.database;
 
 import net.tassia.pancake.Pancake;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 

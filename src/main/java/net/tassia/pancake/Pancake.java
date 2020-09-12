@@ -153,16 +153,12 @@ public class Pancake {
 
 		logger.info("- Loading groups...");
 		groups.clear();
-		for (Group group : database.fetchGroups()) {
-			groups.add(group);
-		}
+        groups.addAll(database.fetchGroups());
 		groups.add(Group.ROOT);
 
 		logger.info("- Loading accounts...");
 		accounts.clear();
-		for (Account account : database.fetchAccounts()) {
-			accounts.add(account);
-		}
+		accounts.addAll(database.fetchAccounts());
 		accounts.add(Account.ROOT);
 
 		logger.info("- Starting HTTP server...");
