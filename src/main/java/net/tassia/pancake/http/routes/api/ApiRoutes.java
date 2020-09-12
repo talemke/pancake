@@ -7,10 +7,13 @@ public class ApiRoutes {
     public void registerRoutes(PancakeHttpServer server) {
 
         // Accounts
-        server.GET("\\/api\\/accounts\\/(.*)", new GET_Account());
+        server.GET("\\/api\\/v0-alpha\\/accounts\\/(.*)", new GET_Account());
 
         // Emails
-        server.GET("\\/api\\/emails\\/(.*)", new GET_Email());
+        server.GET("\\/api\\/v0-alpha\\/emails\\/(.*)", new GET_Email());
+
+        // Groups
+        server.GET("\\/api\\/v0-alpha\\/groups\\/(.*)", new GET_Group());
 
     }
 
