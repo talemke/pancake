@@ -20,8 +20,6 @@ public class EmailJsonStructure {
         this.deleted = email.isDeleted();
         this.draft = email.isDraft();
         this.outgoing = email.isOutgoing();
-        this.account = email.getAccount() != null ? new AccountJsonStructure(email.getAccount()) : null;
-        this.inbox = email.getInbox() != null ? new InboxJsonStructure(email.getInbox()) : null;
     }
 
     public UUID uuid;
@@ -34,7 +32,5 @@ public class EmailJsonStructure {
     public boolean deleted;
     public boolean draft;
     public boolean outgoing;
-    public AccountJsonStructure account;
-    public InboxJsonStructure inbox;
 
 }

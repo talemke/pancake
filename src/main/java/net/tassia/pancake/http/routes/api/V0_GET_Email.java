@@ -5,7 +5,9 @@ import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.structs.AccountJsonStructure;
 import net.tassia.pancake.orm.structs.EmailJsonStructure;
+import net.tassia.pancake.orm.structs.InboxJsonStructure;
 
 import java.sql.SQLException;
 import java.util.UUID;
@@ -49,7 +51,11 @@ class V0_GET_Email implements HttpRoute {
         // Generate JSON
         byte[] data;
         try {
-            data = pancake.getMapper().writeValueAsBytes(new EmailJsonStructure(email));
+            ResponseStructure res = new ResponseStructure();
+            res.email = new EmailJsonStructure(email);
+            if (email.getAccount() != null) res.owner = new AccountJsonStructure(email.getAccount());
+            if (email.getInbox() != null) res.inbox = new InboxJsonStructure(email.getInbox());
+            data = pancake.getMapper().writeValueAsBytes(res);
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();
             request.setErrorPage(500);
@@ -60,6 +66,14 @@ class V0_GET_Email implements HttpRoute {
         // Send response
         request.setResponseCode(200);
         return data;
+    }
+
+
+
+    private static class ResponseStructure {
+        public EmailJsonStructure email = null;
+        public AccountJsonStructure owner = null;
+        public InboxJsonStructure inbox = null;
     }
 
 }
