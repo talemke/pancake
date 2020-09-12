@@ -6,10 +6,11 @@ import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.orm.Account;
 import net.tassia.pancake.orm.Group;
+import net.tassia.pancake.orm.structs.GroupJsonStructure;
 
 import java.util.UUID;
 
-class GET_Group implements HttpRoute {
+class V0_GET_Group implements HttpRoute {
 
     @Override
     public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
@@ -41,7 +42,7 @@ class GET_Group implements HttpRoute {
         // Generate JSON
         byte[] data;
         try {
-            data = pancake.getMapper().writeValueAsBytes(group);
+            data = pancake.getMapper().writeValueAsBytes(new GroupJsonStructure(group));
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();
             request.setErrorPage(500);

@@ -5,11 +5,12 @@ import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.structs.EmailJsonStructure;
 
 import java.sql.SQLException;
 import java.util.UUID;
 
-class GET_Email implements HttpRoute {
+class V0_GET_Email implements HttpRoute {
 
     @Override
     public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
@@ -48,7 +49,7 @@ class GET_Email implements HttpRoute {
         // Generate JSON
         byte[] data;
         try {
-            data = pancake.getMapper().writeValueAsBytes(email);
+            data = pancake.getMapper().writeValueAsBytes(new EmailJsonStructure(email));
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();
             request.setErrorPage(500);

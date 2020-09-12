@@ -5,10 +5,11 @@ import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.orm.Account;
+import net.tassia.pancake.orm.structs.AccountJsonStructure;
 
 import java.util.UUID;
 
-class GET_Account implements HttpRoute {
+class V0_GET_Account implements HttpRoute {
 
     @Override
     public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
@@ -28,7 +29,6 @@ class GET_Account implements HttpRoute {
 
         // Fetch account
         Account account = pancake.getAccount(uuid);
-        // FIXME: Fix password from being echoed
 
 
         // Is valid?
@@ -41,7 +41,7 @@ class GET_Account implements HttpRoute {
         // Generate JSON
         byte[] data;
         try {
-            data = pancake.getMapper().writeValueAsBytes(account);
+            data = pancake.getMapper().writeValueAsBytes(new AccountJsonStructure(account));
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();
             request.setErrorPage(500);
