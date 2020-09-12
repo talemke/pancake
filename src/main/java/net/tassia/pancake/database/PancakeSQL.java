@@ -126,14 +126,13 @@ public abstract class PancakeSQL extends PancakeDB {
 		e.setDraft(result.getInt("draft") != 0);
 		e.setOutgoing(result.getInt("outgoing") != 0);
 
-		// FIXME: Deadlock somewhere below
-//		if (result.getString("account_id") != null) {
-//			try {
-//				UUID account = UUID.fromString(result.getString("account_id"));
-//				e.setAccount(pancake.getAccount(account));
-//			} catch (IllegalArgumentException ignored) {
-//			}
-//		}
+		if (result.getString("account_id") != null) {
+			try {
+				UUID account = UUID.fromString(result.getString("account_id"));
+				e.setAccount(pancake.getAccount(account));
+			} catch (IllegalArgumentException ignored) {
+			}
+		}
 
 		// FIXME: Deadlock somewhere below
 //		if (e.getAccount() != null) {
