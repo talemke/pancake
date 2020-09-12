@@ -16,10 +16,12 @@ Gets an account by its ID.
 **Example Response:**
 ```json
 {
-    "uuid": "00000000-0000-0000-0000-000000000000",
-    "name": "root",
+    "account": {
+        "uuid": "00000000-0000-0000-0000-000000000000",
+        "name": "root"
+    },
     "group": {
-        "uuid":"00000000-0000-0000-0000-000000000000",
+        "uuid": "00000000-0000-0000-0000-000000000000",
         "name": "root",
         "description": "The group of the root user. This will always be the highest available group."
     }
@@ -41,24 +43,21 @@ Gets an email by its ID.
 **Example Response:**
 ```json
 {
-    "uuid": "735dd6d9-0c74-46be-9125-185f25471e4a",
-    "timestamp": 1599910351911,
-    "sender": "test@example.com",
-    "recipient": "user@example.com",
-    "data": "UmVjZWl2ZW...VzdC4NCg0K",
-    "helo": "test.example.com",
-    "remoteAddress": "/0:0:0:0:0:0:0:1:49608",
-    "deleted": false,
-    "draft": false,
-    "outgoing": false,
-    "account": {
+    "email": {
+        "uuid": "735dd6d9-0c74-46be-9125-185f25471e4a",
+        "timestamp": 1599910351911,
+        "sender": "test@example.com",
+        "recipient": "user@example.com",
+        "data": "UmVjZWl2ZW...VzdC4NCg0K",
+        "helo": "test.example.com",
+        "remoteAddress": "/0:0:0:0:0:0:0:1:49608",
+        "deleted": false,
+        "draft": false,
+        "outgoing": false
+    },
+    "owner": {
         "uuid": "00000000-0000-0000-0000-000000000000",
-        "name": "root",
-        "group": {
-            "uuid": "00000000-0000-0000-0000-000000000000",
-            "name": "root",
-            "description": "The group of the root user. This will always be the highest available group."
-        }
+        "name": "root"
     },
     "inbox": null
 }
