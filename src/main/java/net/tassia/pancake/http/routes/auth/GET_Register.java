@@ -1,13 +1,13 @@
-package net.tassia.pancake.http.routes;
+package net.tassia.pancake.http.routes.auth;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpViewRoute;
 
-public class AuthLoginRoute extends HttpViewRoute {
+class GET_Register extends HttpViewRoute {
 
-	public AuthLoginRoute() {
-		super("/views/auth/login.html");
+	public GET_Register() {
+		super("/views/auth/register.html");
 	}
 
 	@Override
