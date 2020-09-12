@@ -22,7 +22,7 @@ public class PancakeLogger {
 		StaticLoggerBinder.REDIRECT_TO = logger;
 
 		// Set log level
-		logger.setLevel(Level.INFO);
+		logger.setLevel(Level.FINE);
 
 		return logger;
 	}

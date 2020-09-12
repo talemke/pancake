@@ -1,5 +1,6 @@
 package net.tassia.pancake;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.tassia.pancake.database.PancakeMySQL;
 import net.tassia.pancake.http.PancakeHTTP;
 import net.tassia.pancake.logging.PancakeLogger;
@@ -22,6 +23,7 @@ public class Pancake {
 	private final Collection<Account> accounts;
 	private final Collection<Group> groups;
 	private final PancakeConfiguration config;
+	private final ObjectMapper mapper;
 	private final ExecutorService executorService;
 	private final PancakeDB database;
 	private final PancakeHTTP http;
@@ -38,6 +40,9 @@ public class Pancake {
 
 		logger.info("- Loading configuration...");
 		this.config = new PancakeConfiguration();
+
+		logger.info("- Setting up object mapper...");
+		this.mapper = new ObjectMapper();
 
 		logger.info("- Setting up executor service...");
 		this.executorService = setupExecutorService();
@@ -161,10 +166,10 @@ public class Pancake {
 		accounts.add(Account.ROOT);
 
 		logger.info("- Starting HTTP server...");
-		// getHTTP().start();
+		getHTTP().start();
 
 		logger.info("- Starting SMTP server...");
-		getSMTP().start();
+		// getSMTP().start();
 
 		// logger.info("- Starting IMAP server...");
 		// TODO
@@ -187,6 +192,10 @@ public class Pancake {
 
 	public PancakeConfiguration getConfig() {
 		return config;
+	}
+
+	public ObjectMapper getMapper() {
+		return mapper;
 	}
 
 	public ExecutorService getExecutorService() {

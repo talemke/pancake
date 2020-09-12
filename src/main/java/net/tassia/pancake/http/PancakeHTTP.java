@@ -3,6 +3,7 @@ package net.tassia.pancake.http;
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.routes.AuthLoginRoute;
 import net.tassia.pancake.http.routes.IndexRoute;
+import net.tassia.pancake.http.routes.api.ApiRoutes;
 import net.tassia.pancake.orm.Account;
 
 import java.io.IOException;
@@ -24,6 +25,9 @@ public class PancakeHTTP {
 		// Register routes
 		server.GET("", new IndexRoute());
 		server.GET("\\/auth\\/login", new AuthLoginRoute());
+
+		// Register API routes
+		new ApiRoutes().registerRoutes(server);
 	}
 	/* Constructor */
 

@@ -81,4 +81,17 @@ public class Account {
 	}
 	/* Getters & Setters */
 
+
+
+	/* Inboxes */
+	public Inbox getInbox(UUID uuid) {
+		for (Inbox box : inboxes) {
+			if (box.getUUID().equals(uuid)) {
+				return box;
+			}
+		}
+		return null;
+	}
+	/* Inboxes */
+
 }

@@ -216,6 +216,10 @@ public class HttpRequest {
 				setResponse("Not Found".getBytes(StandardCharsets.UTF_8));
 				return;
 
+			case 500:
+				setResponse("Internal Server Error".getBytes(StandardCharsets.UTF_8));
+				return;
+
 			default:
 				setResponseCode(500);
 				throw new RuntimeException("Unknown error code: " + errorPage);

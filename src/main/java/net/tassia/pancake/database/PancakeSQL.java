@@ -110,8 +110,41 @@ public abstract class PancakeSQL extends PancakeDB {
 	/* Fetch Email */
 	@Override
 	public Email fetchEmail(UUID uuid) throws SQLException {
-		// TODO
-		return null;
+		PreparedStatement stmt = connection.prepareStatement("SELECT * FROM pancake_emails WHERE email_id = ?;");
+		stmt.setString(1, uuid.toString());
+		ResultSet result = stmt.executeQuery();
+		if (!result.next()) return null;
+
+		Email e = new Email(uuid);
+		e.setTimestamp(result.getLong("timestamp"));
+		e.setSender(result.getString("sender"));
+		e.setRecipient(result.getString("recipient"));
+		e.setData(result.getString("data").getBytes(StandardCharsets.UTF_8));
+		e.setHelo(result.getString("helo"));
+		e.setRemoteAddress(result.getString("remote_address"));
+		e.setDeleted(result.getInt("deleted") != 0);
+		e.setDraft(result.getInt("draft") != 0);
+		e.setOutgoing(result.getInt("outgoing") != 0);
+
+		// FIXME: Deadlock somewhere below
+//		if (result.getString("account_id") != null) {
+//			try {
+//				UUID account = UUID.fromString(result.getString("account_id"));
+//				e.setAccount(pancake.getAccount(account));
+//			} catch (IllegalArgumentException ignored) {
+//			}
+//		}
+
+		// FIXME: Deadlock somewhere below
+//		if (e.getAccount() != null) {
+//			try {
+//				UUID inbox = UUID.fromString(result.getString("inbox_id"));
+//				e.setInbox(e.getAccount().getInbox(inbox));
+//			} catch (IllegalArgumentException ignored) {
+//			}
+//		}
+
+		return e;
 	}
 	/* Fetch Email */
 
