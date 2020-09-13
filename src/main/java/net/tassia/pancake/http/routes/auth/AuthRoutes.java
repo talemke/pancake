@@ -6,8 +6,11 @@ public class AuthRoutes {
 
     public void registerRoutes(PancakeHttpServer server) {
 
-        // Login
-        server.GET("\\/auth\\/login", new GET_Login());
+		// Login
+		server.GET("\\/auth\\/login", new GET_Login());
+
+		// Logout
+		server.GET("\\/auth\\/logout", new GET_Logout());
 
         // Register
         server.GET("\\/auth\\/register", new GET_Register());

@@ -12,6 +12,14 @@ class GET_Register extends HttpViewRoute {
 
 	@Override
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
+		// Check auth
+		if (request.checkAuth()) {
+			request.redirect("/");
+			return null;
+		}
+
+
+		// Show view
 		return view();
 	}
 
