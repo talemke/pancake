@@ -4,6 +4,7 @@ import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.routes.auth.AuthRoutes;
 import net.tassia.pancake.http.routes.IndexRoute;
 import net.tassia.pancake.http.routes.api.ApiRoutes;
+import net.tassia.pancake.http.routes.inbox.InboxRoutes;
 import net.tassia.pancake.orm.Account;
 
 import java.io.IOException;
@@ -33,6 +34,9 @@ public class PancakeHTTP {
 
 		// Register Auth routes
 		new AuthRoutes().registerRoutes(server);
+
+		// Register Inbox routes
+		new InboxRoutes().registerRoutes(server);
 	}
 	/* Constructor */
 
@@ -74,6 +78,7 @@ public class PancakeHTTP {
 	/* Static Assets */
 	private void registerStaticAssets() {
 		server.serveStaticResource("/css/bootstrap.css", "/assets/css/bootstrap.css", "text/css", "utf-8");
+		server.serveStaticResource("/css/global.css", "/assets/css/global.css", "text/css", "utf-8");
 		server.serveStaticResource("/css/loading.css", "/assets/css/loading.css", "text/css", "utf-8");
 		server.serveStaticResource("/css/simple.css", "/assets/css/simple.css", "text/css", "utf-8");
 		server.serveStaticResource("/js/global.js", "/assets/js/global.js", "text/javascript", "utf-8");
