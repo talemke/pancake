@@ -6,7 +6,7 @@ function launchAJAX(script, data, callback) {
 	http.onreadystatechange = function() {
 		if (http.readyState !== 4) return;
 		let res = http.responseText;
-		if (http.responseText.startsWith('{')) res = JSON.parse (http.responseText);
+		if (http.responseText.startsWith('{')) res = JSON.parse(http.responseText);
 		if (!callback(res, http.status, http.statusText)) {
 			showAlertDanger('AJAX Error', 'Unexpected <code>' + http.status + ' - ' + http.statusText + '</code> @ <code>' + script + '</code> | Please report this error.');
 		}
@@ -96,6 +96,25 @@ function unsetCookie(name) {
 	document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
 /* Cookies */
+
+
+
+
+
+/* Form Validation */
+window.addEventListener('load', function() {
+	const forms = document.getElementsByClassName('needs-validation');
+	Array.prototype.filter.call(forms, function(form) {
+		form.addEventListener('submit', function(event) {
+			if (form.checkValidity() === false) {
+				event.preventDefault();
+				event.stopPropagation();
+			}
+			form.classList.add('was-validated');
+		}, false);
+	});
+}, false);
+/* Form Validation */
 
 
 
