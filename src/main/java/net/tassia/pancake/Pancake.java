@@ -48,7 +48,7 @@ public class Pancake {
 		this.mapper = new ObjectMapper();
 
 		logger.info("- Setting up security...");
-		this.security = new PancakeSecurity();
+		this.security = new PancakeSecurity(this);
 
 		logger.info("- Setting up executor service...");
 		this.executorService = setupExecutorService();

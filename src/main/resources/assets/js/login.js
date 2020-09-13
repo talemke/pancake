@@ -30,7 +30,16 @@ function login() {
 	// Launch AJAX
 	launchAJAX('/api/v0/auth/login', data, function(res, status, text) {
 		submit.disabled = false;
-		return false;
+		if (status != 200) return false;
+
+		if (res.error) {
+			showAlert('danger', null, res.error, true, 'sm');
+			return true;
+		}
+
+		setCookie('PancakeSessionID', res.token);
+		window.location.href = '/';
+		return true;
 	});
 }
 /* Login */
