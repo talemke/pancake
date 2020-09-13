@@ -16,8 +16,11 @@ class V0_POST_Register implements HttpRoute {
 
     @Override
     public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
-        // Check auth
-        // TODO
+		// Check auth
+		if (request.checkAuth()) {
+			request.redirect("/");
+			return null;
+		}
 
 
         // Fetch payload
