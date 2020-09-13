@@ -24,13 +24,22 @@ function launchAJAX(script, data, callback) {
 
 /* Show Alert */
 function showAlertDanger(title, description) {
+	showAlert('danger', title, description);
+}
+
+function showAlert(type, title, description, closable = true, size = null, container = 'error_container') {
+	let classes = 'alert fade show alert-' + type;
+	if (closable) classes += ' alert-dismissible';
+	if (size) classes += ' alert-' + size;
+
 	let html = '';
-	html += '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+	html += '<div class="' + classes + '" role="alert">'
 	if (title) html += '<strong class="mr-2">' + title + '</strong>';
 	html += description;
-	html += '<button class="close" data-dismiss="alert">&times;</button>';
+	if (closable) html += '<button class="close" data-dismiss="alert">&times;</button>';
 	html += '</div>';
-	document.getElementById('error_container').innerHTML += html;
+
+	document.getElementById(container).innerHTML += html;
 }
 /* Show Alert */
 

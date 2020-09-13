@@ -1,18 +1,21 @@
 
-/* Login */
-function login() {
+/* Register */
+function registerAccount() {
 	// Get elements and values
 	const usernameElement = document.getElementById('username');
 	const passwordElement = document.getElementById('password');
+	const password2Element = document.getElementById('password2');
 	const submit = document.getElementById('submit');
 	const username = usernameElement.value.trim();
 	const password = passwordElement.value.trim();
+	const password2 = password2Element.value.trim();
 
 
 	// Validation
 	let error = false;
 	error |= checkValid(usernameElement, username !== '');
 	error |= checkValid(passwordElement, password !== '');
+	error |= checkValid(password2Element, password === password2);
 
 	if (error) return;
 
@@ -28,8 +31,8 @@ function login() {
 
 
 	// Launch AJAX
-	launchAJAX('/api/v0/auth/login', data, function(res, status, text) {
+	launchAJAX('/api/v0/auth/register', data, function(res, status, text) {
 		return false;
 	});
 }
-/* Login */
+/* Register */
