@@ -40,6 +40,8 @@ public abstract class PancakeDB {
 
 	public abstract Collection<Account> fetchAccounts() throws SQLException;
 
+	public abstract boolean storeAccount(Account account) throws SQLException;
+
 	public abstract Collection<Email> fetchEmails(Inbox inbox, int pagination, int page) throws SQLException;
 
 	public abstract Email fetchEmail(UUID uuid) throws SQLException;

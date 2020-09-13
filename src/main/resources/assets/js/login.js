@@ -29,6 +29,7 @@ function login() {
 
 	// Launch AJAX
 	launchAJAX('/api/v0/auth/login', data, function(res, status, text) {
+		submit.disabled = false;
 		return false;
 	});
 }

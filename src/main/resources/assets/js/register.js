@@ -32,7 +32,16 @@ function registerAccount() {
 
 	// Launch AJAX
 	launchAJAX('/api/v0/auth/register', data, function(res, status, text) {
-		return false;
+		submit.disabled = false;
+		if (status !== 200) return false;
+
+		if (res.error) {
+			showAlert('danger', null, res.error, true, 'sm');
+			return true;
+		}
+
+		window.location.href = '/auth/login';
+		return true;
 	});
 }
 /* Register */

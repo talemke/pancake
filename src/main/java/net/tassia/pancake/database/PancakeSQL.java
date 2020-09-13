@@ -95,6 +95,25 @@ public abstract class PancakeSQL extends PancakeDB {
 
 
 
+	/* Store Account */
+	@Override
+	public boolean storeAccount(Account account) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_accounts VALUES (?, ?, ?, ?);");
+
+		stmt.setString(1, account.getUUID().toString());
+		stmt.setString(2, account.getName());
+		stmt.setString(3, account.getPassword());
+		stmt.setString(4, account.getGroup().getUUID().toString());
+
+		stmt.execute();
+		return true;
+	}
+	/* Store Account */
+
+
+
+
+
 	/* Fetch Emails */
 	@Override
 	public Collection<Email> fetchEmails(Inbox inbox, int pagination, int page) throws SQLException {

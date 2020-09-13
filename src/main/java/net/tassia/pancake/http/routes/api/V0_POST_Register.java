@@ -9,6 +9,7 @@ import net.tassia.pancake.orm.structs.AccountJsonStructure;
 import net.tassia.pancake.orm.structs.GroupJsonStructure;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.UUID;
 
 class V0_POST_Register implements HttpRoute {
@@ -27,10 +28,44 @@ class V0_POST_Register implements HttpRoute {
 			request.setErrorPage(400);
 			return null;
 		}
+		req.username = req.username.trim();
+		req.password = req.password.trim();
 
 
 		// Prepare response
 		ResponseStructure res = new ResponseStructure();
+
+
+		// Validate username & password
+		if (req.username.length() < 3) {
+			res.error = "Username is too short (<3).";
+
+		} else if (req.username.length() > 15) {
+			res.error = "Username is too long (>15).";
+
+		} else if (req.password.length() < 6) {
+			res.error = "Password is too short (<6).";
+
+		} else if (req.password.length() > 63) {
+			res.error = "Password is too long (>63).";
+
+		}
+		// TODO: Check chars
+		if (res.error == null && pancake.getAccountByUsername(req.username) != null) {
+			res.error = "Username is already in use.";
+		}
+
+
+		// Create account
+		if (res.error == null) {
+			try {
+				pancake.createAccount(req.username, req.password);
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+				request.setErrorPage(500);
+				return null;
+			}
+		}
 
 
         // Generate JSON

@@ -8,9 +8,11 @@ import net.tassia.pancake.database.PancakeDB;
 import net.tassia.pancake.database.PancakeSQLite;
 import net.tassia.pancake.orm.Account;
 import net.tassia.pancake.orm.Group;
+import net.tassia.pancake.security.PancakeSecurity;
 import net.tassia.pancake.smtp.PancakeSMTP;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -24,6 +26,7 @@ public class Pancake {
 	private final Collection<Group> groups;
 	private final PancakeConfiguration config;
 	private final ObjectMapper mapper;
+	private final PancakeSecurity security;
 	private final ExecutorService executorService;
 	private final PancakeDB database;
 	private final PancakeHTTP http;
@@ -43,6 +46,9 @@ public class Pancake {
 
 		logger.info("- Setting up object mapper...");
 		this.mapper = new ObjectMapper();
+
+		logger.info("- Setting up security...");
+		this.security = new PancakeSecurity();
 
 		logger.info("- Setting up executor service...");
 		this.executorService = setupExecutorService();
@@ -78,6 +84,15 @@ public class Pancake {
 		return null;
 	}
 
+	public Account getAccountByUsername(String username) {
+		for (Account account : accounts) {
+			if (account.getName().equalsIgnoreCase(username)) {
+				return account;
+			}
+		}
+		return null;
+	}
+
 	public Account getAccountByEmailName(String name) {
 		for (Account account : accounts) {
 			if (account.getName().equalsIgnoreCase(name)) {
@@ -85,6 +100,20 @@ public class Pancake {
 			}
 		}
 		return Account.ROOT;
+	}
+
+	public void createAccount(String username, String password) throws SQLException {
+		// Create account
+		Account acc = new Account();
+		acc.setName(username);
+		acc.setPassword(getSecurity().hashPassword(password));
+		acc.setGroup(getDefaultGroup());
+
+		// Store account
+		getDatabase().storeAccount(acc);
+
+		// Cache account
+		accounts.add(acc);
 	}
 
 	public Collection<Group> getGroups() {
@@ -98,6 +127,10 @@ public class Pancake {
 			}
 		}
 		return null;
+	}
+
+	public Group getDefaultGroup() {
+		return Group.ROOT;
 	}
 	/* Objects */
 
@@ -192,6 +225,10 @@ public class Pancake {
 
 	public ObjectMapper getMapper() {
 		return mapper;
+	}
+
+	public PancakeSecurity getSecurity() {
+		return security;
 	}
 
 	public ExecutorService getExecutorService() {
