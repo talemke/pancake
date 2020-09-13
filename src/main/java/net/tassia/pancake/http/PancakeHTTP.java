@@ -73,8 +73,11 @@ public class PancakeHTTP {
 
 	/* Static Assets */
 	private void registerStaticAssets() {
+		server.serveStaticResource("/css/bootstrap.css", "/assets/css/bootstrap.css", "text/css", "utf-8");
+		server.serveStaticResource("/css/loading.css", "/assets/css/loading.css", "text/css", "utf-8");
 		server.serveStaticResource("/css/simple.css", "/assets/css/simple.css", "text/css", "utf-8");
 		server.serveStaticResource("/js/global.js", "/assets/js/global.js", "text/javascript", "utf-8");
+		server.serveStaticResource("/js/login.js", "/assets/js/login.js", "text/javascript", "utf-8");
 	}
 	/* Static Assets */
 

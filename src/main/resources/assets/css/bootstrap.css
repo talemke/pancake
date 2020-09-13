@@ -1,0 +1,20 @@
+
+/* Alerts */
+.alert-sm {
+	padding: 0.5rem 1rem;
+}
+
+.alert-dismissible.alert-sm .close {
+	padding: 0.5rem 1rem;
+}
+/* Alerts */
+
+
+
+
+
+/* Badges */
+.badge-warning {
+	color: white !important;
+}
+/* Badges */

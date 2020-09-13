@@ -26,7 +26,7 @@ function launchAJAX(script, data, callback) {
 function showAlertDanger(title, description) {
 	let html = '';
 	html += '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
-	html += '<strong class="mr-2">' + title + '</strong>';
+	if (title) html += '<strong class="mr-2">' + title + '</strong>';
 	html += description;
 	html += '<button class="close" data-dismiss="alert">&times;</button>';
 	html += '</div>';

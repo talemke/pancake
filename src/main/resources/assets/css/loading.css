@@ -1,0 +1,70 @@
+
+svg.loading-svg {
+	overflow: visible;
+	width: 100px;
+	height: 150px;
+}
+
+svg.loading-svg g {
+	animation: loading-slide 2s linear infinite;
+}
+
+svg.loading-svg g:nth-child(2) {
+	animation-delay: 0.5s;
+}
+
+svg.loadingSVG g:nth-child(2) path {
+	loading-svg: 0.5s;
+	stroke-dasharray: 0px 158px;
+	stroke-dashoffset: 1px;
+}
+
+svg.loading-svg path {
+	stroke: var(--primary);
+	stroke-width: 20px;
+	stroke-linecap: round;
+	fill: none;
+	stroke-dasharray: 0 157px;
+	stroke-dashoffset: 0;
+	animation: loading-escalade 2s cubic-bezier(0.8, 0, 0.2, 1) infinite;
+}
+
+.loading-text {
+	animation: loading-text 6s cubic-bezier(0.8, 0, 0.2, 1) infinite;
+}
+
+@keyframes loading-slide {
+	0% {
+		transform: translateY(-50px);
+	}
+	100% {
+		transform: translateY(50px);
+	}
+}
+
+@keyframes loading-escalade {
+	0% {
+		stroke-dasharray: 0 157px;
+		stroke-dashoffset: 0;
+	}
+	50% {
+		stroke-dasharray: 156px 157px;
+		stroke-dashoffset: 0;
+	}
+	100% {
+		stroke-dasharray: 156px 157px;
+		stroke-dashoffset: -156px;
+	}
+}
+
+@keyframes loading-text {
+	0% {
+		letter-spacing: 0px;
+	}
+	50% {
+		letter-spacing: 2px;
+	}
+	100% {
+		letter-spacing: 0px;
+	}
+}
