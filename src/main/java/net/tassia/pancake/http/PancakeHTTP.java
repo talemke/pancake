@@ -74,6 +74,7 @@ public class PancakeHTTP {
 	/* Static Assets */
 	private void registerStaticAssets() {
 		server.serveStaticResource("/css/simple.css", "/assets/css/simple.css", "text/css", "utf-8");
+		server.serveStaticResource("/js/global.js", "/assets/js/global.js", "text/javascript", "utf-8");
 	}
 	/* Static Assets */
 
