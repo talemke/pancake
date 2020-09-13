@@ -6,6 +6,9 @@ public class ApiRoutes {
 
     public void registerRoutes(PancakeHttpServer server) {
 
+    	// Auth
+		server.POST("\\/api\\/v0\\/auth\\/register", new V0_POST_Register());
+
         // Accounts
         server.GET("\\/api\\/v0\\/accounts\\/(.*)", new V0_GET_Account());
 
