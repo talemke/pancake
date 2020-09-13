@@ -10,7 +10,7 @@
 CREATE TABLE `pancake_accounts` (
     `account_id` VARCHAR(63) NOT NULL,
     `name` VARCHAR(63) NOT NULL,
-    `password` VARCHAR(63) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
     `group_id` VARCHAR(63) NOT NULL,
     PRIMARY KEY (`account_id`), INDEX (`group_id`)
 );
