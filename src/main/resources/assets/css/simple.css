@@ -1,0 +1,23 @@
+
+body {
+	font-family: 'Nunito';
+}
+
+.content-outer {
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+}
+
+.content-inner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+h1 {
+	letter-spacing: 0.025em;
+	word-spacing: 0.1em;
+	font-size: 3em;
+}

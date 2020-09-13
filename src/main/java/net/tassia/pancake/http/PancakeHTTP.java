@@ -25,6 +25,9 @@ public class PancakeHTTP {
 		// Register routes
 		server.GET("", new IndexRoute());
 
+		// Register assets
+		registerStaticAssets();
+
 		// Register API routes
 		new ApiRoutes().registerRoutes(server);
 
@@ -65,5 +68,13 @@ public class PancakeHTTP {
 		return str;
 	}
 	/* Escape XSS */
+
+
+
+	/* Static Assets */
+	private void registerStaticAssets() {
+		server.serveStaticResource("/css/simple.css", "/assets/css/simple.css", "text/css", "utf-8");
+	}
+	/* Static Assets */
 
 }
