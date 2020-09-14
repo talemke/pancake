@@ -15,7 +15,7 @@ class V0_POST_Login implements HttpRoute {
     public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
 		// Check auth
 		if (request.checkAuth()) {
-			request.redirect("/");
+			request.setErrorPage(403);
 			return null;
 		}
 

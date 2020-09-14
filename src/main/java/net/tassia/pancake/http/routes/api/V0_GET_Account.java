@@ -15,7 +15,10 @@ class V0_GET_Account implements HttpRoute {
     @Override
     public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
         // Check auth
-        // TODO
+		if (!request.checkAuth()) {
+			request.setErrorPage(403);
+			return null;
+		}
 
 
         // Parse UUID

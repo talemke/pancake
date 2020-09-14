@@ -17,7 +17,10 @@ class V0_GET_Email implements HttpRoute {
     @Override
     public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
         // Check auth
-        // TODO
+		if (!request.checkAuth()) {
+			request.setErrorPage(403);
+			return null;
+		}
 
 
         // Parse UUID
