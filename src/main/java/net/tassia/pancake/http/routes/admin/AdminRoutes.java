@@ -54,7 +54,8 @@ public class AdminRoutes {
 		return indexView.viewData(
 			new String[] { "window_title", title + " | Pancake" },
 			new String[] { "sidenav", sidenav },
-			new String[] { "mailnav", mailnav }
+			new String[] { "mailnav", mailnav },
+			new String[] { "content", content }
 		);
 	}
 	/* Generate View */
