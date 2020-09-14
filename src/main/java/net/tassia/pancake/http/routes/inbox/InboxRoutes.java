@@ -46,6 +46,7 @@ public class InboxRoutes {
 		String mail;
 		if (focus != null) {
 			mail = mailView.view(
+				new String[] { "mail_id", focus.getUUID().toString() },
 				new String[] { "mail_subject", "N/A" },
 				new String[] { "mail_date", format2.format(new Date(focus.getTimestamp())) },
 				new String[] { "mail_size", focus.getData().length + " bytes" },

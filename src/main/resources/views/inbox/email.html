@@ -1,3 +1,21 @@
+<div class="float-right">
+	<button class="btn btn-sm btn-outline-secondary px-3 dropdown-toggle" data-toggle="dropdown">More</button>
+	<div class="dropdown-menu">
+		<a class="dropdown-item text-muted" href="/mail/{{ mail_id }}/print"><i class="fas fa-print mr-2"></i>Print Mail</a>
+		<a class="dropdown-item text-muted" href="/mail/{{ mail_id }}/source"><i class="fas fa-code mr-2"></i>View Source</a>
+	</div>
+	<button class="btn btn-sm btn-outline-warning px-3" disabled><i class="fas fa-folder mr-2"></i>Move</button>
+	<button class="btn btn-sm btn-outline-danger px-3" disabled><i class="fas fa-trash mr-2"></i>Delete</button>
+</div>
+
+<div>
+	<a class="btn btn-sm btn-outline-secondary px-3" href="/mail/{{ mail_id }}/reply"><i class="fas fa-reply mr-2"></i>Reply</a>
+	<a class="btn btn-sm btn-outline-secondary px-3" href="/mail/{{ mail_id }}/reply/all"><i class="fas fa-reply-all mr-2"></i>Reply All</a>
+	<a class="btn btn-sm btn-outline-secondary px-3" href="/mail/{{ mail_id }}/forward"><i class="fas fa-share mr-2"></i>Forward</a>
+</div>
+
+<hr>
+
 <h1 style="font-weight: lighter;">{{ mail_subject }}</h1>
 <p class="mail-date">{{ mail_date }} | {{ mail_size }}</p>
 
