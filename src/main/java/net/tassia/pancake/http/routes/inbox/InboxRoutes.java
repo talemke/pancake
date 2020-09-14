@@ -33,11 +33,13 @@ public class InboxRoutes {
 	protected byte[] generateView(Pancake pancake, HttpRequest request, Collection<Email> list, Email focus) {
 		String mailNav = "";
 		for (Email email : list) {
+			boolean isFocussed = focus != null && focus.getUUID().equals(email.getUUID());
 			mailNav += mailNavView.view(
 				new String[] { "mail_id", email.getUUID().toString() },
 				new String[] { "mail_subject", "N/A" },
 				new String[] { "mail_author", email.getSender() },
-				new String[] { "mail_date", format1.format(new Date(email.getTimestamp())) }
+				new String[] { "mail_date", format1.format(new Date(email.getTimestamp())) },
+				new String[] { "mail_active", isFocussed ? "mailnav-button-active" : "" }
 			);
 		}
 
@@ -52,7 +54,7 @@ public class InboxRoutes {
 				new String[] { "mail_content", new String(focus.getData(), StandardCharsets.UTF_8) }
 			);
 		} else {
-			mail = "No mail selected.";
+			mail = "<span class=\"pos-absolute pos-center\">No mail selected.</span>";
 		}
 
 		return view.viewData(

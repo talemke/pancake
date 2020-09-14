@@ -19,6 +19,21 @@
 	padding: 0.5em 1em;
 }
 
+.sidenav-button:hover,
+.mailnav-button:hover {
+	background: #aaa2;
+	color: #666;
+	text-decoration: none;
+}
+
+.sidenav-button-active,
+.mailnav-button-active {
+	background: #aaa1;
+	color: #666;
+	text-decoration: none;
+	border-left: 3px solid #888;
+}
+
 .mailnav-subject {
 	margin: 0 0 -0.2em 0;
 	padding: 0;
@@ -26,13 +41,6 @@
 
 .mailnav-info {
 	font-size: 0.9em;
-}
-
-.sidenav-button:hover,
-.mailnav-button:hover {
-	background: #aaa2;
-	color: #666;
-	text-decoration: none;
 }
 
 .mail-date {
@@ -124,3 +132,21 @@
 	text-align: right;
 }
 /* Align */
+
+
+
+/* Positioning */
+.pos-absolute {
+	position: absolute;
+}
+
+.pos-relative {
+	position: relative;
+}
+
+.pos-center {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+/* Positioning */
