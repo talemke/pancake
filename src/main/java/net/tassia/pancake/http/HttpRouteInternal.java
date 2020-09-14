@@ -39,7 +39,13 @@ public class HttpRouteInternal {
 		}
 
 		// Execute route
-		byte[] data = route.route(pancake, request, matches.toArray(new String[0]));
+		byte[] data = null;
+		try {
+			data = route.route(pancake, request, matches.toArray(new String[0]));
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			request.setErrorPage(500);
+		}
 		if (data != null) request.setResponse(data);
 		return true;
 	}
