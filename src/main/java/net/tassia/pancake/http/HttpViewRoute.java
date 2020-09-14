@@ -1,7 +1,5 @@
 package net.tassia.pancake.http;
 
-import java.nio.charset.StandardCharsets;
-
 public abstract class HttpViewRoute implements HttpRoute {
 	private final HttpView view;
 
