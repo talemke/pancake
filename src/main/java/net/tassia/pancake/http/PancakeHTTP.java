@@ -1,6 +1,7 @@
 package net.tassia.pancake.http;
 
 import net.tassia.pancake.Pancake;
+import net.tassia.pancake.http.routes.admin.AdminRoutes;
 import net.tassia.pancake.http.routes.auth.AuthRoutes;
 import net.tassia.pancake.http.routes.IndexRoute;
 import net.tassia.pancake.http.routes.api.ApiRoutes;
@@ -28,6 +29,9 @@ public class PancakeHTTP {
 
 		// Register assets
 		registerStaticAssets();
+
+		// Register Admin routes
+		new AdminRoutes().registerRoutes(server);
 
 		// Register API routes
 		new ApiRoutes().registerRoutes(server);
