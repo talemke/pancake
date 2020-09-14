@@ -67,7 +67,7 @@ public class AdminRoutes {
 
 		// Accounts
 		server.GET("\\/admin\\/accounts", new GET_Accounts());
-		server.GET("\\/admin\\/accounts\\/(.*)", new GET_Account());
+		server.GET("\\/admin\\/accounts\\/" + Pancake.UUID_REGEX, new GET_Account());
 
 		// Configuration
 		server.GET("\\/admin\\/config", new GET_ConfigGeneral(this));
@@ -77,7 +77,7 @@ public class AdminRoutes {
 
         // Groups
 		server.GET("\\/admin\\/groups", new GET_Groups());
-		server.GET("\\/admin\\/groups\\/(.*)", new GET_Group());
+		server.GET("\\/admin\\/groups\\/" + Pancake.UUID_REGEX, new GET_Group());
 
     }
     /* Register Routes */

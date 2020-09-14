@@ -21,6 +21,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 public class Pancake {
+	public static final String UUID_REGEX = "([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})";
 	private final Logger logger;
 	private final Collection<Account> accounts;
 	private final Collection<Group> groups;

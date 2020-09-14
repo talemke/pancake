@@ -75,7 +75,7 @@ public class InboxRoutes {
 		server.GET("\\/inbox", new InboxRoute(this));
 
 		// Mail
-		server.GET("\\/mail\\/(.*)", new MailRoute(this));
+		server.GET("\\/mail\\/" + Pancake.UUID_REGEX, new MailRoute(this));
 
     }
 	/* Register Routes */
