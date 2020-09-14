@@ -29,8 +29,8 @@ public class AdminRoutes {
 	/* Generate View */
 	protected byte[] generateConfigView(Pancake pancake, HttpRequest request, int config, String title, String content) {
 		// Check auth
-		if (request.checkAuth()) {
-			request.redirect("/");
+		if (!request.checkAuth()) {
+			request.redirect("/auth/login");
 			return null;
 		}
 

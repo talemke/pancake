@@ -22,8 +22,8 @@ class GET_Account extends HttpViewRoute {
 	@Override
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
 		// Check auth
-		if (request.checkAuth()) {
-			request.redirect("/");
+		if (!request.checkAuth()) {
+			request.redirect("/auth/login");
 			return null;
 		}
 
