@@ -50,7 +50,6 @@ public class HttpRequest {
 		if (sessionId != null) {
 			account = pancake.getHTTP().getAccountBySessionID(sessionId);
 		}
-		account = Account.ROOT; // TODO
 
 		// Parse request body
 		InputStream in = exchange.getRequestBody();
