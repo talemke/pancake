@@ -2,6 +2,7 @@ package net.tassia.pancake.smtp;
 
 import net.tassia.pancake.Pancake;
 import org.subethamail.smtp.Version;
+import org.subethamail.smtp.auth.MultipleAuthenticationHandlerFactory;
 import org.subethamail.smtp.server.SMTPServer;
 
 public class PancakeSMTP {
@@ -9,7 +10,7 @@ public class PancakeSMTP {
 
 	public PancakeSMTP(Pancake pancake) {
 		PancakeMessageHandlerFactory factory = new PancakeMessageHandlerFactory(pancake);
-		server = new SMTPServer(factory);
+		server = new SMTPServer(factory, new MultipleAuthenticationHandlerFactory());
 		server.setSoftwareName("PancakeSMTP - " + Version.getSpecification());
 		server.setPort(pancake.getConfig().smtpPort);
 		server.setBacklog(pancake.getConfig().smtpBacklog);
