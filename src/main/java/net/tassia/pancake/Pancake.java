@@ -11,6 +11,7 @@ import net.tassia.pancake.orm.Group;
 import net.tassia.pancake.security.PancakeSecurity;
 import net.tassia.pancake.smtp.PancakeSMTP;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class Pancake {
 	private final PancakeSMTP smtp;
 
 	/* Constructor */
-	public Pancake() {
+	public Pancake() throws IOException {
 		this.logger = setupLogger();
 		logger.info("Initializing...");
 
@@ -50,7 +51,10 @@ public class Pancake {
 		this.groups = new ArrayList<>();
 
 		logger.info("- Loading configuration...");
+		File configFile = new File("./.env");
 		this.config = new PancakeConfiguration();
+		PancakeConfiguration.loadConfiguration(configFile, config);
+		PancakeConfiguration.saveConfiguration(configFile, config);
 
 		logger.info("- Setting up object mapper...");
 		this.mapper = new ObjectMapper();
