@@ -9,17 +9,21 @@ import net.tassia.pancake.http.routes.inbox.InboxRoutes;
 import net.tassia.pancake.orm.Account;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class PancakeHTTP {
 	private final PancakeHttpServer server;
 	private final Map<String, Account> sessions;
+	private final Collection<String> rootSessions;
 
 	/* Constructor */
 	public PancakeHTTP(Pancake pancake) throws IOException {
 		// Create variables
 		this.sessions = new HashMap<>();
+		this.rootSessions = new ArrayList<>();
 
 		// Create HTTP server
 		this.server = new PancakeHttpServer(pancake);
@@ -57,6 +61,18 @@ public class PancakeHTTP {
 
 	public void dropSession(String id) {
 		sessions.remove(id);
+	}
+
+	public void addRootSession(String id) {
+		rootSessions.add(id);
+	}
+
+	public void dropRootSession(String id) {
+		rootSessions.remove(id);
+	}
+
+	public boolean isRootSession(String id) {
+		return rootSessions.contains(id);
 	}
 	/* Sessions */
 

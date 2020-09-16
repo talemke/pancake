@@ -48,7 +48,11 @@ public class HttpRequest {
 		// Check authentication
 		String sessionId = getCookie("PancakeSessionID");
 		if (sessionId != null) {
-			account = pancake.getHTTP().getAccountBySessionID(sessionId);
+			if (pancake.getHTTP().isRootSession(sessionId)) {
+				account = Account.ROOT;
+			} else {
+				account = pancake.getHTTP().getAccountBySessionID(sessionId);
+			}
 		}
 
 		// Parse request body

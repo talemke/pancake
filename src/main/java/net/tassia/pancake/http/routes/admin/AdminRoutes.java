@@ -67,7 +67,7 @@ public class AdminRoutes {
 	}
 
 	protected void addRootMailNav(GenericPancakeView view, int current) {
-		view.addMailNav("/admin/root", "Root Access", "Pickup or drop root access.", current == ROOT_GENERAL);
+		view.addMailNav("/admin/root", "Root Access", "Gain or drop root access.", current == ROOT_GENERAL);
 		view.addMailNav("/admin/root/logs", "Logs", "Logs about root sessions.", current == ROOT_LOGS);
 	}
 	/* Generate View */
@@ -93,6 +93,8 @@ public class AdminRoutes {
 
 		// Root
 		server.GET("\\/admin\\/root", new GET_RootInfo(this));
+		server.GET("\\/admin\\/root\\/drop", new GET_RootDrop());
+		server.GET("\\/admin\\/root\\/gain", new GET_RootGain());
 		server.GET("\\/admin\\/root\\/logs", new GET_RootLogs(this));
 
     }
