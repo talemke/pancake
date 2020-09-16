@@ -156,7 +156,7 @@ public abstract class PancakeSQL extends PancakeDB {
 			stmt.setString(1, account.getUUID().toString());
 			stmt.setString(2, inbox.getUUID().toString());
 		} else {
-			stmt = connection.prepareStatement("SELECT * FROM pancake_emails WHERE account_id = ?;");
+			stmt = connection.prepareStatement("SELECT * FROM pancake_emails WHERE account_id = ? AND inbox_id IS NULL;");
 			stmt.setString(1, account.getUUID().toString());
 		}
 		ResultSet result = stmt.executeQuery();
