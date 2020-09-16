@@ -8,11 +8,9 @@ import net.tassia.pancake.http.HttpView;
 import net.tassia.pancake.orm.Email;
 
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import java.util.UUID;
 
 class MailRoute implements HttpRoute {
 	private final InboxRoutes routes;
@@ -21,7 +19,7 @@ class MailRoute implements HttpRoute {
 
 	public MailRoute(InboxRoutes routes) {
 		this.routes = routes;
-		this.mailView = new HttpView("/views/inbox/email.html");
+		this.mailView = new HttpView("/views/email.html");
 		this.format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	}
 
