@@ -21,15 +21,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
-public class Pancake {
-	public static final String UUID_REGEX = "([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})";
-	public static final int VERSION_MAJOR = 0;
-	public static final int VERSION_MINOR = 0;
-	public static final int VERSION_PATCH = 1;
-	public static final int VERSION_BUILD = 100;
-	public static final String VERSION_BRANCH = "master";
-	public static final String VERSION_HEAD_FULL = "16e4f3c758a208864c770c224697993833d2e483";
-	public static final String VERSION_HEAD = VERSION_HEAD_FULL.substring(0, 8);
+public class Pancake implements PancakeConstants {
 	private final Logger logger;
 	private final Collection<Account> accounts;
 	private final Collection<Group> groups;

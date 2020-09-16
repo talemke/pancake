@@ -41,9 +41,7 @@ CREATE TABLE `pancake_emails` (
     `data` LONGTEXT NOT NULL,
     `helo` VARCHAR(255) NOT NULL,
     `remote_address` VARCHAR(255) NOT NULL,
-    `deleted` TINYINT NOT NULL DEFAULT 0,
-    `draft` TINYINT NOT NULL DEFAULT 0,
-    `outgoing` TINYINT NOT NULL DEFAULT 0,
+    `type` TINYINT NOT NULL DEFAULT 0,
     `account_id` VARCHAR(63) NOT NULL,
     `inbox_id` VARCHAR(63) NULL DEFAULT NULL,
     PRIMARY KEY (`email_id`), INDEX (`account_id`), INDEX (`inbox_id`)

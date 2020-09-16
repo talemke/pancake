@@ -36,9 +36,7 @@ public class PancakeMessageHandlerFactory implements MessageHandlerFactory {
 			email.setRemoteAddress(context.getRemoteAddress().toString());
 			// TODO: Certificates
 
-			email.setDeleted(false);
-			email.setDraft(false);
-			email.setOutgoing(false);
+			email.setType(Pancake.TYPE_DEFAULT);
 
 			pancake.getLogger().info("Starting receiving email " + email.getUUID().toString() + "...");
 		}

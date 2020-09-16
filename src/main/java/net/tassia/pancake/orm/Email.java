@@ -10,9 +10,7 @@ public class Email {
 	private byte[] data;
 	private String helo;
 	private String remoteAddress;
-	private boolean deleted;
-	private boolean draft;
-	private boolean outgoing;
+	private int type;
 	private Account account;
 	private Inbox inbox;
 
@@ -83,28 +81,12 @@ public class Email {
 		this.remoteAddress = remoteAddress;
 	}
 
-	public boolean isDeleted() {
-		return deleted;
+	public int getType() {
+		return type;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
-	public boolean isDraft() {
-		return draft;
-	}
-
-	public void setDraft(boolean draft) {
-		this.draft = draft;
-	}
-
-	public boolean isOutgoing() {
-		return outgoing;
-	}
-
-	public void setOutgoing(boolean outgoing) {
-		this.outgoing = outgoing;
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	public Account getAccount() {

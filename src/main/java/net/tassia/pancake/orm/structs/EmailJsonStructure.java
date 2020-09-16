@@ -17,9 +17,7 @@ public class EmailJsonStructure {
         this.data = email.getData();
         this.helo = email.getHelo();
         this.remoteAddress = email.getRemoteAddress();
-        this.deleted = email.isDeleted();
-        this.draft = email.isDraft();
-        this.outgoing = email.isOutgoing();
+        this.type = email.getType();
     }
 
     public UUID uuid;
@@ -29,8 +27,6 @@ public class EmailJsonStructure {
     public byte[] data;
     public String helo;
     public String remoteAddress;
-    public boolean deleted;
-    public boolean draft;
-    public boolean outgoing;
+    public int type;
 
 }
