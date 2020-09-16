@@ -213,7 +213,7 @@ public class Pancake {
 		getHTTP().start();
 
 		logger.info("- Starting SMTP server...");
-		// getSMTP().start();
+		getSMTP().start();
 
 		// logger.info("- Starting IMAP server...");
 		// TODO
