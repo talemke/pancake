@@ -184,6 +184,46 @@ public class GenericPancakeView {
 			return null;
 		}
 	}
+
+	public Collection<Email> findDraftEmails(Account account, int pagination, int page) {
+		try {
+			return pancake.getDatabase().fetchDraftEmails(account, pagination, page);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			request.setErrorPage(500);
+			return null;
+		}
+	}
+
+	public Collection<Email> findSentEmails(Account account, int pagination, int page) {
+		try {
+			return pancake.getDatabase().fetchSentEmails(account, pagination, page);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			request.setErrorPage(500);
+			return null;
+		}
+	}
+
+	public Collection<Email> findDeletedEmails(Account account, int pagination, int page) {
+		try {
+			return pancake.getDatabase().fetchDeletedEmails(account, pagination, page);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			request.setErrorPage(500);
+			return null;
+		}
+	}
+
+	public Collection<Email> findSpamEmails(Account account, int pagination, int page) {
+		try {
+			return pancake.getDatabase().fetchSpamEmails(account, pagination, page);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			request.setErrorPage(500);
+			return null;
+		}
+	}
 	/* Resources */
 
 }

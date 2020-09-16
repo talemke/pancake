@@ -2,12 +2,10 @@ package net.tassia.pancake.http.routes.inbox;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.GenericPancakeView;
-import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpView;
 import net.tassia.pancake.http.PancakeHttpServer;
 import net.tassia.pancake.orm.Email;
 
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -60,8 +58,12 @@ public class InboxRoutes {
 	/* Register Routes */
     public void registerRoutes(PancakeHttpServer server) {
 
-		// Inbox
-		server.GET("\\/inbox", new InboxRoute(this));
+		// Inboxes
+		server.GET("\\/inbox", new GET_Inbox(this));
+		server.GET("\\/inbox\\/drafts", new GET_Drafts(this));
+		server.GET("\\/inbox\\/sent", new GET_Sent(this));
+		server.GET("\\/inbox\\/trash", new GET_Trash(this));
+		server.GET("\\/inbox\\/spam", new GET_Spam(this));
 
 		// Mail
 		server.GET("\\/mail\\/" + Pancake.UUID_REGEX, new MailRoute(this));
