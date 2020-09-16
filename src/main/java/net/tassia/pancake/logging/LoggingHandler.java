@@ -1,5 +1,7 @@
 package net.tassia.pancake.logging;
 
+import net.tassia.pancake.Pancake;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -12,14 +14,21 @@ class LoggingHandler extends Handler {
 	private PrintStream out;
 
 	public LoggingHandler() {
-		File file = new File("logs", new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".txt");
+		File file = new File("logs", System.currentTimeMillis() + ".txt");
 		try {
 			file.getParentFile().mkdirs();
 			if (!file.exists()) file.createNewFile();
 			this.out = new PrintStream(file);
+
+			String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss (z)").format(new Date());
+			String version = String.format("%d.%d.%d, build %d - %s @ %s", Pancake.VERSION_MAJOR, Pancake.VERSION_MINOR,
+				Pancake.VERSION_PATCH, Pancake.VERSION_BUILD, Pancake.VERSION_BRANCH, Pancake.VERSION_HEAD);
+
+			out.println("Creating log file at " + date + " (0x" + Long.toHexString(System.currentTimeMillis()) + ")");
+			out.println("Pancake Version: " + version);
+			out.println("--------------------------------------------------");
 		} catch (IOException ex) {
-			this.out = null;
-			ex.printStackTrace();
+			throw new Error(ex);
 		}
 	}
 
