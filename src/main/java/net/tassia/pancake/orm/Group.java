@@ -27,7 +27,7 @@ public class Group {
 
 	/* Static Initialize */
 	static {
-		ROOT = new Group(new UUID(Long.MAX_VALUE, Long.MAX_VALUE));
+		ROOT = new Group(new UUID(-1L, -1L));
 		ROOT.name = "root";
 		ROOT.description = "The group of the root user. This will always be the highest available group.";
 

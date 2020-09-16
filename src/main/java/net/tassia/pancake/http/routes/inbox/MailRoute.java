@@ -1,68 +1,55 @@
 package net.tassia.pancake.http.routes.inbox;
 
 import net.tassia.pancake.Pancake;
+import net.tassia.pancake.http.GenericPancakeView;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
+import net.tassia.pancake.http.HttpView;
 import net.tassia.pancake.orm.Email;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
 
 class MailRoute implements HttpRoute {
-	private final InboxRoutes core;
+	private final InboxRoutes routes;
+	private final HttpView mailView;
+	private final SimpleDateFormat format;
 
-	public MailRoute(InboxRoutes core) {
-		this.core = core;
+	public MailRoute(InboxRoutes routes) {
+		this.routes = routes;
+		this.mailView = new HttpView("/views/inbox/email.html");
+		this.format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	}
 
 	@Override
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
-		// Check auth
-		if (!request.checkAuth()) {
-			request.redirect("/auth/login");
-			return null;
-		}
+		GenericPancakeView view = new GenericPancakeView(pancake, request);
+		if (view.checkAccess()) return null;
 
+		Collection<Email> emails = view.findEmails(request.getAuth(), null, 0, 0);
+		if (emails == null) return null;
 
-		// Parse UUID
-		UUID uuid;
-		try {
-			uuid = UUID.fromString(matches[0]);
-		} catch (IllegalArgumentException ex) {
-			request.setErrorPage(404);
-			return null;
-		}
+		Email focus = view.findEmail(matches[0]);
+		if (focus == null) return null;
 
+		routes.addSideNav(view, 0); // TODO: Select current
+		routes.addMailNav(view, emails, focus);
 
-		// Fetch email
-		Email email;
-		try {
-			email = pancake.getDatabase().fetchEmail(uuid);
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			request.setErrorPage(500);
-			return null;
-		}
-		if (email == null) {
-			request.setErrorPage(404);
-			return null;
-		}
+		view.setContent(mailView.view(
+			new String[] { "mail_id", focus.getUUID().toString() },
+			new String[] { "mail_subject", "N/A" }, // TODO: Subject
+			new String[] { "mail_date", format.format(new Date(focus.getTimestamp())) },
+			new String[] { "mail_size", focus.getData().length + " bytes" },
+			new String[] { "mail_sender", focus.getSender() },
+			new String[] { "mail_recipient", focus.getRecipient() },
+			new String[] { "mail_content", new String(focus.getData(), StandardCharsets.UTF_8) }
+		));
 
-
-		// Fetch emails
-		Collection<Email> emails = null;
-		try {
-			emails = pancake.getDatabase().fetchEmails(request.getAuth(), null, 0, 0);
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			request.setErrorPage(500);
-			return null;
-		}
-
-
-		// Echo view
-		return core.generateView(pancake, request, emails, email);
+		return view.view("Inbox");
 	}
 
 }
