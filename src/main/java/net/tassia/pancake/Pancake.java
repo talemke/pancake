@@ -145,7 +145,7 @@ public class Pancake {
 	}
 
 	public Group getDefaultGroup() {
-		return Group.ROOT;
+		return Group.USER;
 	}
 	/* Objects */
 
@@ -203,6 +203,7 @@ public class Pancake {
 		groups.clear();
         groups.addAll(database.fetchGroups());
 		groups.add(Group.ROOT);
+		groups.add(Group.USER);
 
 		logger.info("- Loading accounts...");
 		accounts.clear();

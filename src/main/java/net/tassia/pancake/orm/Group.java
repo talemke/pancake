@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public class Group {
 	public static final Group ROOT;
+	public static final Group USER;
 	private final UUID uuid;
 	private String name;
 	private String description;
@@ -26,9 +27,13 @@ public class Group {
 
 	/* Static Initialize */
 	static {
-		ROOT = new Group(new UUID(0L, 0L));
+		ROOT = new Group(new UUID(Long.MAX_VALUE, Long.MAX_VALUE));
 		ROOT.name = "root";
 		ROOT.description = "The group of the root user. This will always be the highest available group.";
+
+		USER = new Group(new UUID(0L, 0L));
+		USER.name = "user";
+		USER.description = "The default group for new users.";
 	}
 	/* Static Initialize */
 
