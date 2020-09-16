@@ -53,8 +53,11 @@ public class Pancake {
 		logger.info("- Loading configuration...");
 		File configFile = new File("./.env");
 		this.config = new PancakeConfiguration();
-		PancakeConfiguration.loadConfiguration(configFile, config);
-		PancakeConfiguration.saveConfiguration(configFile, config);
+		if (configFile.exists()) {
+			PancakeConfiguration.loadConfiguration(configFile, config);
+		} else {
+			PancakeConfiguration.saveConfiguration(configFile, config);
+		}
 
 		logger.info("- Setting up object mapper...");
 		this.mapper = new ObjectMapper();
