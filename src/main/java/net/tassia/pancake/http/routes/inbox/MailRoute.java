@@ -34,7 +34,7 @@ class MailRoute implements HttpRoute {
 		Email focus = view.findEmail(matches[0]);
 		if (focus == null) return null;
 
-		routes.addSideNav(view, 0); // TODO: Select current
+		routes.addSideNav(view, InboxRoutes.INBOX_DEFAULT);
 		routes.addMailNav(view, emails, focus);
 
 		view.setContent(mailView.view(

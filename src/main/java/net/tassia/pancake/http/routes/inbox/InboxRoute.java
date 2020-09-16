@@ -25,7 +25,7 @@ class InboxRoute implements HttpRoute {
 		Collection<Email> emails = view.findEmails(request.getAuth(), null, 0, 0);
 		if (emails == null) return null;
 
-		routes.addSideNav(view, 0); // TODO: Select current
+		routes.addSideNav(view, InboxRoutes.INBOX_DEFAULT);
 		routes.addMailNav(view, emails, null);
 
 		view.setContent(""); // TODO

@@ -13,10 +13,18 @@ import java.util.Collection;
 import java.util.Date;
 
 public class InboxRoutes {
+	protected static final int INBOX_DEFAULT = 0;
+	protected static final int INBOX_DRAFTS = 1;
+	protected static final int INBOX_SENT = 2;
+	protected static final int INBOX_TRASH = 3;
+	protected static final int INBOX_SPAM = 4;
+	protected static final int INBOX_CUSTOM = 5;
+	private final HttpView composeButton;
 	private final SimpleDateFormat format;
 
 	/* Constructor */
 	public InboxRoutes() {
+		this.composeButton = new HttpView("/views/misc/compose_button.html");
 		this.format = new SimpleDateFormat("dd.MM.yyyy");
 	}
 	/* Constructor */
@@ -25,13 +33,13 @@ public class InboxRoutes {
 
 	/* Generate View */
 	protected void addSideNav(GenericPancakeView view, int current) {
-		view.addSideNavRaw(""); // TODO: Compose button
+		view.addSideNavRaw(composeButton.view());
 		view.addSideNavHR();
-		view.addSideNav("/inbox", "Inbox", "fas fa-inbox", false);
-		view.addSideNav("/inbox/drafts", "Drafts", "fas fa-file-alt", false);
-		view.addSideNav("/inbox/sent", "Sent", "fas fa-share", false);
-		view.addSideNav("/inbox/trash", "Trash", "fas fa-trash", false);
-		view.addSideNav("/inbox/spam", "Spam", "fas fa-ban", false);
+		view.addSideNav("/inbox", "Inbox", "fas fa-inbox", current == INBOX_DEFAULT);
+		view.addSideNav("/inbox/drafts", "Drafts", "fas fa-file-alt", current == INBOX_DRAFTS);
+		view.addSideNav("/inbox/sent", "Sent", "fas fa-share", current == INBOX_SENT);
+		view.addSideNav("/inbox/trash", "Trash", "fas fa-trash", current == INBOX_TRASH);
+		view.addSideNav("/inbox/spam", "Spam", "fas fa-ban", current == INBOX_SPAM);
 		view.addSideNavHR();
 		view.addSideNav("/inbox/1", "Inbox 1", "fas fa-folder", false);
 		view.addSideNav("/inbox/2", "Inbox 2", "fas fa-folder", false);
