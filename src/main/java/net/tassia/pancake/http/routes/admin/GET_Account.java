@@ -2,6 +2,7 @@ package net.tassia.pancake.http.routes.admin;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
+import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.http.HttpViewRoute;
 import net.tassia.pancake.http.views.MailNavView;
 import net.tassia.pancake.http.views.SideNavView;
@@ -9,14 +10,11 @@ import net.tassia.pancake.orm.Account;
 
 import java.util.UUID;
 
-class GET_Account extends HttpViewRoute {
-	private final SideNavView sideNavView;
-	private final MailNavView mailNavView;
+class GET_Account implements HttpRoute {
+	private final AdminRoutes routes;
 
-	public GET_Account() {
-		super("/views/index.html");
-		this.sideNavView = new SideNavView();
-		this.mailNavView = new MailNavView();
+	public GET_Account(AdminRoutes routes) {
+		this.routes = routes;
 	}
 
 	@Override
@@ -26,7 +24,6 @@ class GET_Account extends HttpViewRoute {
 			request.redirect("/auth/login");
 			return null;
 		}
-
 
 		// Find account
 		UUID uuid;
@@ -42,28 +39,7 @@ class GET_Account extends HttpViewRoute {
 			return null;
 		}
 
-
-		// Build sidenav
-		String sidenav = "";
-		sidenav += sideNavView.getView("/admin/config", "Configuration", "fas fa-cog", false);
-		sidenav += sideNavView.getView("/admin/accounts", "Accounts", "fas fa-user", true);
-		sidenav += sideNavView.getView("/admin/groups", "Groups", "fas fa-users", false);
-
-
-		// Build mailnav
-		StringBuilder mailnav = new StringBuilder();
-		for (Account acc2 : pancake.getAccounts()) {
-			mailnav.append(mailNavView.getView("/admin/accounts/" + acc2.getUUID().toString(), acc2.getName(),
-				acc2.getUUID().toString(), acc.getUUID().equals(acc2.getUUID())));
-		}
-
-
-		// Show view
-		return view(
-			new String[] { "window_title", acc.getName() + " | Pancake" },
-			new String[] { "sidenav", sidenav },
-			new String[] { "mailnav", mailnav.toString() }
-		);
+		return routes.generateAccountsView(pancake, request, acc);
 	}
 
 }

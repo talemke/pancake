@@ -2,6 +2,7 @@ package net.tassia.pancake.http.routes.admin;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
+import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.http.HttpViewRoute;
 import net.tassia.pancake.http.views.MailNavView;
 import net.tassia.pancake.http.views.SideNavView;
@@ -10,14 +11,11 @@ import net.tassia.pancake.orm.Group;
 
 import java.util.UUID;
 
-class GET_Group extends HttpViewRoute {
-	private final SideNavView sideNavView;
-	private final MailNavView mailNavView;
+class GET_Group implements HttpRoute {
+	private final AdminRoutes routes;
 
-	public GET_Group() {
-		super("/views/index.html");
-		this.sideNavView = new SideNavView();
-		this.mailNavView = new MailNavView();
+	public GET_Group(AdminRoutes routes) {
+		this.routes = routes;
 	}
 
 	@Override
@@ -28,8 +26,7 @@ class GET_Group extends HttpViewRoute {
 			return null;
 		}
 
-
-		// Find group
+		// Find account
 		UUID uuid;
 		try {
 			uuid = UUID.fromString(matches[0]);
@@ -43,28 +40,7 @@ class GET_Group extends HttpViewRoute {
 			return null;
 		}
 
-
-		// Build sidenav
-		String sidenav = "";
-		sidenav += sideNavView.getView("/admin/config", "Configuration", "fas fa-cog", false);
-		sidenav += sideNavView.getView("/admin/accounts", "Accounts", "fas fa-user", false);
-		sidenav += sideNavView.getView("/admin/groups", "Groups", "fas fa-users", true);
-
-
-		// Build mailnav
-		StringBuilder mailnav = new StringBuilder();
-		for (Group g2 : pancake.getGroups()) {
-			mailnav.append(mailNavView.getView("/admin/groups/" + g2.getUUID().toString(), g2.getName(),
-				g2.getUUID().toString(),g.getUUID().equals(g2.getUUID())));
-		}
-
-
-		// Show view
-		return view(
-			new String[] { "window_title", g.getName() + " | Pancake" },
-			new String[] { "sidenav", sidenav },
-			new String[] { "mailnav", mailnav.toString() }
-		);
+		return routes.generateGroupsView(pancake, request, g);
 	}
 
 }
