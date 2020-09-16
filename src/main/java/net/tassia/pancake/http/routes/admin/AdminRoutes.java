@@ -2,7 +2,6 @@ package net.tassia.pancake.http.routes.admin;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.GenericPancakeView;
-import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpView;
 import net.tassia.pancake.http.PancakeHttpServer;
 import net.tassia.pancake.http.views.MailNavView;
@@ -10,11 +9,17 @@ import net.tassia.pancake.http.views.SideNavView;
 import net.tassia.pancake.orm.Account;
 import net.tassia.pancake.orm.Group;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Objects;
+
 public class AdminRoutes {
 	protected static final int SIDENAV_CONFIG = 0;
 	protected static final int SIDENAV_ACCOUNTS = 1;
 	protected static final int SIDENAV_GROUPS = 2;
 	protected static final int SIDENAV_ROOT = 3;
+	protected static final int SIDENAV_LOGS = 4;
 	protected static final int CONFIG_GENERAL = 0;
 	protected static final int CONFIG_DATABASE = 1;
 	protected static final int CONFIG_HTTP = 2;
@@ -40,6 +45,7 @@ public class AdminRoutes {
 	/* Generate View */
 	protected void addSideNav(GenericPancakeView view, int current) {
 		view.addSideNav("/admin/config", "Configuration", "fas fa-cog", current == SIDENAV_CONFIG);
+		view.addSideNav("/admin/logs", "Log Files", "fas fa-list-ol", current == SIDENAV_LOGS);
 		view.addSideNav("/admin/accounts", "Accounts", "fas fa-user", current == SIDENAV_ACCOUNTS);
 		view.addSideNav("/admin/groups", "Groups", "fas fa-users", current == SIDENAV_GROUPS);
 		view.addSideNav("/admin/root", "Root User", "fas fa-user-tie", current == SIDENAV_ROOT);
@@ -50,6 +56,18 @@ public class AdminRoutes {
 		view.addMailNav("/admin/config/database", "Database", "MySQL / SQLite configuration.", current == CONFIG_DATABASE);
 		view.addMailNav("/admin/config/http", "HTTP Server", "Configure the HTTP server.", current == CONFIG_HTTP);
 		view.addMailNav("/admin/config/smtp", "SMTP Server", "Configure the SMTP server.", current == CONFIG_SMTP);
+	}
+
+	protected void addLogsMailNav(GenericPancakeView view, String current) {
+		File dir = new File("logs");
+		if (!dir.isDirectory()) return;
+		String[] list = Objects.requireNonNull(dir.list());
+		for (int i = list.length - 1; i >= 0; i--) {
+			String id = list[i].substring(0, list[i].length() - 4);
+			long time = Long.parseLong(id, 16);
+			String date = new SimpleDateFormat("dd-MM-yyyy HH:mm (z)").format(new Date(time));
+			view.addMailNav("/admin/logs/" + id, date, "0x" + id, id.equals(current));
+		}
 	}
 
 	protected void addAccountsMailNav(Pancake pancake, GenericPancakeView view, Account focus) {
@@ -90,6 +108,10 @@ public class AdminRoutes {
 		// Groups
 		server.GET("\\/admin\\/groups", new GET_Groups(this));
 		server.GET("\\/admin\\/groups\\/" + Pancake.UUID_REGEX, new GET_Group(this));
+
+		// Accounts
+		server.GET("\\/admin\\/logs", new GET_Logs(this));
+		server.GET("\\/admin\\/logs\\/([0-9a-f]+)", new GET_Log(this));
 
 		// Root
 		server.GET("\\/admin\\/root", new GET_RootInfo(this));

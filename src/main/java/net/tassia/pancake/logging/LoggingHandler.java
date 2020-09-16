@@ -14,7 +14,7 @@ class LoggingHandler extends Handler {
 	private PrintStream out;
 
 	public LoggingHandler() {
-		File file = new File("logs", System.currentTimeMillis() + ".txt");
+		File file = new File("logs", Long.toHexString(System.currentTimeMillis()) + ".txt");
 		try {
 			file.getParentFile().mkdirs();
 			if (!file.exists()) file.createNewFile();
