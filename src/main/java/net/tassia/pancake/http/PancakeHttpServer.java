@@ -138,6 +138,7 @@ public class PancakeHttpServer {
 	/* Start */
 	public void start() {
 		server.start();
+		pancake.getLogger().info("- Listening for HTTP connections on :" + server.getAddress().getPort());
 	}
 	/* Start */
 
