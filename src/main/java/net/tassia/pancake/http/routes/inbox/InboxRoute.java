@@ -12,9 +12,11 @@ import java.util.Collection;
 
 class InboxRoute implements HttpRoute {
 	private final InboxRoutes routes;
+	private final String noneView;
 
 	public InboxRoute(InboxRoutes routes) {
 		this.routes = routes;
+		this.noneView = new HttpView("/views/email/none.html").view();
 	}
 
 	@Override
@@ -28,7 +30,7 @@ class InboxRoute implements HttpRoute {
 		routes.addSideNav(view, InboxRoutes.INBOX_DEFAULT);
 		routes.addMailNav(view, emails, null);
 
-		view.setContent(""); // TODO
+		view.setContent(noneView);
 
 		return view.view("Inbox");
 	}

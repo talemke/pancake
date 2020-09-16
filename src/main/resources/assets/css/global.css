@@ -91,6 +91,10 @@
 .not-bold {
 	font-weight: normal !important;
 }
+
+.weight-light {
+	font-weight: lighter;
+}
 /* Bold */
 
 

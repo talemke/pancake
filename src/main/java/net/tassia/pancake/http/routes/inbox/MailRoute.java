@@ -19,7 +19,7 @@ class MailRoute implements HttpRoute {
 
 	public MailRoute(InboxRoutes routes) {
 		this.routes = routes;
-		this.mailView = new HttpView("/views/email.html");
+		this.mailView = new HttpView("/views/email/email.html");
 		this.format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	}
 
