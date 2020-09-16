@@ -256,4 +256,18 @@ public class Pancake implements PancakeConstants {
 	}
 	/* Getters */
 
+
+
+
+
+	/* Utility */
+	public static String formatSize(int bytes) {
+		if (bytes > 1000) {
+			double b = (double) bytes / 1000D;
+			return ((double) Math.round(b * 100) / 100) + " kB";
+		}
+		return bytes + " bytes";
+	}
+	/* Utility */
+
 }

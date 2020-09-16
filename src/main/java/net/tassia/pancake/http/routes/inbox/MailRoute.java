@@ -41,7 +41,7 @@ class MailRoute implements HttpRoute {
 			new String[] { "mail_id", focus.getUUID().toString() },
 			new String[] { "mail_subject", "N/A" }, // TODO: Subject
 			new String[] { "mail_date", format.format(new Date(focus.getTimestamp())) },
-			new String[] { "mail_size", focus.getData().length + " bytes" },
+			new String[] { "mail_size", Pancake.formatSize(focus.getData().length) },
 			new String[] { "mail_sender", focus.getSender() },
 			new String[] { "mail_recipient", focus.getRecipient() },
 			new String[] { "mail_content", new String(focus.getData(), StandardCharsets.UTF_8) }

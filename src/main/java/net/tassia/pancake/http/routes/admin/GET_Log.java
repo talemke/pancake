@@ -50,7 +50,7 @@ class GET_Log implements HttpRoute {
 		view.setContent(logView.view(
 			new String[] { "timestamp", new SimpleDateFormat("dd-MM-yyyy HH:mm (z)").format(new Date(time)) },
 			new String[] { "log_id", "0x" + Long.toHexString(time) },
-			new String[] { "size", logData.length + " bytes" },
+			new String[] { "size", Pancake.formatSize(logData.length) },
 			new String[] { "content", new String(logData, StandardCharsets.UTF_8) }
 		));
 
