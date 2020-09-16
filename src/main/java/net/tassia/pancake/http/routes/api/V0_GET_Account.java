@@ -57,6 +57,7 @@ class V0_GET_Account implements HttpRoute {
 
 
         // Send response
+		request.setContentType("application/json");
         request.setResponseCode(200);
         return data;
     }

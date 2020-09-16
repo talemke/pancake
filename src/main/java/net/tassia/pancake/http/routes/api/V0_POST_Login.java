@@ -59,6 +59,7 @@ class V0_POST_Login implements HttpRoute {
 
 
         // Send response
+		request.setContentType("application/json");
         request.setResponseCode(200);
         return data;
     }

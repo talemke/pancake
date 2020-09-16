@@ -83,6 +83,7 @@ class V0_POST_Register implements HttpRoute {
 
 
         // Send response
+		request.setContentType("application/json");
         request.setResponseCode(200);
         return data;
     }
