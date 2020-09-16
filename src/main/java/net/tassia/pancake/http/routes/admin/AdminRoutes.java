@@ -55,7 +55,8 @@ public class AdminRoutes {
 			new String[] { "window_title", title + " | Pancake" },
 			new String[] { "sidenav", sidenav },
 			new String[] { "mailnav", mailnav },
-			new String[] { "content", content }
+			new String[] { "content", content },
+			new String[] { "username", request.getAuth().getName() }
 		);
 	}
 	/* Generate View */
