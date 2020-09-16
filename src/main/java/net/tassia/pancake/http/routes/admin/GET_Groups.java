@@ -18,7 +18,7 @@ class GET_Groups implements HttpRoute {
 
 	@Override
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
-		return routes.generateAccountsView(pancake, request, null);
+		return routes.generateGroupsView(pancake, request, null);
 	}
 
 }
