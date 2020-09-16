@@ -5,6 +5,7 @@ import java.util.Properties;
 
 public class PancakeConfiguration {
 
+	public String brandName = "Pancake";
 	public StorageDriver storageDriver = StorageDriver.MySQL;
 
 	public String mysqlHostname = "localhost";
@@ -44,6 +45,7 @@ public class PancakeConfiguration {
 		fis.close();
 
 		try {
+			config.brandName = p.getProperty("BRAND_NAME");
 			config.storageDriver = StorageDriver.valueOf(p.getProperty("STORAGE_DRIVER"));
 
 			config.mysqlHostname = p.getProperty("MYSQL_HOSTNAME");

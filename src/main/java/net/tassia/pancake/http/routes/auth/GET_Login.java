@@ -20,7 +20,9 @@ class GET_Login extends HttpViewRoute {
 
 
 		// Show view
-		return view();
+		return view(
+			new String[] { "brand_name", pancake.getConfig().brandName }
+		);
 	}
 
 }

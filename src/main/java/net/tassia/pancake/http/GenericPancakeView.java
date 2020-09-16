@@ -107,7 +107,8 @@ public class GenericPancakeView {
 	/* View */
 	public byte[] view(String title) {
 		return INDEX_VIEW.viewData(
-			new String[] { "window_title", title + " | Pancake" },
+			new String[] { "window_title", title + " | " + pancake.getConfig().brandName },
+			new String[] { "brand_name", pancake.getConfig().brandName },
 			new String[] { "sidenav", sideNav },
 			new String[] { "mailnav", mailNav },
 			new String[] { "content", content },
