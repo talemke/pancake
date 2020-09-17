@@ -1,31 +1,37 @@
 package net.tassia.pancake.smtp;
 
 import net.tassia.pancake.Pancake;
-import org.subethamail.smtp.Version;
-import org.subethamail.smtp.auth.MultipleAuthenticationHandlerFactory;
-import org.subethamail.smtp.server.SMTPServer;
+import net.tassia.pancake.orm.Account;
+import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.smtp.subethamail.SubethaSMTPDriver;
+
+import java.sql.SQLException;
 
 public class PancakeSMTP {
-	private final SMTPServer server;
+	private final Pancake pancake;
+	private final PancakeSMTPDriver driver;
 
 	public PancakeSMTP(Pancake pancake) {
-		PancakeMessageHandlerFactory factory = new PancakeMessageHandlerFactory(pancake);
-		server = new SMTPServer(factory, new MultipleAuthenticationHandlerFactory());
-		server.setSoftwareName("PancakeSMTP - " + Version.getSpecification());
-		server.setPort(pancake.getConfig().smtpPort);
-		server.setBacklog(pancake.getConfig().smtpBacklog);
-		server.setEnableTLS(pancake.getConfig().smtpEnableTLS);
-		server.setHideTLS(pancake.getConfig().smtpHideTLS);
-		server.setRequireTLS(pancake.getConfig().smtpRequireTLS);
-		server.setDisableReceivedHeaders(pancake.getConfig().smtpDisableReceivedHeaders);
-		server.setMaxConnections(pancake.getConfig().smtpMaxConnections);
-		server.setConnectionTimeout(pancake.getConfig().smtpConnectionTimeout);
-		server.setMaxRecipients(pancake.getConfig().smtpMaxRecipients);
-		server.setMaxMessageSize(pancake.getConfig().smtpMaxMessageSize);
+		this.pancake = pancake;
+		this.driver = new SubethaSMTPDriver(pancake);
+	}
+
+	public boolean incomingEmail(Email email) {
+		// Determine email owner
+		email.setAccount(pancake.getAccountByEmailName(email.getRecipient().split("@", 2)[0]));
+
+		// Store email
+		try {
+			pancake.getDatabase().storeEmail(email);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	public void start() {
-		server.start();
+		driver.start(pancake);
 	}
 
 }

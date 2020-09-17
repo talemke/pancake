@@ -1,4 +1,4 @@
-package net.tassia.pancake.smtp;
+package net.tassia.pancake.smtp.subethamail;
 
 import net.tassia.pancake.orm.Email;
 import net.tassia.pancake.Pancake;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
-public class PancakeMessageHandlerFactory implements MessageHandlerFactory {
+class PancakeMessageHandlerFactory implements MessageHandlerFactory {
 	private final Pancake pancake;
 
 	public PancakeMessageHandlerFactory(Pancake pancake) {
@@ -65,16 +65,11 @@ public class PancakeMessageHandlerFactory implements MessageHandlerFactory {
 
 			// TODO: Attachments
 
-			email.setAccount(pancake.getAccountByEmailName(email.getRecipient().split("@", 2)[0]));
-
-			try {
-				pancake.getDatabase().storeEmail(email);
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-				return;
+			if (pancake.getSMTP().incomingEmail(email)) {
+				pancake.getLogger().info("Successfully processed email " + email.getUUID().toString() + ".");
+			} else {
+				pancake.getLogger().info("Failed to process email " + email.getUUID().toString() + ".");
 			}
-
-			pancake.getLogger().info("Successfully processed email " + email.getUUID().toString() + ".");
 		}
 
 	}
