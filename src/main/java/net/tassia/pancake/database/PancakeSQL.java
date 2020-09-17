@@ -25,18 +25,20 @@ public abstract class PancakeSQL extends PancakeDB {
 	/* Store Email */
 	@Override
 	public boolean storeEmail(Email email) throws SQLException {
-		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_emails VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_emails VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 
 		stmt.setString(1, email.getUUID().toString());
 		stmt.setLong(2, email.getTimestamp());
 		stmt.setString(3, email.getSender());
 		stmt.setString(4, email.getRecipient());
 		stmt.setString(5, new String(email.getData(), StandardCharsets.UTF_8));
-		stmt.setString(6, email.getHelo());
-		stmt.setString(7, email.getRemoteAddress());
-		stmt.setInt(8, email.getType());
-		stmt.setString(9, email.getAccount().getUUID().toString());
-		stmt.setString(10, email.getInbox() != null ? email.getInbox().getUUID().toString() : null);
+		stmt.setString(6, Pancake.serializeStringMap(email.getHeaders()));
+		stmt.setString(7, email.getContent());
+		stmt.setString(8, email.getHelo());
+		stmt.setString(9, email.getRemoteAddress());
+		stmt.setInt(10, email.getType());
+		stmt.setString(11, email.getAccount().getUUID().toString());
+		stmt.setString(12, email.getInbox() != null ? email.getInbox().getUUID().toString() : null);
 
 		stmt.execute();
 		return true;
@@ -140,6 +142,8 @@ public abstract class PancakeSQL extends PancakeDB {
 		e.setSender(result.getString("sender"));
 		e.setRecipient(result.getString("recipient"));
 		e.setData(result.getString("data").getBytes(StandardCharsets.UTF_8));
+		e.setHeaders(Pancake.deserializeStringMap(result.getString("headers")));
+		e.setContent(result.getString("content"));
 		e.setHelo(result.getString("helo"));
 		e.setRemoteAddress(result.getString("remote_address"));
 		e.setType(result.getInt("type"));

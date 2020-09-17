@@ -15,10 +15,9 @@ import net.tassia.pancake.spam.PancakeSpam;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -286,6 +285,29 @@ public class Pancake implements PancakeConstants {
 			return ((double) Math.round(b * 100) / 100) + " kB";
 		}
 		return bytes + " bytes";
+	}
+
+	public static String serializeStringMap(Map<String, String> map) {
+		StringBuilder str = new StringBuilder();
+		for (Map.Entry<String, String> e : map.entrySet()) {
+			String k = Base64.getEncoder().encodeToString(e.getKey().getBytes(StandardCharsets.UTF_8));
+			String v = Base64.getEncoder().encodeToString(e.getValue().getBytes(StandardCharsets.UTF_8));
+			str.append(";").append(k).append(",").append(v);
+		}
+		return str.length() == 0 ? str.toString() : str.substring(1);
+	}
+
+	public static Map<String, String> deserializeStringMap(String str) {
+		if (!str.contains(";")) return new HashMap<>();
+		Map<String, String> map = new HashMap<>();
+		for (String s : str.split(";")) {
+			String[] s2 = s.split(",");
+			if (s2.length != 2) throw new IllegalArgumentException();
+			String k = new String(Base64.getDecoder().decode(s2[0]), StandardCharsets.UTF_8);
+			String v = new String(Base64.getDecoder().decode(s2[1]), StandardCharsets.UTF_8);
+			map.put(k, v);
+		}
+		return map;
 	}
 	/* Utility */
 
