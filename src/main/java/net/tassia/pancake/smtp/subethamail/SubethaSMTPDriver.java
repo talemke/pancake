@@ -2,16 +2,21 @@ package net.tassia.pancake.smtp.subethamail;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.smtp.PancakeSMTPDriver;
+import org.subethamail.smtp.AuthenticationHandlerFactory;
 import org.subethamail.smtp.Version;
-import org.subethamail.smtp.auth.MultipleAuthenticationHandlerFactory;
+import org.subethamail.smtp.auth.EasyAuthenticationHandlerFactory;
+import org.subethamail.smtp.auth.LoginFailedException;
+import org.subethamail.smtp.auth.UsernamePasswordValidator;
 import org.subethamail.smtp.server.SMTPServer;
 
 public class SubethaSMTPDriver implements PancakeSMTPDriver {
 	private final SMTPServer server;
 
 	public SubethaSMTPDriver(Pancake pancake) {
+		AuthenticationHandlerFactory authFactory = new EasyAuthenticationHandlerFactory(new Validator(pancake));
 		PancakeMessageHandlerFactory factory = new PancakeMessageHandlerFactory(pancake);
-		server = new SMTPServer(factory, new MultipleAuthenticationHandlerFactory());
+
+		server = new SMTPServer(factory, authFactory);
 		server.setSoftwareName("PancakeSMTP - " + Version.getSpecification());
 		server.setPort(pancake.getConfig().smtpPort);
 		server.setBacklog(pancake.getConfig().smtpBacklog);
@@ -38,6 +43,19 @@ public class SubethaSMTPDriver implements PancakeSMTPDriver {
 	@Override
 	public String getVersion() {
 		return "3.1.7";
+	}
+
+
+
+	protected class Validator implements UsernamePasswordValidator {
+		private final Pancake pancake;
+		protected Validator(Pancake pancake) {
+			this.pancake = pancake;
+		}
+		@Override
+		public void login(String username, String password) throws LoginFailedException {
+			this.pancake.getLogger().fine("Attempted login: " + username + ", " + password);
+		}
 	}
 
 }

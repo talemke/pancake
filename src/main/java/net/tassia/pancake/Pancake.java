@@ -10,6 +10,7 @@ import net.tassia.pancake.orm.Account;
 import net.tassia.pancake.orm.Group;
 import net.tassia.pancake.security.PancakeSecurity;
 import net.tassia.pancake.smtp.PancakeSMTP;
+import net.tassia.pancake.spam.PancakeSpam;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class Pancake implements PancakeConstants {
 	private final PancakeSecurity security;
 	private final ExecutorService executorService;
 	private final PancakeDB database;
+	private final PancakeSpam spam;
 	private final PancakeHTTP http;
 	private final PancakeSMTP smtp;
 
@@ -62,6 +64,9 @@ public class Pancake implements PancakeConstants {
 
 		logger.info("- Setting up database...");
 		this.database = setupDatabase();
+
+		logger.info("- Setting up spam filter...");
+		this.spam = setupSpamFilter();
 
 		logger.info("- Setting up HTTP server...");
 		this.http = setupHTTP();
@@ -167,6 +172,10 @@ public class Pancake implements PancakeConstants {
 		}
 	}
 
+	protected PancakeSpam setupSpamFilter() {
+		return new PancakeSpam(this);
+	}
+
 	protected PancakeHTTP setupHTTP() {
 		try {
 			return new PancakeHTTP(this);
@@ -245,6 +254,10 @@ public class Pancake implements PancakeConstants {
 
 	public PancakeDB getDatabase() {
 		return database;
+	}
+
+	public PancakeSpam getSpamFilter() {
+		return spam;
 	}
 
 	public PancakeHTTP getHTTP() {
