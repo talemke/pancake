@@ -1,6 +1,7 @@
 package net.tassia.pancake.http.routes.inbox;
 
 import net.tassia.pancake.Pancake;
+import net.tassia.pancake.PancakeConstants;
 import net.tassia.pancake.http.GenericPancakeView;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
@@ -12,15 +13,19 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
-class MailRoute implements HttpRoute {
+class GET_Mail implements HttpRoute {
 	private final InboxRoutes routes;
 	private final HttpView mailView;
 	private final SimpleDateFormat format;
+	private final String alertMailDeleted;
+	private final String alertMailSpam;
 
-	public MailRoute(InboxRoutes routes) {
+	public GET_Mail(InboxRoutes routes) {
 		this.routes = routes;
 		this.mailView = new HttpView("/views/email/email.html");
 		this.format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		this.alertMailDeleted = new HttpView("/views/alerts/mail_deleted.html").view();
+		this.alertMailSpam = new HttpView("/views/alerts/mail_spam.html").view();
 	}
 
 	@Override
@@ -34,10 +39,35 @@ class MailRoute implements HttpRoute {
 		Email focus = pancake.getHTTP().getResources().findEmail(request, request.getAuth(), matches[0]);
 		if (focus == null) return null;
 
-		routes.addSideNav(view, InboxRoutes.INBOX_DEFAULT);
+		String alerts = "";
+		int inbox;
+
+		switch (focus.getType()) {
+			case Pancake.TYPE_DRAFT:
+				inbox = InboxRoutes.INBOX_DEFAULT;
+				break;
+			case Pancake.TYPE_SENT:
+				inbox = InboxRoutes.INBOX_SENT;
+				break;
+			case Pancake.TYPE_DELETED:
+				inbox = InboxRoutes.INBOX_TRASH;
+				alerts += alertMailDeleted;
+				break;
+			case Pancake.TYPE_SPAM:
+				inbox = InboxRoutes.INBOX_SPAM;
+				alerts += alertMailSpam;
+				break;
+			case Pancake.TYPE_DEFAULT:
+			default:
+				inbox = InboxRoutes.INBOX_DEFAULT;
+				break;
+		}
+
+		routes.addSideNav(view, inbox);
 		routes.addMailNav(view, emails, focus);
 
 		view.setContent(mailView.view(
+			new String[] { "mail_alerts", alerts },
 			new String[] { "mail_id", focus.getUUID().toString() },
 			new String[] { "mail_subject", "N/A" }, // TODO: Subject
 			new String[] { "mail_date", format.format(new Date(focus.getTimestamp())) },
