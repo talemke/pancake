@@ -11,6 +11,7 @@ import net.tassia.pancake.orm.Group;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -62,6 +63,7 @@ public class AdminRoutes {
 		File dir = new File("logs");
 		if (!dir.isDirectory()) return;
 		String[] list = Objects.requireNonNull(dir.list());
+		Arrays.sort(list);
 		for (int i = list.length - 1; i >= 0; i--) {
 			String id = list[i].substring(0, list[i].length() - 4);
 			long time = Long.parseLong(id, 16);
