@@ -10,6 +10,7 @@ public class Account {
 	private String name;
 	private String password;
 	private Group group;
+	private long flags;
 	private Collection<Inbox> inboxes;
 
 	/* Constructors */
@@ -22,6 +23,7 @@ public class Account {
 		this.name = null;
 		this.password = null;
 		this.group = null;
+		this.flags = 0;
 		this.inboxes = new ArrayList<>();
 	}
 	/* Constructors */
@@ -72,6 +74,14 @@ public class Account {
 		this.group = group;
 	}
 
+	public long getFlags() {
+		return flags;
+	}
+
+	public void setFlags(long flags) {
+		this.flags = flags;
+	}
+
 	public Collection<Inbox> getInboxes() {
 		return inboxes;
 	}
@@ -80,6 +90,22 @@ public class Account {
 		this.inboxes = inboxes;
 	}
 	/* Getters & Setters */
+
+
+
+	/* Flags */
+	public boolean hasFlag(long flag) {
+		return (flags & flag) == flag;
+	}
+
+	public void addFlag(long flag) {
+		flags |= flag;
+	}
+
+	public void removeFlag(long flag) {
+		flags &= ~flag;
+	}
+	/* Flags */
 
 
 

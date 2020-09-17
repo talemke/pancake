@@ -10,6 +10,8 @@ public interface PancakeConstants {
 	int TYPE_DELETED = 3;
 	int TYPE_SPAM = 4;
 
+	long FLAG_SUSPENDED = 1;
+
 	int VERSION_MAJOR = 0;
 	int VERSION_MINOR = 0;
 	int VERSION_PATCH = 1;

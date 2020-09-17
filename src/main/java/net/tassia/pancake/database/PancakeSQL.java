@@ -81,6 +81,7 @@ public abstract class PancakeSQL extends PancakeDB {
 			account.setName(result.getString(2));
 			account.setPassword(result.getString(3));
 			account.setGroup(pancake.getGroup(UUID.fromString(result.getString(4))));
+			account.setFlags(result.getLong(5));
 			accounts.add(account);
 		}
 
@@ -119,12 +120,13 @@ public abstract class PancakeSQL extends PancakeDB {
 	/* Store Account */
 	@Override
 	public boolean storeAccount(Account account) throws SQLException {
-		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_accounts VALUES (?, ?, ?, ?);");
+		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_accounts VALUES (?, ?, ?, ?, ?);");
 
 		stmt.setString(1, account.getUUID().toString());
 		stmt.setString(2, account.getName());
 		stmt.setString(3, account.getPassword());
 		stmt.setString(4, account.getGroup().getUUID().toString());
+		stmt.setLong(5, account.getFlags());
 
 		stmt.execute();
 		return true;

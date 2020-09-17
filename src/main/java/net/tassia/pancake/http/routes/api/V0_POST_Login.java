@@ -39,9 +39,13 @@ class V0_POST_Login implements HttpRoute {
 		// Attempt login
 		Account acc = pancake.getSecurity().attemptLogin(req.username, req.password);
 		if (acc != null) {
-			String token = pancake.getSecurity().generateSessionID();
-			pancake.getHTTP().addSession(token, acc);
-			res.token = token;
+			if (acc.hasFlag(Pancake.FLAG_SUSPENDED)) {
+				res.error = "Your account has been suspended.";
+			} else {
+				String token = pancake.getSecurity().generateSessionID();
+				pancake.getHTTP().addSession(token, acc);
+				res.token = token;
+			}
 		} else {
 			res.error = "Wrong username or password.";
 		}
