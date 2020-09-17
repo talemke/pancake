@@ -1,7 +1,6 @@
 package net.tassia.pancake.smtp;
 
 import net.tassia.pancake.Pancake;
-import net.tassia.pancake.orm.Account;
 import net.tassia.pancake.orm.Email;
 import net.tassia.pancake.smtp.subethamail.SubethaSMTPDriver;
 
@@ -14,6 +13,8 @@ public class PancakeSMTP {
 	public PancakeSMTP(Pancake pancake) {
 		this.pancake = pancake;
 		this.driver = new SubethaSMTPDriver(pancake);
+
+		pancake.getLogger().info("  Driver: " + driver.getName() + " - v" + driver.getVersion());
 	}
 
 	public boolean incomingEmail(Email email) {
