@@ -23,7 +23,7 @@ class GET_Drafts implements HttpRoute {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
 
-		Collection<Email> emails = view.findDraftEmails(request.getAuth(), 0, 0);
+		Collection<Email> emails = pancake.getHTTP().getResources().findDraftEmails(request, request.getAuth(), 0, 0);
 		if (emails == null) return null;
 
 		routes.addSideNav(view, InboxRoutes.INBOX_DRAFTS);

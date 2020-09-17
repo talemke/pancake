@@ -23,7 +23,7 @@ class GET_Trash implements HttpRoute {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
 
-		Collection<Email> emails = view.findDeletedEmails(request.getAuth(), 0, 0);
+		Collection<Email> emails = pancake.getHTTP().getResources().findDeletedEmails(request, request.getAuth(), 0, 0);
 		if (emails == null) return null;
 
 		routes.addSideNav(view, InboxRoutes.INBOX_TRASH);

@@ -21,7 +21,7 @@ class GET_Account implements HttpRoute {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
 
-		Account focus = view.findAccount(matches[0]);
+		Account focus = pancake.getHTTP().getResources().findAccount(request, matches[0]);
 		if (focus == null) return null;
 
 		routes.addSideNav(view, AdminRoutes.SIDENAV_ACCOUNTS);

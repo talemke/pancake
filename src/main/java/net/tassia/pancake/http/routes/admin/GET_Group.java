@@ -21,7 +21,7 @@ class GET_Group implements HttpRoute {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
 
-		Group focus = view.findGroup(matches[0]);
+		Group focus = pancake.getHTTP().getResources().findGroup(request, matches[0]);
 		if (focus == null) return null;
 
 		routes.addSideNav(view, AdminRoutes.SIDENAV_GROUPS);

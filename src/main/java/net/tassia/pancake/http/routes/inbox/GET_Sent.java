@@ -23,7 +23,7 @@ class GET_Sent implements HttpRoute {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
 
-		Collection<Email> emails = view.findSentEmails(request.getAuth(), 0, 0);
+		Collection<Email> emails = pancake.getHTTP().getResources().findSentEmails(request, request.getAuth(), 0, 0);
 		if (emails == null) return null;
 
 		routes.addSideNav(view, InboxRoutes.INBOX_SENT);

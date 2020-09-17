@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class PancakeHTTP {
 	private final PancakeHttpServer server;
+	private final ResourceManager resourceManager;
 	private final Map<String, Account> sessions;
 	private final Collection<String> rootSessions;
 
@@ -24,6 +25,7 @@ public class PancakeHTTP {
 		// Create variables
 		this.sessions = new HashMap<>();
 		this.rootSessions = new ArrayList<>();
+		this.resourceManager = new ResourceManager(pancake);
 
 		// Create HTTP server
 		this.server = new PancakeHttpServer(pancake);
@@ -92,6 +94,14 @@ public class PancakeHTTP {
 		return str;
 	}
 	/* Escape XSS */
+
+
+
+	/* Getters */
+	public ResourceManager getResources() {
+		return resourceManager;
+	}
+	/* Getters */
 
 
 

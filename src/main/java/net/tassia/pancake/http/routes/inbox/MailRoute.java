@@ -28,10 +28,10 @@ class MailRoute implements HttpRoute {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
 
-		Collection<Email> emails = view.findEmails(request.getAuth(), null, 0, 0);
+		Collection<Email> emails = pancake.getHTTP().getResources().findEmails(request, request.getAuth(), null, 0, 0);
 		if (emails == null) return null;
 
-		Email focus = view.findEmail(matches[0]);
+		Email focus = pancake.getHTTP().getResources().findEmail(request, request.getAuth(), matches[0]);
 		if (focus == null) return null;
 
 		routes.addSideNav(view, InboxRoutes.INBOX_DEFAULT);
