@@ -1,10 +1,7 @@
 package net.tassia.pancake.database;
 
 import net.tassia.pancake.Pancake;
-import net.tassia.pancake.orm.Account;
-import net.tassia.pancake.orm.Email;
-import net.tassia.pancake.orm.Group;
-import net.tassia.pancake.orm.Inbox;
+import net.tassia.pancake.orm.*;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -39,6 +36,8 @@ public abstract class PancakeDB {
 	public abstract Collection<Group> fetchGroups() throws SQLException;
 
 	public abstract Collection<Account> fetchAccounts() throws SQLException;
+
+	public abstract Collection<EmailRoute> fetchRoutes() throws SQLException;
 
 	public abstract boolean storeAccount(Account account) throws SQLException;
 

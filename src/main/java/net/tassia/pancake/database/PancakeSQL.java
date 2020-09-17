@@ -1,10 +1,7 @@
 package net.tassia.pancake.database;
 
 import net.tassia.pancake.Pancake;
-import net.tassia.pancake.orm.Account;
-import net.tassia.pancake.orm.Email;
-import net.tassia.pancake.orm.Group;
-import net.tassia.pancake.orm.Inbox;
+import net.tassia.pancake.orm.*;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
@@ -88,6 +85,30 @@ public abstract class PancakeSQL extends PancakeDB {
 		return accounts;
 	}
 	/* Fetch Accounts */
+
+
+
+
+
+	/* Fetch Routes */
+	@Override
+	public Collection<EmailRoute> fetchRoutes() throws SQLException {
+		Collection<EmailRoute> routes = new ArrayList<>();
+		ResultSet result = connection.prepareCall("SELECT * FROM pancake_routes;").executeQuery();
+
+		while (result.next()) {
+			EmailRoute route = new EmailRoute(UUID.fromString(result.getString(1)));
+			route.setAccount(pancake.getAccount(UUID.fromString(result.getString(2))));
+			route.setUsernameString(result.getString(3));
+			route.setUsernameType(EmailRoute.Type.valueOf(result.getString(4)));
+			route.setHostnameString(result.getString(5));
+			route.setHostnameType(EmailRoute.Type.valueOf(result.getString(6)));
+			routes.add(route);
+		}
+
+		return routes;
+	}
+	/* Fetch Routes */
 
 
 

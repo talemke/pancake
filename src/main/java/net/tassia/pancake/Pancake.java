@@ -7,6 +7,7 @@ import net.tassia.pancake.logging.PancakeLogger;
 import net.tassia.pancake.database.PancakeDB;
 import net.tassia.pancake.database.PancakeSQLite;
 import net.tassia.pancake.orm.Account;
+import net.tassia.pancake.orm.EmailRoute;
 import net.tassia.pancake.orm.Group;
 import net.tassia.pancake.security.PancakeSecurity;
 import net.tassia.pancake.smtp.PancakeSMTP;
@@ -26,6 +27,7 @@ public class Pancake implements PancakeConstants {
 	private final Logger logger;
 	private final Collection<Account> accounts;
 	private final Collection<Group> groups;
+	private final Collection<EmailRoute> routes;
 	private final PancakeConfiguration config;
 	private final ObjectMapper mapper;
 	private final PancakeSecurity security;
@@ -43,6 +45,7 @@ public class Pancake implements PancakeConstants {
 		logger.info("- Initializing variables...");
 		this.accounts = new ArrayList<>();
 		this.groups = new ArrayList<>();
+		this.routes = new ArrayList<>();
 
 		logger.info("- Loading configuration...");
 		File configFile = new File("./.env");
@@ -105,11 +108,10 @@ public class Pancake implements PancakeConstants {
 		return null;
 	}
 
-	public Account getAccountByEmailName(String name) {
-		for (Account account : accounts) {
-			if (account.getName().equalsIgnoreCase(name)) {
-				return account;
-			}
+	public Account getAccountByEmailName(String recipient) {
+		for (EmailRoute route : routes) {
+			Account acc = route.matches(recipient);
+			if (acc != null) return acc;
 		}
 		return Account.ROOT;
 	}
@@ -210,6 +212,10 @@ public class Pancake implements PancakeConstants {
 		accounts.clear();
 		accounts.addAll(database.fetchAccounts());
 		accounts.add(Account.ROOT);
+
+		logger.info("- Loading email routes...");
+		routes.clear();
+		routes.addAll(database.fetchRoutes());
 
 		logger.info("- Starting HTTP server...");
 		getHTTP().start();

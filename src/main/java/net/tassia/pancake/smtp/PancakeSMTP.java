@@ -20,7 +20,7 @@ public class PancakeSMTP {
 
 	public boolean incomingEmail(Email email) {
 		// Determine email owner
-		email.setAccount(pancake.getAccountByEmailName(email.getRecipient().split("@", 2)[0]));
+		email.setAccount(pancake.getAccountByEmailName(email.getRecipient()));
 
 		// Spam filter
 		PancakeSpam.Action action = pancake.getSpamFilter().filter(email);

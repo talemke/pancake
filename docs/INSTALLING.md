@@ -46,4 +46,15 @@ CREATE TABLE `pancake_emails` (
     `inbox_id` VARCHAR(63) NULL DEFAULT NULL,
     PRIMARY KEY (`email_id`), INDEX (`account_id`), INDEX (`inbox_id`)
 );
+
+-- Create 'pancake_routes'
+CREATE TABLE `pancake_routes` (
+    `route_id` VARCHAR(63) NOT NULL,
+    `account_id` VARCHAR(63) NOT NULL,
+    `username_string` VARCHAR(255) NOT NULL,
+    `username_type` ENUM('EXACT', 'REGEX', 'ANY') NOT NULL,
+    `hostname_string` VARCHAR(255) NOT NULL,
+    `hostname_type` ENUM('EXACT', 'REGEX', 'ANY') NOT NULL,
+    PRIMARY KEY (`route_id`), INDEX (`account_id`)
+);
 ```
