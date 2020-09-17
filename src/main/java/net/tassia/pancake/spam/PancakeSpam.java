@@ -2,6 +2,7 @@ package net.tassia.pancake.spam;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.spam.generic.GenericSpamFilter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,6 +14,9 @@ public class PancakeSpam {
 	public PancakeSpam(Pancake pancake) {
 		this.pancake = pancake;
 		this.drivers = new ArrayList<>();
+
+		// Register spam filters
+		this.drivers.add(new GenericSpamFilter());
 	}
 
 	public Action filter(Email email) {
@@ -22,6 +26,7 @@ public class PancakeSpam {
 		for (PancakeSpamDriver driver : drivers) {
 			pancake.getLogger().fine("- Filtering with " + driver.getName() + " (v" + driver.getVersion() + ")...");
 			SpamFilterResult driverResult = driver.filter(email);
+			if (driverResult == null) continue;
 			if (result.probability < driverResult.probability) {
 				result = driverResult;
 			}
@@ -59,8 +64,17 @@ public class PancakeSpam {
 
 
 	public static class SpamFilterResult {
-		public String reason = null;
-		public double probability = 0D;
+		public String reason;
+		public double probability;
+
+		public SpamFilterResult() {
+			this(null, 0D);
+		}
+
+		public SpamFilterResult(String reason, double probability) {
+			this.reason = reason;
+			this.probability = probability;
+		}
 	}
 
 	public enum Action {
