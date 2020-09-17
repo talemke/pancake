@@ -46,7 +46,7 @@ public class AdminRoutes {
 	/* Generate View */
 	protected void addSideNav(GenericPancakeView view, int current) {
 		view.addSideNav("/admin/config", "Configuration", "fas fa-cog", current == SIDENAV_CONFIG);
-		view.addSideNav("/admin/logs", "Log Files", "fas fa-list-ol", current == SIDENAV_LOGS);
+		view.addSideNav("/admin/logs", "Log Files", "fas fa-list-ul", current == SIDENAV_LOGS);
 		view.addSideNav("/admin/accounts", "Accounts", "fas fa-user", current == SIDENAV_ACCOUNTS);
 		view.addSideNav("/admin/groups", "Groups", "fas fa-users", current == SIDENAV_GROUPS);
 		view.addSideNav("/admin/root", "Root User", "fas fa-user-tie", current == SIDENAV_ROOT);
