@@ -21,21 +21,23 @@
 
     <div class="content-outer">
         <div class="content-inner">
+			<form onsubmit="return false;">
 
-            <h1>Register at <strong>{{ brand_name }}</strong></h1>
+				<h1>Register at <strong>{{ brand_name }}</strong></h1>
 
-            <hr>
-			<div id="error_container"></div>
+				<hr>
+				<div id="error_container"></div>
 
-            <input type="text" class="form-control" placeholder="Username" id="username" onchange="removeErrorBorder(this);">
-            <br>
-            <input type="password" class="form-control" placeholder="Password" id="password" onchange="removeErrorBorder(this);">
-            <br>
-            <input type="password" class="form-control" placeholder="Confirm Password" id="password2" onchange="removeErrorBorder(this);">
-            <br>
-            <input type="submit" class="btn btn-outline-primary" value="Register" id="submit" onclick="registerAccount();">
-            <a href="./login" class="ml-3 text-dark">Already have an account?</a>
+				<input type="text" class="form-control" placeholder="Username" id="username" onchange="removeErrorBorder(this);">
+				<br>
+				<input type="password" class="form-control" placeholder="Password" id="password" onchange="removeErrorBorder(this);">
+				<br>
+				<input type="password" class="form-control" placeholder="Confirm Password" id="password2" onchange="removeErrorBorder(this);">
+				<br>
+				<input type="submit" class="btn btn-outline-primary" value="Register" id="submit" onclick="registerAccount();">
+				<a href="./login" class="ml-3 text-dark">Already have an account?</a>
 
+			</form>
         </div>
     </div>
 
