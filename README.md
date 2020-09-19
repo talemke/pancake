@@ -1,5 +1,13 @@
 # Pancake
 
+A deploy-ready webmail server written in Java. Supports:
+
+| Protocol | Supported |
+| -------- | --------- |
+| SMTP     | **✔**     |
+| POP3     | **✘**     |
+| IMAP     | **✘**     |
+
 
 
 ## Installing & Deploying (on Ubuntu 18.04)
