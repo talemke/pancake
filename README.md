@@ -2,7 +2,7 @@
 
 
 
-## Installing & Deploying
+## Installing & Deploying (on Ubuntu 18.04)
 
 1. Navigate to your desired installation folder. Example for an installation in the home directory:
 ```bash
@@ -35,3 +35,5 @@ chmod +x run.sh
 # Start
 ./run.sh
 ```
+
+5. You can now access the application at http://your-ip-address:8080
