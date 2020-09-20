@@ -1,6 +1,7 @@
 package net.tassia.pancake;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.tassia.pancake.cli.PancakeCLI;
 import net.tassia.pancake.database.PancakeMySQL;
 import net.tassia.pancake.http.PancakeHTTP;
 import net.tassia.pancake.logging.PancakeLogger;
@@ -33,6 +34,7 @@ public class Pancake implements PancakeConstants {
 	private final PancakeSecurity security;
 	private final ExecutorService executorService;
 	private final PancakeDB database;
+	private final PancakeCLI cli;
 	private final PancakeSpam spam;
 	private final PancakeParser parser;
 	private final PancakeHTTP http;
@@ -68,6 +70,9 @@ public class Pancake implements PancakeConstants {
 
 		logger.info("- Setting up database...");
 		this.database = setupDatabase();
+
+		logger.info("- Setting up CLI...");
+		this.cli = setupCLI();
 
 		logger.info("- Setting up spam filter...");
 		this.spam = setupSpamFilter();
@@ -191,6 +196,10 @@ public class Pancake implements PancakeConstants {
 		}
 	}
 
+	protected PancakeCLI setupCLI() {
+		return new PancakeCLI(this);
+	}
+
 	protected PancakeSpam setupSpamFilter() {
 		return new PancakeSpam(this);
 	}
@@ -238,6 +247,9 @@ public class Pancake implements PancakeConstants {
 		routes.clear();
 		routes.addAll(database.fetchRoutes());
 
+		logger.info("- Starting CLI...");
+		cli.start();
+
 		logger.info("- Starting HTTP server...");
 		getHTTP().start();
 
@@ -281,6 +293,10 @@ public class Pancake implements PancakeConstants {
 
 	public PancakeDB getDatabase() {
 		return database;
+	}
+
+	public PancakeCLI getCLI() {
+		return cli;
 	}
 
 	public PancakeSpam getSpamFilter() {
