@@ -27,7 +27,16 @@ public class CMD_Sessions implements CLICommand {
 		// TODO
 
 		// Drop session
-		// TODO
+		if (args.length == 2 && args[0].equalsIgnoreCase("drop")) {
+			boolean result = pancake.getHTTP().dropSession(args[1]);
+			pancake.getHTTP().dropRootSession(args[1]);
+			if (result) {
+				pancake.getLogger().info("Session dropped.");
+			} else {
+				pancake.getLogger().info("Session not found.");
+			}
+			return;
+		}
 
 		pancake.getLogger().info("Invalid usage.");
 	}

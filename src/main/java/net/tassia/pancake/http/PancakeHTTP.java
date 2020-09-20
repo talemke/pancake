@@ -58,8 +58,8 @@ public class PancakeHTTP {
 		sessions.put(id, account);
 	}
 
-	public void dropSession(String id) {
-		sessions.remove(id);
+	public boolean dropSession(String id) {
+		return sessions.remove(id) != null;
 	}
 
 	public Map<String, Account> getSessions() {
@@ -70,8 +70,8 @@ public class PancakeHTTP {
 		rootSessions.add(id);
 	}
 
-	public void dropRootSession(String id) {
-		rootSessions.remove(id);
+	public boolean dropRootSession(String id) {
+		return rootSessions.remove(id);
 	}
 
 	public boolean isRootSession(String id) {
