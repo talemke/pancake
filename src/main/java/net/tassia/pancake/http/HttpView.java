@@ -4,11 +4,22 @@ import net.tassia.pancake.Pancake;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class HttpView {
 	private final String data;
 
 	/* Constructor */
+	public HttpView(Path path) {
+		try {
+			byte[] binData = Files.readAllBytes(path);
+			this.data = new String(binData, StandardCharsets.UTF_8);
+		} catch (IOException ex) {
+			throw new Error("Failed to load view: " + path.toString(), ex);
+		}
+	}
+
 	public HttpView(String view) {
 		byte[] viewData;
 		try {
