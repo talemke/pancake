@@ -54,8 +54,6 @@ public class GenericPancakeView {
 
 
 	/* Alerts */
-	// TODO: Root User alert
-
 	public void clearAlerts() {
 		alerts = "";
 	}

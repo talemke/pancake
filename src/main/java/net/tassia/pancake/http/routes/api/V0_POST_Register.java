@@ -49,8 +49,10 @@ class V0_POST_Register implements HttpRoute {
 			res.error = "Password is too long (>63).";
 
 		}
-		// TODO: Check chars
-		if (res.error == null && pancake.getAccountByUsername(req.username) != null) {
+
+		if (!req.username.matches("[A-Za-z0-9]]+")) {
+			res.error = "Username must be alphanumeric.";
+		} else if (res.error == null && pancake.getAccountByUsername(req.username) != null) {
 			res.error = "Username is already in use.";
 		}
 
