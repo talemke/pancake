@@ -32,7 +32,9 @@ class GET_RootGain implements HttpRoute {
 		// Log
 		try {
 			String user = request.getAuth().getName() + " (" + request.getAuth().getUUID().toString() + ")";
-			String session = pancake.getSecurity().md5(request.getCookie("PancakeSessionID"), "");
+			// We hash the session ID with MD5 to make it a bit harder to crack, as it's shown to admins,
+			// and to shorten the string length
+			String session = pancake.getSecurity().md5(request.getCookie("PancakeSessionID"));
 			routes.addRootLog(user + " gained root privileges. (Session: " + session + ")");
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -40,7 +42,8 @@ class GET_RootGain implements HttpRoute {
 			return null;
 		}
 
-		pancake.getHTTP().addRootSession(request.getCookie("PancakeSessionID"));
+		String session = pancake.getSecurity().sha512(request.getCookie("PancakeSessionID"), request.getClientIP());
+		pancake.getHTTP().addRootSession(session);
 		request.redirect("/admin/root");
 		return null;
 	}

@@ -14,8 +14,7 @@ public class CMD_Sessions implements CLICommand {
 		if (args.length == 0) {
 			StringBuilder msgBuilder = new StringBuilder("Active sessions:");
 			for (Map.Entry<String, Account> e : pancake.getHTTP().getSessions().entrySet()) {
-				String token = pancake.getSecurity().md5(e.getKey(), "");
-				msgBuilder.append("\n- ").append(e.getValue().getName()).append(" (ID: ").append(token).append(")");
+				msgBuilder.append("\n- ").append(e.getValue().getName()).append(" (ID: ").append(e.getKey()).append(")");
 			}
 			pancake.getLogger().info(msgBuilder.toString());
 			return;

@@ -48,6 +48,7 @@ public class HttpRequest {
 		// Check authentication
 		String sessionId = getCookie("PancakeSessionID");
 		if (sessionId != null) {
+			sessionId = pancake.getSecurity().sha512(sessionId, getClientIP());
 			if (pancake.getHTTP().isRootSession(sessionId)) {
 				account = Account.ROOT;
 			} else {
@@ -78,6 +79,10 @@ public class HttpRequest {
 	/* Generic */
 	public InetSocketAddress getRemoteAddress() {
 		return exchange.getRemoteAddress();
+	}
+
+	public String getClientIP() {
+		return getRemoteAddress().getHostString();
 	}
 	/* Generic */
 

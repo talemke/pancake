@@ -84,8 +84,24 @@ public class PancakeSecurity {
 		}
 	}
 
+	public String sha512(String text) {
+		return hash(text, "", "SHA-512");
+	}
+
 	public String sha512(String text, String salt) {
 		return hash(text, salt, "SHA-512");
+	}
+
+	public String md2(String text) {
+		return hash(text, "", "MD2");
+	}
+
+	public String md2(String text, String salt) {
+		return hash(text, salt, "MD2");
+	}
+
+	public String md5(String text) {
+		return hash(text, "", "MD5");
 	}
 
 	public String md5(String text, String salt) {
