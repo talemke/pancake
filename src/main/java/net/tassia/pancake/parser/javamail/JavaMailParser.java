@@ -8,6 +8,7 @@ import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class JavaMailParser implements PancakeParserDriver {
@@ -22,6 +23,9 @@ public class JavaMailParser implements PancakeParserDriver {
 			ParsedMail m = new ParsedMail();
 
 			m.subject = msg.getSubject();
+
+			String content = new String(data, StandardCharsets.UTF_8);
+			m.display = content.replace("\r", "").split("\n\n", 2)[1];
 
 			return m;
 		} catch (MessagingException ex) {

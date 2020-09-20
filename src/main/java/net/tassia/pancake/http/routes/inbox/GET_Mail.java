@@ -69,6 +69,9 @@ class GET_Mail implements HttpRoute {
 		routes.addSideNav(view, inbox);
 		routes.addMailNav(view, mail, focus);
 
+		String content = focus.getParsed().display;
+		if (content == null) content = new String(focus.getData(), StandardCharsets.UTF_8);
+
 		view.setContent(mailView.view(
 			new String[] { "mail_alerts", alerts },
 			new String[] { "mail_id", focus.getUUID().toString() },
@@ -77,7 +80,7 @@ class GET_Mail implements HttpRoute {
 			new String[] { "mail_size", Pancake.formatSize(focus.getData().length) },
 			new String[] { "mail_sender", focus.getSender() },
 			new String[] { "mail_recipient", focus.getRecipient() },
-			new String[] { "mail_content", new String(focus.getData(), StandardCharsets.UTF_8) }
+			new String[] { "mail_content", content }
 		));
 
 		return view.view("Inbox");
