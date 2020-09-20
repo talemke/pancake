@@ -2,11 +2,11 @@
 
 A deploy-ready webmail server written in Java. Supports:
 
-| Protocol | Supported |
-| -------- | --------- |
-| SMTP     | **✔**     |
-| POP3     | **✘**     |
-| IMAP     | **✘**     |
+| Protocol | Supported          |
+| -------- | ------------------ |
+| SMTP     | :heavy_check_mark: |
+| POP3     | :x:                |
+| IMAP     | :x:                |
 
 
 
