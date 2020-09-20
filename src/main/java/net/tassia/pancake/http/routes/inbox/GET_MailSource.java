@@ -8,10 +8,10 @@ import net.tassia.pancake.orm.Mail;
 import java.sql.SQLException;
 import java.util.UUID;
 
-class MailSourceRoute implements HttpRoute {
+class GET_MailSource implements HttpRoute {
 	private final InboxRoutes core;
 
-	public MailSourceRoute(InboxRoutes core) {
+	public GET_MailSource(InboxRoutes core) {
 		this.core = core;
 	}
 

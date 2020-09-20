@@ -11,10 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-class MailPrintRoute extends HttpViewRoute {
+class GET_MailPrint extends HttpViewRoute {
 	private final SimpleDateFormat format;
 
-	public MailPrintRoute() {
+	public GET_MailPrint() {
 		super("/views/print.html");
 		this.format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss (z)");
 	}
