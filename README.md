@@ -2,11 +2,11 @@
 
 A deploy-ready webmail server written in Java. Supports:
 
-| Protocol | Supported |
-| -------- | --------- |
-| SMTP     | **✔**     |
-| POP3     | **✘**     |
-| IMAP     | **✘**     |
+| Protocol | Supported          |
+| -------- | ------------------ |
+| SMTP     | :heavy_check_mark: |
+| POP3     | :x:                |
+| IMAP     | :x:                |
 
 
 
@@ -30,7 +30,7 @@ gh repo clone TASSIA710/Pancake
 git clone https://github.com/TASSIA710/Pancake.git
 ```
 
-3. Follow install instructions (see [INSTALLING.md](https://github.com/TASSIA710/Pancake/blob/docs/INSTALLING.md)).
+3. Follow install instructions (see [INSTALLING.md](https://github.com/TASSIA710/Pancake/blob/master/docs/INSTALLING.md)).
 
 4. Navigate to the installation folder, make the start script executable and and run it:
 ```bash
