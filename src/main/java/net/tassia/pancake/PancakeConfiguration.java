@@ -22,7 +22,6 @@ public class PancakeConfiguration {
 	public boolean smtpEnableTLS = false;
 	public boolean smtpHideTLS = false;
 	public boolean smtpRequireTLS = false;
-	public boolean smtpDisableReceivedHeaders = false;
 	public int smtpMaxConnections = 1000;
 	public int smtpConnectionTimeout = 60000;
 	public int smtpMaxRecipients = 1000;
@@ -62,7 +61,6 @@ public class PancakeConfiguration {
 			config.smtpEnableTLS = Boolean.parseBoolean(p.getProperty("SMTP_ENABLE_TLS"));
 			config.smtpHideTLS = Boolean.parseBoolean(p.getProperty("SMTP_HIDE_TLS"));
 			config.smtpRequireTLS = Boolean.parseBoolean(p.getProperty("SMTP_REQUIRE_TLS"));
-			config.smtpDisableReceivedHeaders = Boolean.parseBoolean(p.getProperty("SMTP_DISABLE_RECEIVED_HEADERS"));
 			config.smtpMaxConnections = Integer.parseInt(p.getProperty("SMTP_MAX_CONNECTIONS"));
 			config.smtpConnectionTimeout = Integer.parseInt(p.getProperty("SMTP_CONNECTION_TIMEOUT"));
 			config.smtpMaxRecipients = Integer.parseInt(p.getProperty("SMTP_MAX_RECIPIENTS"));
@@ -97,7 +95,6 @@ public class PancakeConfiguration {
 		p.setProperty("SMTP_ENABLE_TLS", Boolean.toString(config.smtpEnableTLS));
 		p.setProperty("SMTP_HIDE_TLS", Boolean.toString(config.smtpHideTLS));
 		p.setProperty("SMTP_REQUIRE_TLS", Boolean.toString(config.smtpRequireTLS));
-		p.setProperty("SMTP_DISABLE_RECEIVED_HEADERS", Boolean.toString(config.smtpDisableReceivedHeaders));
 		p.setProperty("SMTP_MAX_CONNECTIONS", Integer.toString(config.smtpMaxConnections));
 		p.setProperty("SMTP_CONNECTION_TIMEOUT", Integer.toString(config.smtpConnectionTimeout));
 		p.setProperty("SMTP_MAX_RECIPIENTS", Integer.toString(config.smtpMaxRecipients));

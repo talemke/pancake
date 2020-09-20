@@ -53,9 +53,9 @@
 			<version>1.7.26</version>
 		</dependency>
         <dependency>
-            <groupId>org.subethamail</groupId>
+            <groupId>com.github.davidmoten</groupId>
             <artifactId>subethasmtp</artifactId>
-            <version>3.1.7</version>
+            <version>5.2.6</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
