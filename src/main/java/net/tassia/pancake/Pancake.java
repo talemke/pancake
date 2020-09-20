@@ -131,8 +131,8 @@ public class Pancake implements PancakeConstants {
 		acc.setName(username);
 		acc.setPassword(getSecurity().hashPassword(password));
 
-		// Is first account?
-		if (accounts.isEmpty()) {
+		// Is first account? (don't count ROOT, so check if size = 1)
+		if (accounts.size() == 1) {
 			acc.setGroup(Group.ADMIN);
 		} else {
 			acc.setGroup(getDefaultGroup());
@@ -242,6 +242,7 @@ public class Pancake implements PancakeConstants {
 		groups.clear();
         groups.addAll(database.fetchGroups());
 		groups.add(Group.ROOT);
+		groups.add(Group.ADMIN);
 		groups.add(Group.USER);
 
 		logger.info("- Loading accounts...");

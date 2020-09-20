@@ -93,7 +93,14 @@ public abstract class PancakeSQL extends PancakeDB {
 
 
 
-	/* Fetch Routes */
+	/* Routes */
+	@Override
+	public void dropRoute(UUID uuid) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement("DELETE FROM pancake_routes WHERE route_id = ?;");
+		stmt.setString(1, uuid.toString());
+		stmt.executeUpdate();
+	}
+
 	@Override
 	public Collection<MailRoute> fetchRoutes() throws SQLException {
 		Collection<MailRoute> routes = new ArrayList<>();
@@ -106,12 +113,19 @@ public abstract class PancakeSQL extends PancakeDB {
 			route.setUsernameType(MailRoute.Type.valueOf(result.getString(4)));
 			route.setHostnameString(result.getString(5));
 			route.setHostnameType(MailRoute.Type.valueOf(result.getString(6)));
+
+			if (route.getAccount() == null) {
+				pancake.getLogger().warning("Account for route " + route.getUUID() + " not found, dropping route...");
+				pancake.getDatabase().dropRoute(route.getUUID());
+				continue;
+			}
+
 			routes.add(route);
 		}
 
 		return routes;
 	}
-	/* Fetch Routes */
+	/* Routes */
 
 
 
