@@ -8,7 +8,7 @@ import java.util.Map;
 public class CMD_Sessions extends CLICommand {
 
 	CMD_Sessions(Pancake pancake) {
-		super(pancake);
+		super(pancake, "[<drop> <session>]");
 	}
 
 	@Override
@@ -23,12 +23,6 @@ public class CMD_Sessions extends CLICommand {
 			print(msgBuilder.toString());
 			return true;
 		}
-
-		// Show root sessions
-		// TODO
-
-		// Show user sessions
-		// TODO
 
 		// Drop session
 		if (args.length == 2 && args[0].equalsIgnoreCase("drop")) {

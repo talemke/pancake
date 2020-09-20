@@ -11,7 +11,7 @@ import java.util.UUID;
 public class CMD_Accounts extends CLICommand {
 
 	CMD_Accounts(Pancake pancake) {
-		super(pancake);
+		super(pancake, "[<suspend/unsuspend/rename/group/logout> <account>] [<new name/new group>]");
 	}
 
 	@Override
