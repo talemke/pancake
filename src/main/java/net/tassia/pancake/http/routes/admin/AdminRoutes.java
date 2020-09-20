@@ -11,9 +11,12 @@ import net.tassia.pancake.orm.MailRoute;
 import net.tassia.pancake.orm.Group;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class AdminRoutes {
@@ -29,6 +32,7 @@ public class AdminRoutes {
 	protected static final int CONFIG_SMTP = 3;
 	protected static final int ROOT_GENERAL = 0;
 	protected static final int ROOT_LOGS = 1;
+	protected final File rootLogsFile;
 	private final HttpView indexView;
 	private final SideNavView sideNavView;
 	private final MailNavView mailNavView;
@@ -36,6 +40,16 @@ public class AdminRoutes {
 
 	/* Constructor */
 	public AdminRoutes() {
+		this.rootLogsFile = new File("logs", "__root.txt");
+		if (!rootLogsFile.exists()) {
+			try {
+				rootLogsFile.getParentFile().mkdirs();
+				rootLogsFile.createNewFile();
+			} catch (IOException ex) {
+				throw new Error("Failed to create root logs file.", ex);
+			}
+		}
+
 		this.indexView = new HttpView("/views/index.html");
 		this.sideNavView = new SideNavView();
 		this.mailNavView = new MailNavView();
@@ -104,6 +118,18 @@ public class AdminRoutes {
 
 
 
+	/* Logs */
+	private final SimpleDateFormat logFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
+	protected void addRootLog(String log) throws IOException {
+		log = logFormat.format(new Date()) + " | " + log;
+		List<String> lines = Files.readAllLines(rootLogsFile.toPath());
+		lines.add(0, log);
+		Files.write(rootLogsFile.toPath(), lines);
+	}
+	/* Logs */
+
+
+
 	/* Register Routes */
     public void registerRoutes(PancakeHttpServer server) {
 
@@ -127,8 +153,8 @@ public class AdminRoutes {
 
 		// Root
 		server.GET("\\/admin\\/root", new GET_RootInfo(this));
-		server.GET("\\/admin\\/root\\/drop", new GET_RootDrop());
-		server.GET("\\/admin\\/root\\/gain", new GET_RootGain());
+		server.GET("\\/admin\\/root\\/drop", new GET_RootDrop(this));
+		server.GET("\\/admin\\/root\\/gain", new GET_RootGain(this));
 		server.GET("\\/admin\\/root\\/logs", new GET_RootLogs(this));
 
 		// Routes

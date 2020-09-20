@@ -70,19 +70,27 @@ public class PancakeSecurity {
 
 
 	/* Hashing */
-	public String sha512(String text, String salt) {
+	protected String hash(String text, String salt, String algorithm) {
 		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-512");
+			MessageDigest md = MessageDigest.getInstance(algorithm);
 			md.update(salt.getBytes(StandardCharsets.UTF_8));
 			byte[] bytes = md.digest(text.getBytes(StandardCharsets.UTF_8));
 			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < bytes.length; i++) {
-				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			for (byte aByte : bytes) {
+				sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
 			}
 			return sb.toString();
 		} catch (NoSuchAlgorithmException ex) {
 			throw new Error(ex);
 		}
+	}
+
+	public String sha512(String text, String salt) {
+		return hash(text, salt, "SHA-512");
+	}
+
+	public String md5(String text, String salt) {
+		return hash(text, salt, "MD5");
 	}
 	/* Hashing */
 
