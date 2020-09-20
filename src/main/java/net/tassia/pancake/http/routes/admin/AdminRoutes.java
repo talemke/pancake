@@ -82,6 +82,7 @@ public class AdminRoutes {
 		String[] list = Objects.requireNonNull(dir.list());
 		Arrays.sort(list);
 		for (int i = list.length - 1; i >= 0; i--) {
+			if (list[i].startsWith("__")) continue;
 			String id = list[i].substring(0, list[i].length() - 4);
 			long time = Long.parseLong(id, 16);
 			String date = new SimpleDateFormat("dd-MM-yyyy HH:mm (z)").format(new Date(time));
