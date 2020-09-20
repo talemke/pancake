@@ -2,6 +2,7 @@ package net.tassia.pancake.database;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.orm.*;
+import net.tassia.pancake.parser.ParsedMail;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
@@ -167,6 +168,12 @@ public abstract class PancakeSQL extends PancakeDB {
 //			}
 //		}
 
+		ParsedMail parsed = pancake.getParser().parse(e.getData());
+		if (parsed != null) {
+			e.setParsed(parsed);
+		} else {
+			pancake.getLogger().warning("Failed to parse mail " + e.getUUID().toString());
+		}
 		return e;
 	}
 

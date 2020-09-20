@@ -1,5 +1,7 @@
 package net.tassia.pancake.orm;
 
+import net.tassia.pancake.parser.ParsedMail;
+
 import java.util.Map;
 import java.util.UUID;
 
@@ -16,6 +18,7 @@ public class Email {
 	private int type;
 	private Account account;
 	private Inbox inbox;
+	private ParsedMail parsed;
 
 	/* Constructor */
 	public Email() {
@@ -122,6 +125,14 @@ public class Email {
 
 	public void setInbox(Inbox inbox) {
 		this.inbox = inbox;
+	}
+
+	public ParsedMail getParsed() {
+		return parsed;
+	}
+
+	public void setParsed(ParsedMail parsed) {
+		this.parsed = parsed;
 	}
 	/* Getters & Setters */
 

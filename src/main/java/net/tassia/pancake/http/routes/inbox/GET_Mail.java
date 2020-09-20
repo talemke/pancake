@@ -38,13 +38,17 @@ class GET_Mail implements HttpRoute {
 
 		Email focus = pancake.getHTTP().getResources().findEmail(request, request.getAuth(), matches[0]);
 		if (focus == null) return null;
+		if (focus.getParsed() == null) {
+			request.setErrorPage(500);
+			return null;
+		}
 
 		String alerts = "";
 		int inbox;
 
 		switch (focus.getType()) {
 			case Pancake.TYPE_DRAFT:
-				inbox = InboxRoutes.INBOX_DEFAULT;
+				inbox = InboxRoutes.INBOX_DRAFTS;
 				break;
 			case Pancake.TYPE_SENT:
 				inbox = InboxRoutes.INBOX_SENT;
@@ -69,7 +73,7 @@ class GET_Mail implements HttpRoute {
 		view.setContent(mailView.view(
 			new String[] { "mail_alerts", alerts },
 			new String[] { "mail_id", focus.getUUID().toString() },
-			new String[] { "mail_subject", "N/A" }, // TODO: Subject
+			new String[] { "mail_subject", focus.getParsed().subject },
 			new String[] { "mail_date", format.format(new Date(focus.getTimestamp())) },
 			new String[] { "mail_size", Pancake.formatSize(focus.getData().length) },
 			new String[] { "mail_sender", focus.getSender() },

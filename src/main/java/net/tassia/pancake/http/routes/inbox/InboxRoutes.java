@@ -48,7 +48,8 @@ public class InboxRoutes {
 		for (Email email : mails) {
 			boolean active = focus != null && focus.getUUID().equals(email.getUUID());
 			String description = email.getSender() + " - " + format.format(new Date(email.getTimestamp()));
-			view.addMailNav("/mail/" + email.getUUID().toString(), "N/A", description, active); // TODO: Subject
+			if (email.getParsed() == null) continue;
+			view.addMailNav("/mail/" + email.getUUID().toString(), email.getParsed().subject, description, active);
 		}
 	}
 	/* Generate View */

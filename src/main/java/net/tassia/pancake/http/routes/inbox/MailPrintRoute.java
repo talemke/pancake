@@ -52,10 +52,14 @@ class MailPrintRoute extends HttpViewRoute {
 			request.setErrorPage(404);
 			return null;
 		}
+		if (email.getParsed() == null) {
+			request.setErrorPage(500);
+			return null;
+		}
 
 
 		// Parse variables
-		String subject = "N/A"; // TODO
+		String subject = email.getParsed().subject;
 		String timestamp = format.format(new Date(email.getTimestamp())) + " (0x" + Long.toHexString(email.getTimestamp()) + ")";
 		String sender = email.getSender();
 		String recipient = email.getRecipient();
