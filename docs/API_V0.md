@@ -5,81 +5,32 @@ This version of the API is in development and subject to changes.
 ---
 
 
-### `GET` `/api/v0/accounts/{account_id}`
-Gets an account by its ID.
+### `GET` `/api/v0/auth/login`
+Attempt to login as a user.
 
 
-**Query Parameters:**
-*TODO*
+**Internal:**
+Although you theoretically can, you should never use this endpoint.
 
 
-**Example Response:**
-```json
-{
-    "account": {
-        "uuid": "00000000-0000-0000-0000-000000000000",
-        "name": "root"
-    },
-    "group": {
-        "uuid": "00000000-0000-0000-0000-000000000000",
-        "name": "root",
-        "description": "The group of the root user. This will always be the highest available group."
-    }
-}
-```
+**Payload:**
+| Field    | Type   | Required   | Description   |
+| -------- | ------ | ---------- | ------------- |
+| username | string | _required_ | The username. |
+| password | string | _required_ | The password. |
 
 
----
-
-
-### `GET` `/api/v0/mail/{email_id}`
-Gets an mail by its ID.
-
-
-**Query Parameters:**
-*TODO*
+**Response:**
+| Field | Type   | Description                                |
+| ----- | ------ | ------------------------------------------ |
+| error | string | The reason why the login failed, or `nil`. |
+| token | string | The session token, or `nil`.               |
 
 
 **Example Response:**
 ```json
 {
-    "mail": {
-        "uuid": "735dd6d9-0c74-46be-9125-185f25471e4a",
-        "timestamp": 1599910351911,
-        "sender": "test@example.com",
-        "recipient": "user@example.com",
-        "data": "UmVjZWl2ZW...VzdC4NCg0K",
-        "helo": "test.example.com",
-        "remoteAddress": "/0:0:0:0:0:0:0:1:49608",
-        "deleted": false,
-        "draft": false,
-        "outgoing": false
-    },
-    "owner": {
-        "uuid": "00000000-0000-0000-0000-000000000000",
-        "name": "root"
-    },
-    "inbox": null
-}
-```
-
-
----
-
-
-### `GET` `/api/v0/groups/{group_id}`
-Gets a group by its ID.
-
-
-**Query Parameters:**
-*TODO*
-
-
-**Example Response:**
-```json
-{
-    "uuid": "00000000-0000-0000-0000-000000000000",
-    "name": "root",
-    "description": "The group of the root user. This will always be the highest available group."
+	"error": "Wrong username or password.",
+	"token": null
 }
 ```
