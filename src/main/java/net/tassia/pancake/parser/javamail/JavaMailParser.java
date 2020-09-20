@@ -1,5 +1,5 @@
 package net.tassia.pancake.parser.javamail;
-s
+
 import net.tassia.pancake.parser.PancakeParserDriver;
 import net.tassia.pancake.parser.ParsedMail;
 

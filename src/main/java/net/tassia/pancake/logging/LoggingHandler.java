@@ -11,7 +11,7 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
 class LoggingHandler extends Handler {
-	private PrintStream out;
+	private final PrintStream out;
 
 	public LoggingHandler() {
 		File file = new File("logs", Long.toHexString(System.currentTimeMillis()) + ".txt");
