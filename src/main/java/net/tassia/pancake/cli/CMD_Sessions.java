@@ -5,10 +5,14 @@ import net.tassia.pancake.orm.Account;
 
 import java.util.Map;
 
-public class CMD_Sessions implements CLICommand {
+public class CMD_Sessions extends CLICommand {
+
+	CMD_Sessions(Pancake pancake) {
+		super(pancake);
+	}
 
 	@Override
-	public void onCommand(Pancake pancake, String[] args) {
+	public boolean onCommand(String[] args) {
 
 		// Show all sessions
 		if (args.length == 0) {
@@ -16,8 +20,8 @@ public class CMD_Sessions implements CLICommand {
 			for (Map.Entry<String, Account> e : pancake.getHTTP().getSessions().entrySet()) {
 				msgBuilder.append("\n- ").append(e.getValue().getName()).append(" (ID: ").append(e.getKey()).append(")");
 			}
-			pancake.getLogger().info(msgBuilder.toString());
-			return;
+			print(msgBuilder.toString());
+			return true;
 		}
 
 		// Show root sessions
@@ -31,14 +35,14 @@ public class CMD_Sessions implements CLICommand {
 			boolean result = pancake.getHTTP().dropSession(args[1]);
 			pancake.getHTTP().dropRootSession(args[1]);
 			if (result) {
-				pancake.getLogger().info("Session dropped.");
+				print("Session dropped.");
 			} else {
-				pancake.getLogger().info("Session not found.");
+				print("Session not found.");
 			}
-			return;
+			return true;
 		}
 
-		pancake.getLogger().info("Invalid usage.");
+		return false;
 	}
 
 }

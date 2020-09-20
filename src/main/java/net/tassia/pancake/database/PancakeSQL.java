@@ -70,7 +70,7 @@ public abstract class PancakeSQL extends PancakeDB {
 
 
 
-	/* Fetch Accounts */
+	/* Accounts */
 	@Override
 	public Collection<Account> fetchAccounts() throws SQLException {
 		Collection<Account> accounts = new ArrayList<>();
@@ -87,20 +87,43 @@ public abstract class PancakeSQL extends PancakeDB {
 
 		return accounts;
 	}
-	/* Fetch Accounts */
+
+	@Override
+	public boolean storeAccount(Account account) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_accounts VALUES (?, ?, ?, ?, ?);");
+
+		stmt.setString(1, account.getUUID().toString());
+		stmt.setString(2, account.getName());
+		stmt.setString(3, account.getPassword());
+		stmt.setString(4, account.getGroup().getUUID().toString());
+		stmt.setLong(5, account.getFlags());
+
+		stmt.execute();
+		return true;
+	}
+
+	@Override
+	public void updateAccount(Account account) throws SQLException {
+		connection.setAutoCommit(false);
+		dropAccount(account.getUUID());
+		storeAccount(account);
+		connection.commit();
+		connection.setAutoCommit(true);
+	}
+
+	@Override
+	public void dropAccount(UUID uuid) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement("DELETE FROM pancake_accounts WHERE account_id = ?;");
+		stmt.setString(1, uuid.toString());
+		stmt.executeUpdate();
+	}
+	/* Accounts */
 
 
 
 
 
 	/* Routes */
-	@Override
-	public void dropRoute(UUID uuid) throws SQLException {
-		PreparedStatement stmt = connection.prepareStatement("DELETE FROM pancake_routes WHERE route_id = ?;");
-		stmt.setString(1, uuid.toString());
-		stmt.executeUpdate();
-	}
-
 	@Override
 	public Collection<MailRoute> fetchRoutes() throws SQLException {
 		Collection<MailRoute> routes = new ArrayList<>();
@@ -125,27 +148,14 @@ public abstract class PancakeSQL extends PancakeDB {
 
 		return routes;
 	}
-	/* Routes */
 
-
-
-
-
-	/* Store Account */
 	@Override
-	public boolean storeAccount(Account account) throws SQLException {
-		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_accounts VALUES (?, ?, ?, ?, ?);");
-
-		stmt.setString(1, account.getUUID().toString());
-		stmt.setString(2, account.getName());
-		stmt.setString(3, account.getPassword());
-		stmt.setString(4, account.getGroup().getUUID().toString());
-		stmt.setLong(5, account.getFlags());
-
-		stmt.execute();
-		return true;
+	public void dropRoute(UUID uuid) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement("DELETE FROM pancake_routes WHERE route_id = ?;");
+		stmt.setString(1, uuid.toString());
+		stmt.executeUpdate();
 	}
-	/* Store Account */
+	/* Routes */
 
 
 

@@ -36,11 +36,12 @@ public abstract class PancakeDB {
 	public abstract Collection<Group> fetchGroups() throws SQLException;
 
 	public abstract Collection<Account> fetchAccounts() throws SQLException;
-
-	public abstract void dropRoute(UUID uuid) throws SQLException;
-	public abstract Collection<MailRoute> fetchRoutes() throws SQLException;
-
 	public abstract boolean storeAccount(Account account) throws SQLException;
+	public abstract void updateAccount(Account account) throws SQLException;
+	public abstract void dropAccount(UUID uuid) throws SQLException;
+
+	public abstract Collection<MailRoute> fetchRoutes() throws SQLException;
+	public abstract void dropRoute(UUID uuid) throws SQLException;
 
 	public abstract Collection<Mail> fetchEmails(Account account, Inbox inbox, int pagination, int page) throws SQLException;
 	public abstract Collection<Mail> fetchDraftEmails(Account account, int pagination, int page) throws SQLException;

@@ -3,6 +3,7 @@ package net.tassia.pancake;
 public interface PancakeConstants {
 
 	String UUID_REGEX = "([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})";
+	String USERNAME_REGEX = "([A-Za-z0-9]+)";
 
 	int TYPE_DEFAULT = 0;
 	int TYPE_DRAFT = 1;

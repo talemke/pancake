@@ -125,6 +125,14 @@ public class Pancake implements PancakeConstants {
 		return Account.ROOT;
 	}
 
+	public Account getAccountByString(String str) {
+		if (str.matches(UUID_REGEX)) {
+			return getAccount(UUID.fromString(str));
+		} else {
+			return getAccountByUsername(str);
+		}
+	}
+
 	public void createAccount(String username, String password) throws SQLException {
 		// Create account
 		Account acc = new Account();
@@ -156,6 +164,23 @@ public class Pancake implements PancakeConstants {
 			}
 		}
 		return null;
+	}
+
+	public Group getGroupByName(String name) {
+		for (Group group : groups) {
+			if (group.getName().equalsIgnoreCase(name)) {
+				return group;
+			}
+		}
+		return null;
+	}
+
+	public Group getGroupByString(String str) {
+		if (str.matches(UUID_REGEX)) {
+			return getGroup(UUID.fromString(str));
+		} else {
+			return getGroupByName(str);
+		}
 	}
 
 	public Group getDefaultGroup() {

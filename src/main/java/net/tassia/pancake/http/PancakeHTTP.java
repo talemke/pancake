@@ -81,6 +81,23 @@ public class PancakeHTTP {
 	public Collection<String> getRootSessions() {
 		return rootSessions;
 	}
+
+	public int dropUserSessions(Account acc) {
+		int count = 0;
+		for (Map.Entry<String, Account> e : sessions.entrySet()) {
+			if (!e.getValue().equals(acc)) continue;
+
+			// Drop normal session
+			dropSession(e.getKey());
+			count++;
+
+			// Drop root session
+			if (dropRootSession(e.getKey())) {
+				count++;
+			}
+		}
+		return count;
+	}
 	/* Sessions */
 
 

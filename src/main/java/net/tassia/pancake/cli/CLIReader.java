@@ -34,7 +34,13 @@ class CLIReader implements Runnable {
 
 				CLICommand command = commands.get(cmd.toLowerCase());
 				if (command != null) {
-					command.onCommand(pancake, args);
+					try {
+						if (!command.onCommand(args)) {
+							pancake.getLogger().info("Invalid usage.");
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				} else {
 					pancake.getLogger().info("Unknown command: " + cmd);
 				}

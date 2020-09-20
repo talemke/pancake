@@ -14,8 +14,8 @@ public class PancakeCLI {
 		this.reader = new CLIReader(pancake);
 		this.service = Executors.newSingleThreadExecutor();
 
-		reader.commands.put("sessions", new CMD_Sessions());
-		reader.commands.put("end", COMMAND_END);
+		reader.commands.put("accounts", new CMD_Accounts(pancake));
+		reader.commands.put("sessions", new CMD_Sessions(pancake));
 	}
 	/* Constructor */
 
@@ -31,16 +31,5 @@ public class PancakeCLI {
 		service.shutdownNow();
 	}
 	/* Start & Stop */
-
-
-
-
-
-	/* End Command */
-	public static final CLICommand COMMAND_END = (pancake, args) -> {
-		pancake.getLogger().info("Good bye!");
-		System.exit(0);
-	};
-	/* End Command */
 
 }
