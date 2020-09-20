@@ -301,6 +301,7 @@ public class Pancake implements PancakeConstants {
 	}
 
 	public static String serializeStringMap(Map<String, String> map) {
+		if (map == null) return "";
 		StringBuilder str = new StringBuilder();
 		for (Map.Entry<String, String> e : map.entrySet()) {
 			String k = Base64.getEncoder().encodeToString(e.getKey().getBytes(StandardCharsets.UTF_8));
