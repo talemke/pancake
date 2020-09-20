@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public class Group {
 	public static final Group ROOT;
+	public static final Group ADMIN;
 	public static final Group USER;
 	private final UUID uuid;
 	private String name;
@@ -36,8 +37,12 @@ public class Group {
 		ROOT.name = "root";
 		ROOT.description = "The group of the root user. This will always be the highest available group.";
 
+		ADMIN = new Group(new UUID(0L, 1L));
+		ADMIN.addFlag(Pancake.FLAG_GROUP_ADMIN);
+		ADMIN.name = "admin";
+		ADMIN.description = "The group for administrators. The first user to register will be assigned to this group.";
+
 		USER = new Group(new UUID(0L, 0L));
-		USER.addFlag(Pancake.FLAG_GROUP_ADMIN);
 		USER.name = "user";
 		USER.description = "The default group for new users.";
 	}

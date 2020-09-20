@@ -130,7 +130,13 @@ public class Pancake implements PancakeConstants {
 		Account acc = new Account();
 		acc.setName(username);
 		acc.setPassword(getSecurity().hashPassword(password));
-		acc.setGroup(getDefaultGroup());
+
+		// Is first account?
+		if (accounts.isEmpty()) {
+			acc.setGroup(Group.ADMIN);
+		} else {
+			acc.setGroup(getDefaultGroup());
+		}
 
 		// Store account
 		getDatabase().storeAccount(acc);
