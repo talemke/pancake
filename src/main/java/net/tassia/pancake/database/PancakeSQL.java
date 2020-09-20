@@ -58,6 +58,7 @@ public abstract class PancakeSQL extends PancakeDB {
 			Group group = new Group(UUID.fromString(result.getString(1)));
 			group.setName(result.getString(2));
 			group.setDescription(result.getString(3));
+			group.setFlags(result.getLong(4));
 			groups.add(group);
 		}
 

@@ -20,11 +20,12 @@ class GET_Group implements HttpRoute {
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
+		if (view.checkAccess(request.getAuth().isRoot())) return null;
 
 		Group focus = pancake.getHTTP().getResources().findGroup(request, matches[0]);
 		if (focus == null) return null;
 
-		routes.addSideNav(view, AdminRoutes.SIDENAV_GROUPS);
+		routes.addSideNav(request.getAuth(), view, AdminRoutes.SIDENAV_GROUPS);
 		routes.addGroupsMailNav(pancake, view, focus);
 
 		view.setContent(groupView.view(

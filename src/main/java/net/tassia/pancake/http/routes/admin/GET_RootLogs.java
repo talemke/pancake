@@ -21,8 +21,9 @@ class GET_RootLogs implements HttpRoute {
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
+		if (view.checkAccess(request.getAuth().isAdmin())) return null;
 
-		routes.addSideNav(view, AdminRoutes.SIDENAV_ROOT);
+		routes.addSideNav(request.getAuth(), view, AdminRoutes.SIDENAV_ROOT);
 		routes.addRootMailNav(view, AdminRoutes.ROOT_LOGS);
 
 		try {

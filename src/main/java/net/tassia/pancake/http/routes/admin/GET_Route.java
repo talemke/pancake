@@ -33,11 +33,12 @@ class GET_Route implements HttpRoute {
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
+		if (view.checkAccess(request.getAuth().isRoot())) return null;
 
 		MailRoute focus = pancake.getHTTP().getResources().findEmailRoute(request, matches[0]);
 		if (focus == null) return null;
 
-		routes.addSideNav(view, AdminRoutes.SIDENAV_ROUTES);
+		routes.addSideNav(request.getAuth(), view, AdminRoutes.SIDENAV_ROUTES);
 		routes.addRoutesMailNav(pancake, view, focus);
 
 		view.setContent(routeView.view(

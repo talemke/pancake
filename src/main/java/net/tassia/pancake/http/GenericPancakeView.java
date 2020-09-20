@@ -10,6 +10,8 @@ public class GenericPancakeView {
 	protected static final SideNavView SIDE_NAV_VIEW = new SideNavView();
 	protected static final MailNavView MAIL_NAV_VIEW = new MailNavView();
 	protected static final String ALERT_ROOT_USER = new HttpView("/views/alerts/root_user.html").view();
+	private static final String navbarAdminAsRoot = new HttpView("/views/navbar/admin_as_root.html").view();
+	private static final String navbarAdminAsAdmin = new HttpView("/views/navbar/admin_as_admin.html").view();
 	private final Pancake pancake;
 	private final HttpRequest request;
 	private String alerts;
@@ -36,7 +38,11 @@ public class GenericPancakeView {
 
 	/* Access */
 	public boolean checkAccess() {
-		if (!request.checkAuth()) {
+		return checkAccess(request.checkAuth());
+	}
+
+	public boolean checkAccess(boolean check) {
+		if (!check) {
 			request.redirect("/auth/login");
 			return true;
 		} else {
@@ -99,9 +105,15 @@ public class GenericPancakeView {
 
 	/* View */
 	public byte[] view(String title) {
+		String navbarAdmin;
+		if (request.getAuth().isRoot()) navbarAdmin = navbarAdminAsRoot;
+		else if (request.getAuth().isAdmin()) navbarAdmin = navbarAdminAsAdmin;
+		else navbarAdmin = "";
+
 		return INDEX_VIEW.viewData(
 			new String[] { "window_title", title + " | " + pancake.getConfig().brandName },
 			new String[] { "brand_name", pancake.getConfig().brandName },
+			new String[] { "navbar_admin", navbarAdmin },
 			new String[] { "sidenav", sideNav },
 			new String[] { "mailnav", mailNav },
 			new String[] { "content", content },

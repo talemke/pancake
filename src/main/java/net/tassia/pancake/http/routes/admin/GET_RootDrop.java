@@ -21,7 +21,7 @@ class GET_RootDrop implements HttpRoute {
 			request.setErrorPage(403);
 			return null;
 		}
-		if (!request.getAuth().getUUID().equals(Account.ROOT.getUUID())) {
+		if (!request.getAuth().isRoot()) {
 			request.setErrorPage(403);
 			return null;
 		}

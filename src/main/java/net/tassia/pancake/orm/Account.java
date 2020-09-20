@@ -1,5 +1,7 @@
 package net.tassia.pancake.orm;
 
+import net.tassia.pancake.Pancake;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -119,5 +121,24 @@ public class Account {
 		return null;
 	}
 	/* Inboxes */
+
+
+
+	/* Equals */
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Account)) return false;
+		Account a = (Account) obj;
+		return uuid.equals(a.uuid);
+	}
+
+	public boolean isRoot() {
+		return equals(Account.ROOT);
+	}
+
+	public boolean isAdmin() {
+		return getGroup().hasFlag(Pancake.FLAG_GROUP_ADMIN);
+	}
+	/* Equals */
 
 }

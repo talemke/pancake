@@ -27,6 +27,7 @@ class GET_Log implements HttpRoute {
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
+		if (view.checkAccess(request.getAuth().isRoot())) return null;
 
 		File log = new File("logs/" + matches[0] + ".txt");
 		if (!log.exists()) {
@@ -44,7 +45,7 @@ class GET_Log implements HttpRoute {
 			return null;
 		}
 
-		routes.addSideNav(view, AdminRoutes.SIDENAV_LOGS);
+		routes.addSideNav(request.getAuth(), view, AdminRoutes.SIDENAV_LOGS);
 		routes.addLogsMailNav(view, matches[0]);
 
 		view.setContent(logView.view(

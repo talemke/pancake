@@ -7,7 +7,6 @@ import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.orm.Account;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 class V0_POST_Login implements HttpRoute {
 
@@ -39,7 +38,7 @@ class V0_POST_Login implements HttpRoute {
 		// Attempt login
 		Account acc = pancake.getSecurity().attemptLogin(req.username, req.password);
 		if (acc != null) {
-			if (acc.hasFlag(Pancake.FLAG_SUSPENDED)) {
+			if (acc.hasFlag(Pancake.FLAG_ACCOUNT_SUSPENDED)) {
 				res.error = "Your account has been suspended.";
 			} else {
 				String token = pancake.getSecurity().generateSessionID();

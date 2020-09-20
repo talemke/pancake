@@ -19,8 +19,9 @@ class GET_Routes implements HttpRoute {
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
+		if (view.checkAccess(request.getAuth().isRoot())) return null;
 
-		routes.addSideNav(view, AdminRoutes.SIDENAV_ROUTES);
+		routes.addSideNav(request.getAuth(), view, AdminRoutes.SIDENAV_ROUTES);
 		routes.addRoutesMailNav(pancake, view, null);
 
 		view.setContent(noneView);

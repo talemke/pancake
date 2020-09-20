@@ -19,8 +19,9 @@ class GET_Logs implements HttpRoute {
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
+		if (view.checkAccess(request.getAuth().isRoot())) return null;
 
-		routes.addSideNav(view, AdminRoutes.SIDENAV_LOGS);
+		routes.addSideNav(request.getAuth(), view, AdminRoutes.SIDENAV_LOGS);
 		routes.addLogsMailNav(view, null);
 
 		view.setContent(noneView);

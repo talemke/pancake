@@ -60,13 +60,13 @@ public class AdminRoutes {
 
 
 	/* Generate View */
-	protected void addSideNav(GenericPancakeView view, int current) {
-		view.addSideNav("/admin/config", "Configuration", "fas fa-cog", current == SIDENAV_CONFIG);
-		view.addSideNav("/admin/logs", "Log Files", "fas fa-list-ul", current == SIDENAV_LOGS);
-		view.addSideNav("/admin/accounts", "Accounts", "fas fa-user", current == SIDENAV_ACCOUNTS);
-		view.addSideNav("/admin/groups", "Groups", "fas fa-users", current == SIDENAV_GROUPS);
-		view.addSideNav("/admin/root", "Root User", "fas fa-user-tie", current == SIDENAV_ROOT);
-		view.addSideNav("/admin/routes", "Routes", "fas fa-random", current == SIDENAV_ROUTES);
+	protected void addSideNav(Account user, GenericPancakeView view, int current) {
+		if (user.isRoot()) view.addSideNav("/admin/config", "Configuration", "fas fa-cog", current == SIDENAV_CONFIG);
+		if (user.isRoot()) view.addSideNav("/admin/logs", "Log Files", "fas fa-list-ul", current == SIDENAV_LOGS);
+		if (user.isRoot()) view.addSideNav("/admin/accounts", "Accounts", "fas fa-user", current == SIDENAV_ACCOUNTS);
+		if (user.isRoot()) view.addSideNav("/admin/groups", "Groups", "fas fa-users", current == SIDENAV_GROUPS);
+		if (user.getGroup().hasFlag(Pancake.FLAG_GROUP_ADMIN)) view.addSideNav("/admin/root", "Root User", "fas fa-user-tie", current == SIDENAV_ROOT);
+		if (user.isRoot()) view.addSideNav("/admin/routes", "Routes", "fas fa-random", current == SIDENAV_ROUTES);
 	}
 
 	protected void addConfigMailNav(GenericPancakeView view, int current) {

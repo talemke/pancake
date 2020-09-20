@@ -20,16 +20,18 @@ class GET_Account implements HttpRoute {
 	public byte[] route(Pancake pancake, HttpRequest request, String[] matches) {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
+		if (view.checkAccess(request.getAuth().isRoot())) return null;
 
 		Account focus = pancake.getHTTP().getResources().findAccount(request, matches[0]);
 		if (focus == null) return null;
 
-		routes.addSideNav(view, AdminRoutes.SIDENAV_ACCOUNTS);
+		routes.addSideNav(request.getAuth(), view, AdminRoutes.SIDENAV_ACCOUNTS);
 		routes.addAccountsMailNav(pancake, view, focus);
 
 		view.setContent(accountView.view(
 			new String[] { "account_name", focus.getName() },
-			new String[] { "uuid", focus.getUUID().toString() }
+			new String[] { "uuid", focus.getUUID().toString() },
+			new String[] { "group", focus.getGroup().getName() }
 		));
 
 		return view.view(focus.getName());

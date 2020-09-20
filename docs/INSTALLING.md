@@ -21,6 +21,7 @@ CREATE TABLE `pancake_groups` (
     `group_id` VARCHAR(63) NOT NULL,
     `name` VARCHAR(63) NOT NULL,
     `description` VARCHAR(255) NOT NULL,
+    `flags` BIGINT NOT NULL,
     PRIMARY KEY (`group_id`)
 );
 
