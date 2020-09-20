@@ -7,7 +7,7 @@ import net.tassia.pancake.http.PancakeHttpServer;
 import net.tassia.pancake.http.views.MailNavView;
 import net.tassia.pancake.http.views.SideNavView;
 import net.tassia.pancake.orm.Account;
-import net.tassia.pancake.orm.EmailRoute;
+import net.tassia.pancake.orm.MailRoute;
 import net.tassia.pancake.orm.Group;
 
 import java.io.File;
@@ -94,8 +94,8 @@ public class AdminRoutes {
 		view.addMailNav("/admin/root/logs", "Logs", "Logs about root sessions.", current == ROOT_LOGS);
 	}
 
-	protected void addRoutesMailNav(Pancake pancake, GenericPancakeView view, EmailRoute focus) {
-		for (EmailRoute route : pancake.getRoutes()) {
+	protected void addRoutesMailNav(Pancake pancake, GenericPancakeView view, MailRoute focus) {
+		for (MailRoute route : pancake.getRoutes()) {
 			boolean active = focus != null && focus.getUUID().equals(route.getUUID());
 			view.addMailNav("/admin/routes/" + route.getUUID().toString(), route.toString(), route.getUUID().toString(), active);
 		}

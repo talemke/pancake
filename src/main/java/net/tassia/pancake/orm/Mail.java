@@ -2,17 +2,14 @@ package net.tassia.pancake.orm;
 
 import net.tassia.pancake.parser.ParsedMail;
 
-import java.util.Map;
 import java.util.UUID;
 
-public class Email {
+public class Mail {
 	private final UUID uuid;
 	private long timestamp;
 	private String sender;
 	private String recipient;
 	private byte[] data;
-	private Map<String, String> headers;
-	private String content;
 	private String helo;
 	private String remoteAddress;
 	private int type;
@@ -21,11 +18,11 @@ public class Email {
 	private ParsedMail parsed;
 
 	/* Constructor */
-	public Email() {
+	public Mail() {
 		this(UUID.randomUUID());
 	}
 
-	public Email(UUID uuid) {
+	public Mail(UUID uuid) {
 		this.uuid = uuid;
 	}
 	/* Constructor */
@@ -69,22 +66,6 @@ public class Email {
 
 	public void setData(byte[] data) {
 		this.data = data;
-	}
-
-	public Map<String, String> getHeaders() {
-		return headers;
-	}
-
-	public void setHeaders(Map<String, String> headers) {
-		this.headers = headers;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
 	}
 
 	public String getHelo() {

@@ -1,7 +1,7 @@
 package net.tassia.pancake.spam;
 
 import net.tassia.pancake.Pancake;
-import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.Mail;
 import net.tassia.pancake.spam.generic.GenericSpamFilter;
 
 import java.util.ArrayList;
@@ -19,13 +19,13 @@ public class PancakeSpam {
 		this.drivers.add(new GenericSpamFilter());
 	}
 
-	public Action filter(Email email) {
-		pancake.getLogger().info("Spam-Filtering email " + email.getUUID() + "...");
+	public Action filter(Mail mail) {
+		pancake.getLogger().info("Spam-Filtering email " + mail.getUUID() + "...");
 
 		SpamFilterResult result = new SpamFilterResult();
 		for (PancakeSpamDriver driver : drivers) {
 			pancake.getLogger().fine("- Filtering with " + driver.getName() + " (v" + driver.getVersion() + ")...");
-			SpamFilterResult driverResult = driver.filter(email);
+			SpamFilterResult driverResult = driver.filter(mail);
 			if (driverResult == null) continue;
 			if (result.probability < driverResult.probability) {
 				result = driverResult;
@@ -36,17 +36,17 @@ public class PancakeSpam {
 
 		String perc = (result.probability * 100) + "% spam";
 		if (result.reason != null) perc = perc + " (" + result.reason + ")";
-		pancake.getLogger().info("Filtered " + email.getUUID() + ": " + perc + " => " + action.name());
+		pancake.getLogger().info("Filtered " + mail.getUUID() + ": " + perc + " => " + action.name());
 		return action;
 	}
 
-	public void learn(Email email, SpamFilterResult result) {
-		pancake.getLogger().info("Learning email " + email.getUUID() + "...");
+	public void learn(Mail mail, SpamFilterResult result) {
+		pancake.getLogger().info("Learning email " + mail.getUUID() + "...");
 		for (PancakeSpamDriver driver : drivers) {
 			pancake.getLogger().fine("- Filtering with " + driver.getName() + " (v" + driver.getVersion() + ")...");
-			driver.learn(email, result);
+			driver.learn(mail, result);
 		}
-		pancake.getLogger().info("Learned email " + email.getUUID() + "!");
+		pancake.getLogger().info("Learned email " + mail.getUUID() + "!");
 	}
 
 	public Action determineActionFor(double probability) {

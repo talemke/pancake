@@ -4,7 +4,7 @@ import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.GenericPancakeView;
 import net.tassia.pancake.http.HttpView;
 import net.tassia.pancake.http.PancakeHttpServer;
-import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.Mail;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -44,12 +44,12 @@ public class InboxRoutes {
 		view.addSideNav("/inbox/3", "Inbox 3", "fas fa-folder", false);
 	}
 
-	protected void addMailNav(GenericPancakeView view, Collection<Email> mails, Email focus) {
-		for (Email email : mails) {
-			boolean active = focus != null && focus.getUUID().equals(email.getUUID());
-			String description = email.getSender() + " - " + format.format(new Date(email.getTimestamp()));
-			if (email.getParsed() == null) continue;
-			view.addMailNav("/mail/" + email.getUUID().toString(), email.getParsed().subject, description, active);
+	protected void addMailNav(GenericPancakeView view, Collection<Mail> mails, Mail focus) {
+		for (Mail mail : mails) {
+			boolean active = focus != null && focus.getUUID().equals(mail.getUUID());
+			String description = mail.getSender() + " - " + format.format(new Date(mail.getTimestamp()));
+			if (mail.getParsed() == null) continue;
+			view.addMailNav("/mail/" + mail.getUUID().toString(), mail.getParsed().subject, description, active);
 		}
 	}
 	/* Generate View */

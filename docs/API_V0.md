@@ -32,8 +32,8 @@ Gets an account by its ID.
 ---
 
 
-### `GET` `/api/v0/emails/{email_id}`
-Gets an email by its ID.
+### `GET` `/api/v0/mail/{email_id}`
+Gets an mail by its ID.
 
 
 **Query Parameters:**
@@ -43,7 +43,7 @@ Gets an email by its ID.
 **Example Response:**
 ```json
 {
-    "email": {
+    "mail": {
         "uuid": "735dd6d9-0c74-46be-9125-185f25471e4a",
         "timestamp": 1599910351911,
         "sender": "test@example.com",

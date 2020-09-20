@@ -1,12 +1,11 @@
 package net.tassia.pancake.http.routes.inbox;
 
 import net.tassia.pancake.Pancake;
-import net.tassia.pancake.PancakeConstants;
 import net.tassia.pancake.http.GenericPancakeView;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.http.HttpView;
-import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.Mail;
 
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -33,10 +32,10 @@ class GET_Mail implements HttpRoute {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
 
-		Collection<Email> emails = pancake.getHTTP().getResources().findEmails(request, request.getAuth(), null, 0, 0);
-		if (emails == null) return null;
+		Collection<Mail> mail = pancake.getHTTP().getResources().findEmails(request, request.getAuth(), null, 0, 0);
+		if (mail == null) return null;
 
-		Email focus = pancake.getHTTP().getResources().findEmail(request, request.getAuth(), matches[0]);
+		Mail focus = pancake.getHTTP().getResources().findEmail(request, request.getAuth(), matches[0]);
 		if (focus == null) return null;
 		if (focus.getParsed() == null) {
 			request.setErrorPage(500);
@@ -68,7 +67,7 @@ class GET_Mail implements HttpRoute {
 		}
 
 		routes.addSideNav(view, inbox);
-		routes.addMailNav(view, emails, focus);
+		routes.addMailNav(view, mail, focus);
 
 		view.setContent(mailView.view(
 			new String[] { "mail_alerts", alerts },

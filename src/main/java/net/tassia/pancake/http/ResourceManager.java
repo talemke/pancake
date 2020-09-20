@@ -53,7 +53,7 @@ public class ResourceManager {
 		return g;
 	}
 
-	public EmailRoute findEmailRoute(HttpRequest request, String uuid) {
+	public MailRoute findEmailRoute(HttpRequest request, String uuid) {
 		UUID u;
 		try {
 			u = UUID.fromString(uuid);
@@ -61,7 +61,7 @@ public class ResourceManager {
 			request.setErrorPage(404);
 			return null;
 		}
-		EmailRoute route = pancake.getRoute(u);
+		MailRoute route = pancake.getRoute(u);
 		if (route == null) {
 			request.setErrorPage(404);
 			return null;
@@ -69,7 +69,7 @@ public class ResourceManager {
 		return route;
 	}
 
-	public Email findEmail(HttpRequest request, Account account, String uuid) {
+	public Mail findEmail(HttpRequest request, Account account, String uuid) {
 		UUID u;
 		try {
 			u = UUID.fromString(uuid);
@@ -78,12 +78,12 @@ public class ResourceManager {
 			return null;
 		}
 		try {
-			Email email = pancake.getDatabase().fetchEmail(u);
-			if (email == null || !email.getAccount().getUUID().equals(account.getUUID())) {
+			Mail mail = pancake.getDatabase().fetchEmail(u);
+			if (mail == null || !mail.getAccount().getUUID().equals(account.getUUID())) {
 				request.setErrorPage(404);
 				return null;
 			}
-			return email;
+			return mail;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			request.setErrorPage(500);
@@ -91,7 +91,7 @@ public class ResourceManager {
 		}
 	}
 
-	public Collection<Email> findEmails(HttpRequest request, Account account, Inbox inbox, int pagination, int page) {
+	public Collection<Mail> findEmails(HttpRequest request, Account account, Inbox inbox, int pagination, int page) {
 		try {
 			return pancake.getDatabase().fetchEmails(account, inbox, pagination, page);
 		} catch (SQLException ex) {
@@ -101,7 +101,7 @@ public class ResourceManager {
 		}
 	}
 
-	public Collection<Email> findDraftEmails(HttpRequest request, Account account, int pagination, int page) {
+	public Collection<Mail> findDraftEmails(HttpRequest request, Account account, int pagination, int page) {
 		try {
 			return pancake.getDatabase().fetchDraftEmails(account, pagination, page);
 		} catch (SQLException ex) {
@@ -111,7 +111,7 @@ public class ResourceManager {
 		}
 	}
 
-	public Collection<Email> findSentEmails(HttpRequest request, Account account, int pagination, int page) {
+	public Collection<Mail> findSentEmails(HttpRequest request, Account account, int pagination, int page) {
 		try {
 			return pancake.getDatabase().fetchSentEmails(account, pagination, page);
 		} catch (SQLException ex) {
@@ -121,7 +121,7 @@ public class ResourceManager {
 		}
 	}
 
-	public Collection<Email> findDeletedEmails(HttpRequest request, Account account, int pagination, int page) {
+	public Collection<Mail> findDeletedEmails(HttpRequest request, Account account, int pagination, int page) {
 		try {
 			return pancake.getDatabase().fetchDeletedEmails(account, pagination, page);
 		} catch (SQLException ex) {
@@ -131,7 +131,7 @@ public class ResourceManager {
 		}
 	}
 
-	public Collection<Email> findSpamEmails(HttpRequest request, Account account, int pagination, int page) {
+	public Collection<Mail> findSpamEmails(HttpRequest request, Account account, int pagination, int page) {
 		try {
 			return pancake.getDatabase().fetchSpamEmails(account, pagination, page);
 		} catch (SQLException ex) {

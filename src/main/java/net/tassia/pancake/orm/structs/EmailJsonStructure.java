@@ -1,6 +1,6 @@
 package net.tassia.pancake.orm.structs;
 
-import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.Mail;
 
 import java.util.UUID;
 
@@ -9,15 +9,15 @@ public class EmailJsonStructure {
     public EmailJsonStructure() {
     }
 
-    public EmailJsonStructure(Email email) {
-        this.uuid = email.getUUID();
-        this.timestamp = email.getTimestamp();
-        this.sender = email.getSender();
-        this.recipient = email.getRecipient();
-        this.data = email.getData();
-        this.helo = email.getHelo();
-        this.remoteAddress = email.getRemoteAddress();
-        this.type = email.getType();
+    public EmailJsonStructure(Mail mail) {
+        this.uuid = mail.getUUID();
+        this.timestamp = mail.getTimestamp();
+        this.sender = mail.getSender();
+        this.recipient = mail.getRecipient();
+        this.data = mail.getData();
+        this.helo = mail.getHelo();
+        this.remoteAddress = mail.getRemoteAddress();
+        this.type = mail.getType();
     }
 
     public UUID uuid;

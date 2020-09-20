@@ -3,10 +3,9 @@ package net.tassia.pancake.http.routes.inbox;
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
-import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.Mail;
 
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.UUID;
 
 class MailSourceRoute implements HttpRoute {
@@ -36,15 +35,15 @@ class MailSourceRoute implements HttpRoute {
 
 
 		// Fetch email
-		Email email;
+		Mail mail;
 		try {
-			email = pancake.getDatabase().fetchEmail(uuid);
+			mail = pancake.getDatabase().fetchEmail(uuid);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			request.setErrorPage(500);
 			return null;
 		}
-		if (email == null) {
+		if (mail == null) {
 			request.setErrorPage(404);
 			return null;
 		}
@@ -52,7 +51,7 @@ class MailSourceRoute implements HttpRoute {
 
 		// Echo email
 		request.setContentType("text/plain");
-		return email.getData();
+		return mail.getData();
 	}
 
 }

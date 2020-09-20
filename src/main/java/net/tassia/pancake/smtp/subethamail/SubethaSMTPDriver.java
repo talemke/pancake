@@ -28,6 +28,7 @@ public class SubethaSMTPDriver implements PancakeSMTPDriver {
 			.connectionTimeoutMs(pancake.getConfig().smtpConnectionTimeout)
 			.maxRecipients(pancake.getConfig().smtpMaxRecipients)
 			.maxMessageSize(pancake.getConfig().smtpMaxMessageSize)
+			.messageHandler(new MessageHandler(pancake))
 			.build();
 	}
 

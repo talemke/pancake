@@ -5,7 +5,7 @@ import net.tassia.pancake.http.GenericPancakeView;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.http.HttpView;
-import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.Mail;
 
 import java.util.Collection;
 
@@ -23,11 +23,11 @@ class GET_Sent implements HttpRoute {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
 
-		Collection<Email> emails = pancake.getHTTP().getResources().findSentEmails(request, request.getAuth(), 0, 0);
-		if (emails == null) return null;
+		Collection<Mail> mail = pancake.getHTTP().getResources().findSentEmails(request, request.getAuth(), 0, 0);
+		if (mail == null) return null;
 
 		routes.addSideNav(view, InboxRoutes.INBOX_SENT);
-		routes.addMailNav(view, emails, null);
+		routes.addMailNav(view, mail, null);
 
 		view.setContent(noneView);
 

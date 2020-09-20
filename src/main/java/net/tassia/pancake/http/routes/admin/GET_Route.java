@@ -5,8 +5,7 @@ import net.tassia.pancake.http.GenericPancakeView;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.http.HttpView;
-import net.tassia.pancake.orm.Account;
-import net.tassia.pancake.orm.EmailRoute;
+import net.tassia.pancake.orm.MailRoute;
 
 class GET_Route implements HttpRoute {
 	private final AdminRoutes routes;
@@ -17,7 +16,7 @@ class GET_Route implements HttpRoute {
 		this.routeView = new HttpView("/views/route/route.html");
 	}
 
-	private String format(EmailRoute.Type type, String value) {
+	private String format(MailRoute.Type type, String value) {
 		switch (type) {
 			case EXACT:
 				return "Must equal " + value;
@@ -35,7 +34,7 @@ class GET_Route implements HttpRoute {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
 
-		EmailRoute focus = pancake.getHTTP().getResources().findEmailRoute(request, matches[0]);
+		MailRoute focus = pancake.getHTTP().getResources().findEmailRoute(request, matches[0]);
 		if (focus == null) return null;
 
 		routes.addSideNav(view, AdminRoutes.SIDENAV_ROUTES);

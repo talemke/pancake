@@ -4,13 +4,6 @@ import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.views.MailNavView;
 import net.tassia.pancake.http.views.SideNavView;
 import net.tassia.pancake.orm.Account;
-import net.tassia.pancake.orm.Email;
-import net.tassia.pancake.orm.Group;
-import net.tassia.pancake.orm.Inbox;
-
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.UUID;
 
 public class GenericPancakeView {
 	protected static final HttpView INDEX_VIEW = new HttpView("/views/index.html");

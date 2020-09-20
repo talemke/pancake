@@ -2,7 +2,7 @@ package net.tassia.pancake.orm;
 
 import java.util.UUID;
 
-public class EmailRoute {
+public class MailRoute {
 	private final UUID uuid;
 	private Account account;
 	private String usernameString;
@@ -11,11 +11,11 @@ public class EmailRoute {
 	private Type hostnameType;
 
 	/* Constructor */
-	public EmailRoute() {
+	public MailRoute() {
 		this(UUID.randomUUID());
 	}
 
-	public EmailRoute(UUID uuid) {
+	public MailRoute(UUID uuid) {
 		this.uuid = uuid;
 	}
 	/* Constructor */

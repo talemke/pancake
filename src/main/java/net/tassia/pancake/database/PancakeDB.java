@@ -31,23 +31,23 @@ public abstract class PancakeDB {
 	/* Abstract Methods */
 	public abstract void connect() throws SQLException, ClassNotFoundException;
 
-	public abstract boolean storeEmail(Email email) throws SQLException;
+	public abstract boolean storeEmail(Mail mail) throws SQLException;
 
 	public abstract Collection<Group> fetchGroups() throws SQLException;
 
 	public abstract Collection<Account> fetchAccounts() throws SQLException;
 
-	public abstract Collection<EmailRoute> fetchRoutes() throws SQLException;
+	public abstract Collection<MailRoute> fetchRoutes() throws SQLException;
 
 	public abstract boolean storeAccount(Account account) throws SQLException;
 
-	public abstract Collection<Email> fetchEmails(Account account, Inbox inbox, int pagination, int page) throws SQLException;
-	public abstract Collection<Email> fetchDraftEmails(Account account, int pagination, int page) throws SQLException;
-	public abstract Collection<Email> fetchSentEmails(Account account, int pagination, int page) throws SQLException;
-	public abstract Collection<Email> fetchDeletedEmails(Account account, int pagination, int page) throws SQLException;
-	public abstract Collection<Email> fetchSpamEmails(Account account, int pagination, int page) throws SQLException;
+	public abstract Collection<Mail> fetchEmails(Account account, Inbox inbox, int pagination, int page) throws SQLException;
+	public abstract Collection<Mail> fetchDraftEmails(Account account, int pagination, int page) throws SQLException;
+	public abstract Collection<Mail> fetchSentEmails(Account account, int pagination, int page) throws SQLException;
+	public abstract Collection<Mail> fetchDeletedEmails(Account account, int pagination, int page) throws SQLException;
+	public abstract Collection<Mail> fetchSpamEmails(Account account, int pagination, int page) throws SQLException;
 
-	public abstract Email fetchEmail(UUID uuid) throws SQLException;
+	public abstract Mail fetchEmail(UUID uuid) throws SQLException;
 	/* Abstract Methods */
 
 }

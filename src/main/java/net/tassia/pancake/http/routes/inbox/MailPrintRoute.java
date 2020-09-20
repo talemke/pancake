@@ -2,9 +2,8 @@ package net.tassia.pancake.http.routes.inbox;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
-import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.http.HttpViewRoute;
-import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.Mail;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
@@ -40,33 +39,33 @@ class MailPrintRoute extends HttpViewRoute {
 
 
 		// Fetch email
-		Email email;
+		Mail mail;
 		try {
-			email = pancake.getDatabase().fetchEmail(uuid);
+			mail = pancake.getDatabase().fetchEmail(uuid);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			request.setErrorPage(500);
 			return null;
 		}
-		if (email == null) {
+		if (mail == null) {
 			request.setErrorPage(404);
 			return null;
 		}
-		if (email.getParsed() == null) {
+		if (mail.getParsed() == null) {
 			request.setErrorPage(500);
 			return null;
 		}
 
 
 		// Parse variables
-		String subject = email.getParsed().subject;
-		String timestamp = format.format(new Date(email.getTimestamp())) + " (0x" + Long.toHexString(email.getTimestamp()) + ")";
-		String sender = email.getSender();
-		String recipient = email.getRecipient();
+		String subject = mail.getParsed().subject;
+		String timestamp = format.format(new Date(mail.getTimestamp())) + " (0x" + Long.toHexString(mail.getTimestamp()) + ")";
+		String sender = mail.getSender();
+		String recipient = mail.getRecipient();
 		String cc = ""; // TODO
-		String message = new String(email.getData(), StandardCharsets.UTF_8);
-		String mailId = email.getUUID().toString();
-		String account = email.getAccount().getUUID().toString();
+		String message = new String(mail.getData(), StandardCharsets.UTF_8);
+		String mailId = mail.getUUID().toString();
+		String account = mail.getAccount().getUUID().toString();
 		String version = String.format("v%d.%d.%d, build %d - %s @ %s", Pancake.VERSION_MAJOR, Pancake.VERSION_MINOR,
 			Pancake.VERSION_PATCH, Pancake.VERSION_BUILD, Pancake.VERSION_BRANCH, Pancake.VERSION_HEAD);
 

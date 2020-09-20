@@ -1,7 +1,7 @@
 package net.tassia.pancake.smtp;
 
 import net.tassia.pancake.Pancake;
-import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.Mail;
 import net.tassia.pancake.smtp.subethamail.SubethaSMTPDriver;
 import net.tassia.pancake.spam.PancakeSpam;
 
@@ -18,22 +18,22 @@ public class PancakeSMTP {
 		pancake.getLogger().info("  Driver: " + driver.getName() + " - v" + driver.getVersion());
 	}
 
-	public boolean incomingEmail(Email email) {
+	public boolean incomingEmail(Mail mail) {
 		// Determine email owner
-		email.setAccount(pancake.getAccountByEmailName(email.getRecipient()));
+		mail.setAccount(pancake.getAccountByEmailName(mail.getRecipient()));
 
 		// Spam filter
-		PancakeSpam.Action action = pancake.getSpamFilter().filter(email);
+		PancakeSpam.Action action = pancake.getSpamFilter().filter(mail);
 		if (action == PancakeSpam.Action.REJECT) {
 			return false;
 		} else if (action == PancakeSpam.Action.SPAM) {
-			email.setType(Pancake.TYPE_SPAM);
+			mail.setType(Pancake.TYPE_SPAM);
 		}
 
 
 		// Store email
 		try {
-			pancake.getDatabase().storeEmail(email);
+			pancake.getDatabase().storeEmail(mail);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			return false;

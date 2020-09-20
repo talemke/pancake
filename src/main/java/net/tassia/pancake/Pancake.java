@@ -7,8 +7,7 @@ import net.tassia.pancake.logging.PancakeLogger;
 import net.tassia.pancake.database.PancakeDB;
 import net.tassia.pancake.database.PancakeSQLite;
 import net.tassia.pancake.orm.Account;
-import net.tassia.pancake.orm.Email;
-import net.tassia.pancake.orm.EmailRoute;
+import net.tassia.pancake.orm.MailRoute;
 import net.tassia.pancake.orm.Group;
 import net.tassia.pancake.parser.PancakeParser;
 import net.tassia.pancake.security.PancakeSecurity;
@@ -28,7 +27,7 @@ public class Pancake implements PancakeConstants {
 	private final Logger logger;
 	private final Collection<Account> accounts;
 	private final Collection<Group> groups;
-	private final Collection<EmailRoute> routes;
+	private final Collection<MailRoute> routes;
 	private final PancakeConfiguration config;
 	private final ObjectMapper mapper;
 	private final PancakeSecurity security;
@@ -114,7 +113,7 @@ public class Pancake implements PancakeConstants {
 	}
 
 	public Account getAccountByEmailName(String recipient) {
-		for (EmailRoute route : routes) {
+		for (MailRoute route : routes) {
 			Account acc = route.matches(recipient);
 			if (acc != null) return acc;
 		}
@@ -152,12 +151,12 @@ public class Pancake implements PancakeConstants {
 		return Group.USER;
 	}
 
-	public Collection<EmailRoute> getRoutes() {
+	public Collection<MailRoute> getRoutes() {
 		return routes;
 	}
 
-	public EmailRoute getRoute(UUID uuid) {
-		for (EmailRoute route : routes) {
+	public MailRoute getRoute(UUID uuid) {
+		for (MailRoute route : routes) {
 			if (route.getUUID().equals(uuid)) {
 				return route;
 			}

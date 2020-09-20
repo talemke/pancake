@@ -2,12 +2,8 @@ package net.tassia.pancake.http.routes.inbox;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.*;
-import net.tassia.pancake.http.routes.admin.AdminRoutes;
-import net.tassia.pancake.orm.Account;
-import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.Mail;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
 
 class GET_Inbox implements HttpRoute {
@@ -24,11 +20,11 @@ class GET_Inbox implements HttpRoute {
 		GenericPancakeView view = new GenericPancakeView(pancake, request);
 		if (view.checkAccess()) return null;
 
-		Collection<Email> emails = pancake.getHTTP().getResources().findEmails(request, request.getAuth(), null, 0, 0);
-		if (emails == null) return null;
+		Collection<Mail> mail = pancake.getHTTP().getResources().findEmails(request, request.getAuth(), null, 0, 0);
+		if (mail == null) return null;
 
 		routes.addSideNav(view, InboxRoutes.INBOX_DEFAULT);
-		routes.addMailNav(view, emails, null);
+		routes.addMailNav(view, mail, null);
 
 		view.setContent(noneView);
 

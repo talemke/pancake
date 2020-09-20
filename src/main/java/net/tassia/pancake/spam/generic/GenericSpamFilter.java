@@ -1,6 +1,6 @@
 package net.tassia.pancake.spam.generic;
 
-import net.tassia.pancake.orm.Email;
+import net.tassia.pancake.orm.Mail;
 import net.tassia.pancake.spam.PancakeSpam;
 import net.tassia.pancake.spam.PancakeSpamDriver;
 
@@ -17,9 +17,9 @@ public class GenericSpamFilter implements PancakeSpamDriver {
 	}
 
 	@Override
-	public PancakeSpam.SpamFilterResult filter(Email email) {
+	public PancakeSpam.SpamFilterResult filter(Mail mail) {
 		// Sender = Recipient?
-		if (email.getSender().equalsIgnoreCase(email.getRecipient())) {
+		if (mail.getSender().equalsIgnoreCase(mail.getRecipient())) {
 			return new PancakeSpam.SpamFilterResult("Sender = Recipient", 1D);
 		}
 
@@ -30,7 +30,7 @@ public class GenericSpamFilter implements PancakeSpamDriver {
 	}
 
 	@Override
-	public void learn(Email email, PancakeSpam.SpamFilterResult result) {
+	public void learn(Mail mail, PancakeSpam.SpamFilterResult result) {
 		// Do nothing
 	}
 

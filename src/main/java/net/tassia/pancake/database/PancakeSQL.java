@@ -25,21 +25,19 @@ public abstract class PancakeSQL extends PancakeDB {
 
 	/* Store Email */
 	@Override
-	public boolean storeEmail(Email email) throws SQLException {
-		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_emails VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+	public boolean storeEmail(Mail mail) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_emails VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 
-		stmt.setString(1, email.getUUID().toString());
-		stmt.setLong(2, email.getTimestamp());
-		stmt.setString(3, email.getSender());
-		stmt.setString(4, email.getRecipient());
-		stmt.setString(5, new String(email.getData(), StandardCharsets.UTF_8));
-		stmt.setString(6, Pancake.serializeStringMap(email.getHeaders()));
-		stmt.setString(7, email.getContent());
-		stmt.setString(8, email.getHelo());
-		stmt.setString(9, email.getRemoteAddress());
-		stmt.setInt(10, email.getType());
-		stmt.setString(11, email.getAccount().getUUID().toString());
-		stmt.setString(12, email.getInbox() != null ? email.getInbox().getUUID().toString() : null);
+		stmt.setString(1, mail.getUUID().toString());
+		stmt.setLong(2, mail.getTimestamp());
+		stmt.setString(3, mail.getSender());
+		stmt.setString(4, mail.getRecipient());
+		stmt.setString(5, new String(mail.getData(), StandardCharsets.UTF_8));
+		stmt.setString(6, mail.getHelo());
+		stmt.setString(7, mail.getRemoteAddress());
+		stmt.setInt(8, mail.getType());
+		stmt.setString(9, mail.getAccount().getUUID().toString());
+		stmt.setString(10, mail.getInbox() != null ? mail.getInbox().getUUID().toString() : null);
 
 		stmt.execute();
 		return true;
@@ -96,17 +94,17 @@ public abstract class PancakeSQL extends PancakeDB {
 
 	/* Fetch Routes */
 	@Override
-	public Collection<EmailRoute> fetchRoutes() throws SQLException {
-		Collection<EmailRoute> routes = new ArrayList<>();
+	public Collection<MailRoute> fetchRoutes() throws SQLException {
+		Collection<MailRoute> routes = new ArrayList<>();
 		ResultSet result = connection.prepareCall("SELECT * FROM pancake_routes;").executeQuery();
 
 		while (result.next()) {
-			EmailRoute route = new EmailRoute(UUID.fromString(result.getString(1)));
+			MailRoute route = new MailRoute(UUID.fromString(result.getString(1)));
 			route.setAccount(pancake.getAccount(UUID.fromString(result.getString(2))));
 			route.setUsernameString(result.getString(3));
-			route.setUsernameType(EmailRoute.Type.valueOf(result.getString(4)));
+			route.setUsernameType(MailRoute.Type.valueOf(result.getString(4)));
 			route.setHostnameString(result.getString(5));
-			route.setHostnameType(EmailRoute.Type.valueOf(result.getString(6)));
+			route.setHostnameType(MailRoute.Type.valueOf(result.getString(6)));
 			routes.add(route);
 		}
 
@@ -139,14 +137,12 @@ public abstract class PancakeSQL extends PancakeDB {
 
 
 	/* Fetch Emails */
-	private Email toEmail(ResultSet result) throws SQLException {
-		Email e = new Email(UUID.fromString(result.getString("email_id")));
+	private Mail toEmail(ResultSet result) throws SQLException {
+		Mail e = new Mail(UUID.fromString(result.getString("email_id")));
 		e.setTimestamp(result.getLong("timestamp"));
 		e.setSender(result.getString("sender"));
 		e.setRecipient(result.getString("recipient"));
 		e.setData(result.getString("data").getBytes(StandardCharsets.UTF_8));
-		e.setHeaders(Pancake.deserializeStringMap(result.getString("headers")));
-		e.setContent(result.getString("content"));
 		e.setHelo(result.getString("helo"));
 		e.setRemoteAddress(result.getString("remote_address"));
 		e.setType(result.getInt("type"));
@@ -177,17 +173,17 @@ public abstract class PancakeSQL extends PancakeDB {
 		return e;
 	}
 
-	protected Collection<Email> fetchEmails(PreparedStatement stmt) throws SQLException {
+	protected Collection<Mail> fetchEmails(PreparedStatement stmt) throws SQLException {
 		ResultSet result = stmt.executeQuery();
-		Collection<Email> emails = new ArrayList<>();
+		Collection<Mail> mail = new ArrayList<>();
 		while (result.next()) {
-			emails.add(toEmail(result));
+			mail.add(toEmail(result));
 		}
-		return emails;
+		return mail;
 	}
 
 	@Override
-	public Collection<Email> fetchEmails(Account account, Inbox inbox, int pagination, int page) throws SQLException {
+	public Collection<Mail> fetchEmails(Account account, Inbox inbox, int pagination, int page) throws SQLException {
 		// TODO: Pagination
 		PreparedStatement stmt;
 		if (inbox != null) {
@@ -204,7 +200,7 @@ public abstract class PancakeSQL extends PancakeDB {
 	}
 
 	@Override
-	public Collection<Email> fetchDraftEmails(Account account, int pagination, int page) throws SQLException {
+	public Collection<Mail> fetchDraftEmails(Account account, int pagination, int page) throws SQLException {
 		// TODO: Pagination
 		PreparedStatement stmt;
 		stmt = connection.prepareStatement("SELECT * FROM pancake_emails WHERE account_id = ? AND type = ?;");
@@ -214,7 +210,7 @@ public abstract class PancakeSQL extends PancakeDB {
 	}
 
 	@Override
-	public Collection<Email> fetchSentEmails(Account account, int pagination, int page) throws SQLException {
+	public Collection<Mail> fetchSentEmails(Account account, int pagination, int page) throws SQLException {
 		// TODO: Pagination
 		PreparedStatement stmt;
 		stmt = connection.prepareStatement("SELECT * FROM pancake_emails WHERE account_id = ? AND type = ?;");
@@ -224,7 +220,7 @@ public abstract class PancakeSQL extends PancakeDB {
 	}
 
 	@Override
-	public Collection<Email> fetchDeletedEmails(Account account, int pagination, int page) throws SQLException {
+	public Collection<Mail> fetchDeletedEmails(Account account, int pagination, int page) throws SQLException {
 		// TODO: Pagination
 		PreparedStatement stmt;
 		stmt = connection.prepareStatement("SELECT * FROM pancake_emails WHERE account_id = ? AND type = ?;");
@@ -234,7 +230,7 @@ public abstract class PancakeSQL extends PancakeDB {
 	}
 
 	@Override
-	public Collection<Email> fetchSpamEmails(Account account, int pagination, int page) throws SQLException {
+	public Collection<Mail> fetchSpamEmails(Account account, int pagination, int page) throws SQLException {
 		// TODO: Pagination
 		PreparedStatement stmt;
 		stmt = connection.prepareStatement("SELECT * FROM pancake_emails WHERE account_id = ? AND type = ?;");
@@ -250,7 +246,7 @@ public abstract class PancakeSQL extends PancakeDB {
 
 	/* Fetch Email */
 	@Override
-	public Email fetchEmail(UUID uuid) throws SQLException {
+	public Mail fetchEmail(UUID uuid) throws SQLException {
 		PreparedStatement stmt = connection.prepareStatement("SELECT * FROM pancake_emails WHERE email_id = ?;");
 		stmt.setString(1, uuid.toString());
 		ResultSet result = stmt.executeQuery();
