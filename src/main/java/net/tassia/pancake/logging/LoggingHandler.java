@@ -59,10 +59,9 @@ class LoggingHandler extends Handler {
 			record.getThrown().printStackTrace();
 		}
 
-		String format = "%s%s | #%02x | %s: %s";
-		format = String.format(format, getColor(record.getLevel()), sdf.format(new Date(record.getMillis())),
+		String format = String.format("%s | #%02x | %s: %s", sdf.format(new Date(record.getMillis())),
 			record.getThreadID(), record.getLevel().getName(), record.getMessage());
-		System.out.println(format);
+		System.out.println(getColor(record.getLevel()) + format);
 		if (out != null) out.println(format);
 	}
 
