@@ -8,7 +8,9 @@ import net.tassia.pancake.orm.Mail;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class InboxRoutes {
 	protected static final int INBOX_DEFAULT = 0;
@@ -45,6 +47,11 @@ public class InboxRoutes {
 	}
 
 	protected void addMailNav(GenericPancakeView view, Collection<Mail> mails, Mail focus) {
+		Collections.sort((List<Mail>) mails, (a, b) -> {
+			if (a.getTimestamp() == b.getTimestamp()) return 0;
+			return a.getTimestamp() < b.getTimestamp() ? 1 : -1;
+		});
+
 		for (Mail mail : mails) {
 			boolean active = focus != null && focus.getUUID().equals(mail.getUUID());
 			String description = mail.getSender() + " - " + format.format(new Date(mail.getTimestamp()));
