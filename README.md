@@ -30,7 +30,7 @@ gh repo clone TASSIA710/Pancake
 git clone https://github.com/TASSIA710/Pancake.git
 ```
 
-3. Follow install instructions (see [INSTALLING.md](https://github.com/TASSIA710/Pancake/blob/docs/INSTALLING.md)).
+3. Follow install instructions (see [INSTALLING.md](https://github.com/TASSIA710/Pancake/blob/master/docs/INSTALLING.md)).
 
 4. Navigate to the installation folder, make the start script executable and and run it:
 ```bash
