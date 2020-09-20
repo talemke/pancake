@@ -21,4 +21,9 @@ public interface PancakeConstants {
 	String VERSION_HEAD_FULL = "16e4f3c758a208864c770c224697993833d2e483";
 	String VERSION_HEAD = VERSION_HEAD_FULL.substring(0, 8);
 
+	String ANSI_INFO = "\u001B[38;2;255;255;255m";
+	String ANSI_WARNING = "\u001B[38;2;255;191;0m";
+	String ANSI_SEVERE = "\u001B[101;93m";
+	String ANSI_FINE = "\u001B[38;2;127;127;127m";
+
 }
