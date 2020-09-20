@@ -150,6 +150,27 @@ public abstract class PancakeSQL extends PancakeDB {
 	}
 
 	@Override
+	public void storeRoute(MailRoute route) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement("INSERT INTO pancake_routes VALUES (?, ?, ?, ?, ?, ?);");
+		stmt.setString(1, route.getUUID().toString());
+		stmt.setString(2, route.getAccount().getUUID().toString());
+		stmt.setString(3, route.getUsernameString());
+		stmt.setString(4, route.getUsernameType().name());
+		stmt.setString(5, route.getHostnameString());
+		stmt.setString(6, route.getHostnameType().name());
+		stmt.execute();
+	}
+
+	@Override
+	public void updateRoute(MailRoute route) throws SQLException {
+		connection.setAutoCommit(false);
+		dropRoute(route.getUUID());
+		storeRoute(route);
+		connection.commit();
+		connection.setAutoCommit(true);
+	}
+
+	@Override
 	public void dropRoute(UUID uuid) throws SQLException {
 		PreparedStatement stmt = connection.prepareStatement("DELETE FROM pancake_routes WHERE route_id = ?;");
 		stmt.setString(1, uuid.toString());

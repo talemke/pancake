@@ -15,6 +15,7 @@ public class PancakeCLI {
 		this.service = Executors.newSingleThreadExecutor();
 
 		reader.commands.put("accounts", new CMD_Accounts(pancake));
+		reader.commands.put("routes", new CMD_Routes(pancake));
 		reader.commands.put("sessions", new CMD_Sessions(pancake));
 	}
 	/* Constructor */
