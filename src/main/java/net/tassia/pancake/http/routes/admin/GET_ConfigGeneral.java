@@ -2,9 +2,6 @@ package net.tassia.pancake.http.routes.admin;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.*;
-import net.tassia.pancake.http.views.MailNavView;
-import net.tassia.pancake.http.views.SideNavView;
-import net.tassia.pancake.orm.Group;
 
 class GET_ConfigGeneral implements HttpRoute {
 	private final AdminRoutes routes;

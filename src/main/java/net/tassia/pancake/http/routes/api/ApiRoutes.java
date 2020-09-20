@@ -1,6 +1,5 @@
 package net.tassia.pancake.http.routes.api;
 
-import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.PancakeHttpServer;
 
 public class ApiRoutes {

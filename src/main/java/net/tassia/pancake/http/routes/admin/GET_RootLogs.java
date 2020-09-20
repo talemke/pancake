@@ -7,7 +7,6 @@ import net.tassia.pancake.http.HttpRoute;
 import net.tassia.pancake.http.PancakeHTTP;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 class GET_RootLogs implements HttpRoute {

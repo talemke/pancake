@@ -4,7 +4,6 @@ import net.tassia.pancake.Pancake;
 import net.tassia.pancake.smtp.PancakeSMTPDriver;
 import org.subethamail.smtp.AuthenticationHandlerFactory;
 import org.subethamail.smtp.MessageContext;
-import org.subethamail.smtp.Version;
 import org.subethamail.smtp.auth.EasyAuthenticationHandlerFactory;
 import org.subethamail.smtp.auth.LoginFailedException;
 import org.subethamail.smtp.auth.UsernamePasswordValidator;

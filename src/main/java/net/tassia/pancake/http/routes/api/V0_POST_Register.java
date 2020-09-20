@@ -4,13 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
-import net.tassia.pancake.orm.Account;
-import net.tassia.pancake.orm.structs.AccountJsonStructure;
-import net.tassia.pancake.orm.structs.GroupJsonStructure;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.UUID;
 
 class V0_POST_Register implements HttpRoute {
 

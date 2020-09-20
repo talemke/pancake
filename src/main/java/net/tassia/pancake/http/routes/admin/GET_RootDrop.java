@@ -3,7 +3,6 @@ package net.tassia.pancake.http.routes.admin;
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.http.HttpRequest;
 import net.tassia.pancake.http.HttpRoute;
-import net.tassia.pancake.orm.Account;
 
 import java.io.IOException;
 

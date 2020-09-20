@@ -9,7 +9,6 @@ import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class ApacheCommonsEmailParser implements PancakeParserDriver {
