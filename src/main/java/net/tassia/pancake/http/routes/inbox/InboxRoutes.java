@@ -40,10 +40,11 @@ public class InboxRoutes {
 		view.addSideNav("/inbox/sent", "Sent", "fas fa-share", current == INBOX_SENT);
 		view.addSideNav("/inbox/trash", "Trash", "fas fa-trash", current == INBOX_TRASH);
 		view.addSideNav("/inbox/spam", "Spam", "fas fa-ban", current == INBOX_SPAM);
-		view.addSideNavHR();
-		view.addSideNav("/inbox/1", "Inbox 1", "fas fa-folder", false);
-		view.addSideNav("/inbox/2", "Inbox 2", "fas fa-folder", false);
-		view.addSideNav("/inbox/3", "Inbox 3", "fas fa-folder", false);
+		// TODO: Inboxes
+		// view.addSideNavHR();
+		// view.addSideNav("/inbox/1", "Inbox 1", "fas fa-folder", false);
+		// view.addSideNav("/inbox/2", "Inbox 2", "fas fa-folder", false);
+		// view.addSideNav("/inbox/3", "Inbox 3", "fas fa-folder", false);
 	}
 
 	protected void addMailNav(GenericPancakeView view, Collection<Mail> mails, Mail focus) {
