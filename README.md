@@ -1,3 +1,5 @@
+![Java CI](https://github.com/TASSIA710/Pancake/workflows/Java%20CI/badge.svg)
+
 # Pancake
 
 A deploy-ready webmail server written in Java. Supports:
