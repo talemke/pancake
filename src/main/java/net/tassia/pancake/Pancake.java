@@ -7,6 +7,7 @@ import net.tassia.pancake.logging.PancakeLogger;
 import net.tassia.pancake.database.PancakeDB;
 import net.tassia.pancake.database.PancakeSQLite;
 import net.tassia.pancake.orm.Account;
+import net.tassia.pancake.orm.Email;
 import net.tassia.pancake.orm.EmailRoute;
 import net.tassia.pancake.orm.Group;
 import net.tassia.pancake.parser.PancakeParser;
@@ -149,6 +150,19 @@ public class Pancake implements PancakeConstants {
 
 	public Group getDefaultGroup() {
 		return Group.USER;
+	}
+
+	public Collection<EmailRoute> getRoutes() {
+		return routes;
+	}
+
+	public EmailRoute getRoute(UUID uuid) {
+		for (EmailRoute route : routes) {
+			if (route.getUUID().equals(uuid)) {
+				return route;
+			}
+		}
+		return null;
 	}
 	/* Objects */
 

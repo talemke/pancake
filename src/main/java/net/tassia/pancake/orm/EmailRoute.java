@@ -99,6 +99,19 @@ public class EmailRoute {
 
 
 
+	/* To String */
+	@Override
+	public String toString() {
+		String user = usernameType != Type.ANY ? usernameString : "?";
+		String host = hostnameType != Type.ANY ? hostnameString : "?";
+		return user + "@" + host;
+	}
+	/* To String */
+
+
+
+
+
 	/* Type Enum */
 	public enum Type {
 		EXACT, REGEX, ANY

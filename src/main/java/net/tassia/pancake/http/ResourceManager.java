@@ -1,10 +1,7 @@
 package net.tassia.pancake.http;
 
 import net.tassia.pancake.Pancake;
-import net.tassia.pancake.orm.Account;
-import net.tassia.pancake.orm.Email;
-import net.tassia.pancake.orm.Group;
-import net.tassia.pancake.orm.Inbox;
+import net.tassia.pancake.orm.*;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -54,6 +51,22 @@ public class ResourceManager {
 			return null;
 		}
 		return g;
+	}
+
+	public EmailRoute findEmailRoute(HttpRequest request, String uuid) {
+		UUID u;
+		try {
+			u = UUID.fromString(uuid);
+		} catch (IllegalArgumentException ex) {
+			request.setErrorPage(404);
+			return null;
+		}
+		EmailRoute route = pancake.getRoute(u);
+		if (route == null) {
+			request.setErrorPage(404);
+			return null;
+		}
+		return route;
 	}
 
 	public Email findEmail(HttpRequest request, Account account, String uuid) {

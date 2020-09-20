@@ -7,6 +7,7 @@ import net.tassia.pancake.http.PancakeHttpServer;
 import net.tassia.pancake.http.views.MailNavView;
 import net.tassia.pancake.http.views.SideNavView;
 import net.tassia.pancake.orm.Account;
+import net.tassia.pancake.orm.EmailRoute;
 import net.tassia.pancake.orm.Group;
 
 import java.io.File;
@@ -21,6 +22,7 @@ public class AdminRoutes {
 	protected static final int SIDENAV_GROUPS = 2;
 	protected static final int SIDENAV_ROOT = 3;
 	protected static final int SIDENAV_LOGS = 4;
+	protected static final int SIDENAV_ROUTES = 5;
 	protected static final int CONFIG_GENERAL = 0;
 	protected static final int CONFIG_DATABASE = 1;
 	protected static final int CONFIG_HTTP = 2;
@@ -50,6 +52,7 @@ public class AdminRoutes {
 		view.addSideNav("/admin/accounts", "Accounts", "fas fa-user", current == SIDENAV_ACCOUNTS);
 		view.addSideNav("/admin/groups", "Groups", "fas fa-users", current == SIDENAV_GROUPS);
 		view.addSideNav("/admin/root", "Root User", "fas fa-user-tie", current == SIDENAV_ROOT);
+		view.addSideNav("/admin/routes", "Routes", "fas fa-random", current == SIDENAV_ROUTES);
 	}
 
 	protected void addConfigMailNav(GenericPancakeView view, int current) {
@@ -90,6 +93,13 @@ public class AdminRoutes {
 		view.addMailNav("/admin/root", "Root Access", "Gain or drop root access.", current == ROOT_GENERAL);
 		view.addMailNav("/admin/root/logs", "Logs", "Logs about root sessions.", current == ROOT_LOGS);
 	}
+
+	protected void addRoutesMailNav(Pancake pancake, GenericPancakeView view, EmailRoute focus) {
+		for (EmailRoute route : pancake.getRoutes()) {
+			boolean active = focus != null && focus.getUUID().equals(route.getUUID());
+			view.addMailNav("/admin/routes/" + route.getUUID().toString(), route.toString(), route.getUUID().toString(), active);
+		}
+	}
 	/* Generate View */
 
 
@@ -120,6 +130,10 @@ public class AdminRoutes {
 		server.GET("\\/admin\\/root\\/drop", new GET_RootDrop());
 		server.GET("\\/admin\\/root\\/gain", new GET_RootGain());
 		server.GET("\\/admin\\/root\\/logs", new GET_RootLogs(this));
+
+		// Routes
+		server.GET("\\/admin\\/routes", new GET_Routes(this));
+		server.GET("\\/admin\\/routes\\/" + Pancake.UUID_REGEX, new GET_Route(this));
 
     }
     /* Register Routes */
