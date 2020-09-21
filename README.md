@@ -34,7 +34,9 @@ git clone https://github.com/TASSIA710/Pancake.git
 
 3. Follow install instructions (see [INSTALLING.md](https://github.com/TASSIA710/Pancake/blob/master/docs/INSTALLING.md)).
 
-4. Navigate to the installation folder, make the start script executable and and run it:
+4. Follow DNS setup instructions (see [SETUP_DNS.md](https://github.com/TASSIA710/Pancake/blob/master/docs/SETUP_DNS.md)).
+
+5. Navigate to the installation folder, make the start script executable and and run it:
 ```bash
 # Navigate to the installation folder
 cd Pancake
@@ -46,4 +48,4 @@ chmod +x run.sh
 ./run.sh
 ```
 
-5. You can now access the application at http://your-ip-address:8080
+6. You can now access the application at http://your-ip-address:8080
