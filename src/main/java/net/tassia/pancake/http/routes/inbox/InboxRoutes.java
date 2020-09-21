@@ -78,6 +78,7 @@ public class InboxRoutes {
 		server.GET("\\/mail\\/" + Pancake.UUID_REGEX, new GET_Mail(this));
 		server.GET("\\/mail\\/" + Pancake.UUID_REGEX + "\\/print", new GET_MailPrint());
 		server.GET("\\/mail\\/" + Pancake.UUID_REGEX + "\\/source", new GET_MailSource(this));
+		server.GET("\\/mail\\/" + Pancake.UUID_REGEX + "\\/attachment\\/([0-9]+)", new GET_MailAttachment(this));
 
     }
 	/* Register Routes */

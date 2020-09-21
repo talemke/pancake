@@ -4,6 +4,7 @@ import net.tassia.pancake.parser.PancakeParserDriver;
 import net.tassia.pancake.parser.ParsedMail;
 import org.apache.commons.mail.util.MimeMessageParser;
 
+import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
@@ -34,6 +35,14 @@ public class ApacheCommonsEmailParser implements PancakeParserDriver {
 			pm.subject = parser.getSubject();
 			pm.display = parser.getHtmlContent();
 			if (pm.display == null) pm.display = parser.getPlainContent();
+
+			for (DataSource ds : parser.getAttachmentList()) {
+				ParsedMail.Attachment att = new ParsedMail.Attachment();
+				att.name = ds.getName();
+				att.contentType = ds.getContentType();
+				att.data = ds.getInputStream().readAllBytes();
+				pm.attachments.add(att);
+			}
 
 			return pm;
 		} catch (Exception ex) {
