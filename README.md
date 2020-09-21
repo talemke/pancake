@@ -2,6 +2,8 @@
 
 # Pancake
 
+**This is still a work in progress!**
+
 A deploy-ready webmail server written in Java. Supports:
 
 | Protocol | Supported          |
