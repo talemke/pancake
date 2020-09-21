@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+@Deprecated
 public class JavaMailParser implements PancakeParserDriver {
 
 	@Override
