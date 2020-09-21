@@ -38,9 +38,9 @@ gh repo clone TASSIA710/Pancake
 git clone https://github.com/TASSIA710/Pancake.git
 ```
 
-3. Follow install instructions (see [INSTALLING.md](https://github.com/TASSIA710/Pancake/blob/master/docs/INSTALLING.md)).
+3. Follow install instructions (see [INSTALLING.md](https://github.com/TASSIA710/Pancake/blob/main/docs/INSTALLING.md)).
 
-4. Follow DNS setup instructions (see [SETUP_DNS.md](https://github.com/TASSIA710/Pancake/blob/master/docs/SETUP_DNS.md)).
+4. Follow DNS setup instructions (see [SETUP_DNS.md](https://github.com/TASSIA710/Pancake/blob/main/docs/SETUP_DNS.md)).
 
 5. Navigate to the installation folder, make the start script executable and and run it:
 ```bash
