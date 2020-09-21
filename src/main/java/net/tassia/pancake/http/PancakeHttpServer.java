@@ -43,9 +43,9 @@ public class PancakeHttpServer {
 
 			// Serve dynamic request
 			HttpRequest req = new HttpRequest(pancake, exchange);
-			req.setResponseHeader("Content-Type", req.getContentType() + "; charset=utf-8");
 			dispatchRequest(req);
 			try {
+				req.setResponseHeader("Content-Type", req.getContentType() + "; charset=utf-8");
 				req.setResponseHeader("Connection", "keep-alive");
 				req.setResponseHeader("Server", serverName);
 

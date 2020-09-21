@@ -68,7 +68,7 @@ class GET_MailAttachment implements HttpRoute {
 		}
 
 
-		request.setResponseHeader("Content-Type", att.contentType);
+		request.setContentType(att.contentType);
 		request.setResponseHeader("Content-Disposition", "inline; filename=\"" + att.name + "\"");
 		return att.data;
 	}
