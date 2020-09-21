@@ -35,7 +35,9 @@ public class HttpRouteInternal {
 		Stack<String> matches = new Stack<>();
 		while (matcher.find()) {
 			if (matcher.groupCount() == 0) break;
-			matches.push(matcher.group(1));
+			for (int i = 0; i < matcher.groupCount(); i++) {
+				matches.push(matcher.group(i + 1));
+			}
 		}
 
 		// Execute route
