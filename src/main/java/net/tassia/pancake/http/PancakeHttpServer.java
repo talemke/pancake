@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class PancakeHttpServer {
+	private final String serverName = "Pancake/" + Pancake.VERSION_MAJOR + "." + Pancake.VERSION_MINOR + "." + Pancake.VERSION_PATCH;
 	private final Pancake pancake;
 	private final HttpServer server;
 	private final List<HttpRouteInternal> routes;
@@ -42,11 +43,11 @@ public class PancakeHttpServer {
 
 			// Serve dynamic request
 			HttpRequest req = new HttpRequest(pancake, exchange);
+			req.setResponseHeader("Content-Type", req.getContentType() + "; charset=utf-8");
 			dispatchRequest(req);
 			try {
 				req.setResponseHeader("Connection", "keep-alive");
-				req.setResponseHeader("Content-Type", req.getContentType() + "; charset=utf-8");
-				req.setResponseHeader("Server", "Pancake");
+				req.setResponseHeader("Server", serverName);
 
 				byte[] data = req.getResponse();
 				exchange.sendResponseHeaders(req.getResponseCode(), data.length);
