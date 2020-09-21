@@ -27,7 +27,7 @@ class GET_RootLogs implements HttpRoute {
 
 		try {
 			String logs = new String(Files.readAllBytes(routes.rootLogsFile.toPath()));
-			logs = "<pre>" + PancakeHTTP.escapeXSS(logs) + "</pre>";
+			logs = "<pre>" + Pancake.escapeXSS(logs) + "</pre>";
 			view.setContent(logs);
 			return view.view("Root Logs");
 

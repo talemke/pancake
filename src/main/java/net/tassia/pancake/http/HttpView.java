@@ -42,7 +42,7 @@ public class HttpView {
 		String str = data;
 		for (String[] replacement : replacements) {
 			str = str.replace("{! " + replacement[0] + " !}", replacement[1]);
-			str = str.replace("{{ " + replacement[0] + " }}", PancakeHTTP.escapeXSS(replacement[1]));
+			str = str.replace("{{ " + replacement[0] + " }}", Pancake.escapeXSS(replacement[1]));
 		}
 		return str;
 	}

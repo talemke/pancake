@@ -110,15 +110,6 @@ public class PancakeHTTP {
 
 
 
-	/* Escape XSS */
-	public static String escapeXSS(String str) {
-		// TODO
-		return str;
-	}
-	/* Escape XSS */
-
-
-
 	/* Getters */
 	public ResourceManager getResources() {
 		return resourceManager;

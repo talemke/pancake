@@ -352,6 +352,16 @@ public class Pancake implements PancakeConstants {
 
 
 
+	/* Escape XSS */
+	public static String escapeXSS(String str) {
+		return EscapeEngine.escapeXSS(str);
+	}
+	/* Escape XSS */
+
+
+
+
+
 	/* Utility */
 	public static String formatSize(int bytes) {
 		if (bytes > 1000) {
