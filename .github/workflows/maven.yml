@@ -17,4 +17,4 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
     - name: Build with Maven
-      run: mvn clean compile assembly:single
+      run: mvn -B clean compile assembly:single
