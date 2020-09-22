@@ -12,9 +12,9 @@ jobs:
         java: [1.9, 1.11, 1.14]
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK ${{ matrix.node }}
+    - name: Set up JDK ${{ matrix.java }}
       uses: actions/setup-java@v1
       with:
-        java-version: ${{ matrix.node }}
+        java-version: ${{ matrix.java }}
     - name: Build with Maven
       run: mvn clean compile assembly:single
