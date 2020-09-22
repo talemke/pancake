@@ -4,7 +4,7 @@
 ![Pull Requests](https://img.shields.io/github/issues-pr/TASSIA710/Pancake?style=for-the-badge)
 ![License](https://img.shields.io/github/license/TASSIA710/Pancake?style=for-the-badge)
 
-![Java CI](http://img.shields.io/github/workflow/status/TASSIA710/Pancake/Java%20CI?style=for-the-badge&label=Java%201.9)
+![Java CI](http://img.shields.io/github/workflow/status/TASSIA710/Pancake/Java%20CI?style=for-the-badge&label=Java%20CI)
 
 **This is still a work in progress!**
 
