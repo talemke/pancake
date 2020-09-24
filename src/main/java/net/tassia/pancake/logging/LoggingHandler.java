@@ -51,6 +51,8 @@ class LoggingHandler extends Handler {
 		}
 	}
 
+	protected final String ANSI_TERMINATOR = "\u001B[0m";
+
 	@Override
 	public void publish(LogRecord record) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -61,7 +63,7 @@ class LoggingHandler extends Handler {
 
 		String format = String.format("%s | #%02x | %s: %s", sdf.format(new Date(record.getMillis())),
 			record.getThreadID(), record.getLevel().getName(), record.getMessage());
-		System.out.println(getColor(record.getLevel()) + format);
+		System.out.println(getColor(record.getLevel()) + format + ANSI_TERMINATOR);
 		if (out != null) out.println(format);
 	}
 
