@@ -12,6 +12,7 @@ import net.tassia.pancake.orm.MailRoute;
 import net.tassia.pancake.orm.Group;
 import net.tassia.pancake.parser.PancakeParser;
 import net.tassia.pancake.security.PancakeSecurity;
+import net.tassia.pancake.sender.PancakeSender;
 import net.tassia.pancake.smtp.PancakeSMTP;
 import net.tassia.pancake.spam.PancakeSpam;
 
@@ -37,6 +38,7 @@ public class Pancake implements PancakeConstants {
 	private final PancakeCLI cli;
 	private final PancakeSpam spam;
 	private final PancakeParser parser;
+	private final PancakeSender sender;
 	private final PancakeHTTP http;
 	private final PancakeSMTP smtp;
 
@@ -80,6 +82,9 @@ public class Pancake implements PancakeConstants {
 		logger.info("- Setting up mail parser...");
 		this.parser = setupMailParser();
 
+		logger.info("- Setting up mail sender...");
+		this.sender = setupMailSender();
+
 		logger.info("- Setting up HTTP server...");
 		this.http = setupHTTP();
 
@@ -89,8 +94,6 @@ public class Pancake implements PancakeConstants {
 		logger.info("Successfully initialized!");
 	}
 	/* Constructor */
-
-
 
 
 
@@ -203,8 +206,6 @@ public class Pancake implements PancakeConstants {
 
 
 
-
-
 	/* Setup */
 	protected Logger setupLogger() {
 		return PancakeLogger.createLogger();
@@ -239,6 +240,10 @@ public class Pancake implements PancakeConstants {
 		return new PancakeParser(this);
 	}
 
+	protected PancakeSender setupMailSender() {
+		return new PancakeSender(this);
+	}
+
 	protected PancakeHTTP setupHTTP() {
 		try {
 			return new PancakeHTTP(this);
@@ -251,8 +256,6 @@ public class Pancake implements PancakeConstants {
 		return new PancakeSMTP(this);
 	}
 	/* Setup */
-
-
 
 
 
@@ -300,8 +303,6 @@ public class Pancake implements PancakeConstants {
 
 
 
-
-
 	/* Getters */
 	public Logger getLogger() {
 		return logger;
@@ -339,6 +340,10 @@ public class Pancake implements PancakeConstants {
 		return parser;
 	}
 
+	public PancakeSender getSender() {
+		return sender;
+	}
+
 	public PancakeHTTP getHTTP() {
 		return http;
 	}
@@ -350,6 +355,12 @@ public class Pancake implements PancakeConstants {
 
 
 
+	/* Server Name */
+	public String getServerName() {
+		return "Pancake/" + Pancake.VERSION_MAJOR + "." + Pancake.VERSION_MINOR + "." + Pancake.VERSION_PATCH;
+	}
+	/* Server Name */
+
 
 
 	/* Escape XSS */
@@ -357,8 +368,6 @@ public class Pancake implements PancakeConstants {
 		return EscapeEngine.escapeXSS(str);
 	}
 	/* Escape XSS */
-
-
 
 
 

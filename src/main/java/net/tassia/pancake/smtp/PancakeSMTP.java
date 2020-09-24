@@ -38,6 +38,17 @@ public class PancakeSMTP {
 			ex.printStackTrace();
 			return false;
 		}
+
+
+		// Is this mail even for us?
+		for (String acceptFor : pancake.getConfig().acceptFor) {
+			if (mail.getRecipient().split("@")[1].equalsIgnoreCase(acceptFor)) {
+				return true;
+			}
+		}
+
+		pancake.getLogger().info("Mail " + mail.getUUID() + " is not for us, forwarding it...");
+		pancake.getSender().deliverMail(mail);
 		return true;
 	}
 

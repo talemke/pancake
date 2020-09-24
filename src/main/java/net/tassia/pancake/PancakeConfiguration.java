@@ -6,6 +6,7 @@ import java.util.Properties;
 public class PancakeConfiguration {
 
 	public String brandName = "Pancake";
+	public String[] acceptFor = { "localhost", "example.com" };
 	public StorageDriver storageDriver = StorageDriver.MySQL;
 
 	public String mysqlHostname = "localhost";
@@ -46,6 +47,11 @@ public class PancakeConfiguration {
 		try {
 			config.brandName = p.getProperty("BRAND_NAME");
 			config.storageDriver = StorageDriver.valueOf(p.getProperty("STORAGE_DRIVER"));
+			config.acceptFor = p.getProperty("ACCEPT_FOR").split(", ");
+
+			for (int i = 0; i < config.acceptFor.length; i++) {
+				config.acceptFor[i] = config.acceptFor[i].trim();
+			}
 
 			config.mysqlHostname = p.getProperty("MYSQL_HOSTNAME");
 			config.mysqlPort = Integer.parseInt(p.getProperty("MYSQL_PORT"));
@@ -79,7 +85,9 @@ public class PancakeConfiguration {
 		}
 		Properties p = new Properties();
 
+		p.setProperty("BRAND_NAME", config.brandName);
 		p.setProperty("STORAGE_DRIVER", config.storageDriver.name());
+		p.setProperty("ACCEPT_FOR", String.join(", ", config.acceptFor));
 
 		p.setProperty("MYSQL_HOSTNAME", config.mysqlHostname);
 		p.setProperty("MYSQL_PORT", Integer.toString(config.mysqlPort));
