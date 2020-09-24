@@ -18,6 +18,14 @@ class MessageHandler implements BasicMessageListener {
 		Mail mail = new Mail();
 		pancake.getLogger().info("Storing email " + mail.getUUID().toString() + "...");
 
+		if (from.length() > 255) {
+			throw new RejectException("sender too long (>255)");
+		}
+
+		if (to.length() > 255) {
+			throw new RejectException("recipient too long (>255)");
+		}
+
 		mail.setTimestamp(System.currentTimeMillis());
 		mail.setHelo(context.getHelo().orElse(""));
 		mail.setRemoteAddress(context.getRemoteAddress().toString());
