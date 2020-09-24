@@ -99,6 +99,7 @@ public class CMD_Routes extends CLICommand {
 		if (args.length == 3 && args[2].equalsIgnoreCase("any") && args[0].equalsIgnoreCase("username")) {
 			route.setUsernameType(MailRoute.Type.ANY);
 			route.setUsernameString("");
+			pancake.getDatabase().updateRoute(route);
 			print("Updated route " + route.getUUID() + ".");
 			return true;
 		} else if (args.length == 4 && args[0].equalsIgnoreCase("username")) {
@@ -111,6 +112,7 @@ public class CMD_Routes extends CLICommand {
 			}
 			route.setUsernameType(type);
 			route.setUsernameString(args[3]);
+			pancake.getDatabase().updateRoute(route);
 			print("Updated route " + route.getUUID() + ".");
 			return true;
 		}
@@ -120,6 +122,7 @@ public class CMD_Routes extends CLICommand {
 		if (args.length == 3 && args[2].equalsIgnoreCase("any") && args[0].equalsIgnoreCase("hostname")) {
 			route.setHostnameType(MailRoute.Type.ANY);
 			route.setHostnameString("");
+			pancake.getDatabase().updateRoute(route);
 			print("Updated route " + route.getUUID() + ".");
 			return true;
 		} else if (args.length == 4 && args[0].equalsIgnoreCase("hostname")) {
@@ -132,6 +135,7 @@ public class CMD_Routes extends CLICommand {
 			}
 			route.setHostnameType(type);
 			route.setHostnameString(args[3]);
+			pancake.getDatabase().updateRoute(route);
 			print("Updated route " + route.getUUID() + ".");
 			return true;
 		}
