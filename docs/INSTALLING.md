@@ -41,8 +41,6 @@ CREATE TABLE `pancake_emails` (
     `sender` VARCHAR(255) NOT NULL,
     `recipient` VARCHAR(255) NOT NULL,
     `data` LONGTEXT NOT NULL,
-    `headers` LONGTEXT NOT NULL,
-    `content` LONGTEXT NOT NULL,
     `helo` VARCHAR(255) NOT NULL,
     `remote_address` VARCHAR(255) NOT NULL,
     `type` TINYINT NOT NULL DEFAULT 0,
