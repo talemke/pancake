@@ -31,6 +31,7 @@ public class ApacheCommonsEmailSender implements PancakeSenderDriver {
 				return false;
 			}
 
+			pancake.getLogger().fine("Forwarding mail to " + mx[0]);
 			mailObj.setHostName(mx[0]);
 			mailObj.addTo(mail.getRecipient());
 			mailObj.setFrom(mail.getSender());
