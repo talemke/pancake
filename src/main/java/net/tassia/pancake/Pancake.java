@@ -373,11 +373,18 @@ public class Pancake implements PancakeConstants {
 
 	/* Utility */
 	public static String formatSize(int bytes) {
-		if (bytes > 1000) {
+		if (bytes > 1000000000) {
+			double b = (double) bytes / 1000000000D;
+			return ((double) Math.round(b * 100) / 100) + " GB";
+		} else if (bytes > 1000000) {
+			double b = (double) bytes / 1000000D;
+			return ((double) Math.round(b * 100) / 100) + " MB";
+		} else if (bytes > 1000) {
 			double b = (double) bytes / 1000D;
 			return ((double) Math.round(b * 100) / 100) + " kB";
+		} else {
+			return bytes + " bytes";
 		}
-		return bytes + " bytes";
 	}
 
 	public static String serializeStringMap(Map<String, String> map) {
