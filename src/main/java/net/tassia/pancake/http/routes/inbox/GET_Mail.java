@@ -82,9 +82,10 @@ class GET_Mail implements HttpRoute {
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < focus.getParsed().attachments.size(); i++) {
 				ParsedMail.Attachment att = focus.getParsed().attachments.get(i);
+				String name = att.name != null ? att.name : "Unknown Name"; // TODO: Maybe just hide this attachment completely?
 				sb.append(", ").append(attachmentView.view(
 					new String[]{"attachment_url", "/mail/" + focus.getUUID() + "/attachment/" + i},
-					new String[]{"attachment_name", att.name}
+					new String[]{"attachment_name", name}
 				));
 			}
 			attachments = attachmentsView.view(
