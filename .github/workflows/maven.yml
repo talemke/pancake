@@ -6,10 +6,10 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [1.9, 1.11, 1.14]
+        java: [1.9]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK ${{ matrix.java }}
