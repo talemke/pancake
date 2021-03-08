@@ -8,6 +8,8 @@ package net.tassia.pancake
  */
 object PancakeLauncher {
 
+	const val VERSION: String = "1.0.0-PRE-1"
+
 	/**
 	 * Launches a new [Pancake] instance.
 	 *
