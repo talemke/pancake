@@ -1,8 +1,6 @@
-/.idea
-/.settings
-/logs
-/target
-.env
-.classpath
-.project
+# Compiler Output
+target/
+
+# IntelliJ
+.idea/
 *.iml
