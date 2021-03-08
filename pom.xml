@@ -12,6 +12,13 @@
 		<kotlin.version>1.4.30</kotlin.version>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>jcenter</id>
+			<url>https://jcenter.bintray.com</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jetbrains.exposed</groupId>
