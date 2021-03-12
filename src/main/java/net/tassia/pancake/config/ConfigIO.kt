@@ -1,11 +1,8 @@
 package net.tassia.pancake.config
 
-import java.io.File
-import java.io.FileReader
-import java.io.Reader
-import java.util.*
+import java.io.*
 import kotlin.reflect.KMutableProperty
-import kotlin.reflect.KType
+import kotlin.reflect.KProperty1
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
@@ -19,13 +16,59 @@ import kotlin.reflect.full.memberProperties
 object ConfigIO {
 
 	/**
+	 * A set containing all [ConfigDataType]s. The set is mutable to allow for overriding behavior
+	 * on certain types or adding your own ones.
+	 */
+	val dataTypes: MutableSet<ConfigDataType<*>> = mutableSetOf(
+		BooleanDataType, IntDataType, LongDataType, FloatDataType, DoubleDataType,
+		StringDataType, UUIDDataType
+	)
+
+
+
+	/**
 	 * Saves the given config to a file.
 	 *
 	 * @param file the file to save to
 	 * @param config the config to save
+	 * @param driver the driver
 	 */
-	fun save(file: File, config: Any) {
-		TODO()
+	fun save(file: File, config: Any, driver: ConfigDriver) {
+		FileWriter(file).use { save(it, config, driver) }
+	}
+
+	/**
+	 * Writes the given config.
+	 *
+	 * @param writer the writer
+	 * @param config the config
+	 * @param driver the driver
+	 */
+	fun save(writer: Writer, config: Any, driver: ConfigDriver) {
+		// Build map
+		val map = mutableMapOf<String, String>()
+
+		// Fill properties
+		for (field in config::class.memberProperties) {
+			val fieldName = field.name
+
+			// Check for annotation
+			val info = field.findAnnotation<ConfigEntry>() ?: continue
+
+			// Get value
+			val data: Any = (field as KProperty1<Any, *>).get(config) ?: continue
+
+			// Valid type?
+			val dataType = dataTypes.find { it.type.createType() == field.returnType }
+			if (dataType != null) {
+				map[info.path] = (dataType as ConfigDataType<Any>).write(data)
+			} else {
+				throw IllegalArgumentException("Property $fieldName has unknown type: ${field.returnType}")
+			}
+		}
+
+		// Save config
+		driver.write(map, writer)
 	}
 
 
@@ -35,11 +78,11 @@ object ConfigIO {
 	 *
 	 * @param file the file to load from
 	 * @param config the config to load
-	 * @param args command-line arguments
+	 * @param driver the driver
 	 * @return the config
 	 */
-	fun <T: Any> load(file: File, config: T, args: Array<String>): T {
-		return FileReader(file).use { load(it, config, args) }
+	fun <T : Any> load(file: File, config: T, driver: ConfigDriver): T {
+		return FileReader(file).use { load(it, config, driver) }
 	}
 
 	/**
@@ -47,13 +90,12 @@ object ConfigIO {
 	 *
 	 * @param reader the reader
 	 * @param config the config to load
-	 * @param args command-line arguments
+	 * @param driver the driver
 	 * @return the config
 	 */
-	fun <T: Any> load(reader: Reader, config: T, args: Array<String>): T {
+	fun <T : Any> load(reader: Reader, config: T, driver: ConfigDriver): T {
 		// Load actual config
-		val props = Properties()
-		props.load(reader)
+		val map = driver.read(reader)
 
 		// Fill properties
 		for (field in config::class.memberProperties) {
@@ -68,33 +110,18 @@ object ConfigIO {
 			}
 
 			// Parse property
-			val data: String = let {
-				val override = args.find { it.startsWith("--set-${info.path}=") }
-				if (override != null) {
-					return@let override.substring("--set-${info.path}=".length)
-				} else {
-					return@let props[info.path]?.toString()
-				}
-			} ?: continue
+			val data: String = map[info.path] ?: continue
 
 
 			// Valid type?
-			field.setter.call(config, parseDataType(field.returnType, data))
+			val dataType = dataTypes.find { it.type.createType() == field.returnType }
+			if (dataType != null) {
+				field.setter.call(config, dataType.read(data))
+			} else {
+				throw IllegalArgumentException("Property $fieldName has unknown type: ${field.returnType}")
+			}
 		}
 		return config
-	}
-
-	private fun parseDataType(type: KType, data: String): Any {
-		return when (type) {
-			Boolean::class.createType() -> data.toBoolean()
-			Int::class.createType() -> data.toInt()
-			Long::class.createType() -> data.toLong()
-			Float::class.createType() -> data.toFloat()
-			Long::class.createType() -> data.toLong()
-			String::class.createType() -> data
-			UUID::class.createType() -> UUID.fromString(data)
-			else -> throw IllegalArgumentException("Unknown type: $type")
-		}
 	}
 
 }

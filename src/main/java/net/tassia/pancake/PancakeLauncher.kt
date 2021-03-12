@@ -1,5 +1,6 @@
 package net.tassia.pancake
 
+import net.tassia.pancake.config.ConfigDriver
 import net.tassia.pancake.config.ConfigIO
 import net.tassia.pancake.config.DatabaseDriver
 import net.tassia.pancake.config.PancakeConfig
@@ -24,7 +25,15 @@ object PancakeLauncher {
 	 */
 	fun new(args: Array<String>): Pancake {
 		// Load configuration
-		val cfg = ConfigIO.load(File("config.yml"), PancakeConfig())
+		val cfg = File("config.yml").let {
+			val config = PancakeConfig()
+			if (it.exists()) {
+				ConfigIO.load(it, config, ConfigDriver.INI)
+			} else {
+				ConfigIO.save(it, config, ConfigDriver.INI)
+			}
+			return@let config
+		}
 
 		// Connect to database
 		when (cfg.databaseDriver) {
