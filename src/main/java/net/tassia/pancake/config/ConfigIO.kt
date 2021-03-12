@@ -68,7 +68,7 @@ object ConfigIO {
 		}
 
 		// Save config
-		driver.write(map, writer)
+		driver.write(writer, map)
 	}
 
 

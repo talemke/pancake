@@ -2,7 +2,6 @@ package net.tassia.pancake.config
 
 import java.io.Reader
 import java.io.Writer
-import java.util.*
 
 /**
  * Defines how configs should be read and stored.
@@ -10,52 +9,23 @@ import java.util.*
  * @since Pancake 1.0
  * @author Tassilo
  */
-enum class ConfigDriver(
+abstract class ConfigDriver(
 
 	/**
 	 * The common file suffix for the config type.
 	 */
-	val fileSuffix: String,
-
-	/**
-	 * The read function.
-	 */
-	val read: (Reader) -> Map<String, String>,
-
-	/**
-	 * The write function.
-	 */
-	val write: (Map<String, String>, Writer) -> Unit,
+	val fileSuffix: String
 
 ) {
 
 	/**
-	 * The `.ini` file format.
+	 * Reads a configuration.
 	 */
-	INI("ini", fun(reader): Map<String, String> {
-		// Create and read properties
-		val props = Properties()
-		props.load(reader)
+	abstract fun read(reader: Reader): Map<String, String>
 
-		// Transform to map
-		val map = mutableMapOf<String, String>()
-		for (name in props.stringPropertyNames()) {
-			map[name] = props[name]?.toString() ?: continue
-		}
-
-		// Return map
-		return map
-	}, fun(map, writer) {
-		// Create empty properties
-		val props = Properties()
-
-		// Transform to properties
-		for (entry in map.entries) {
-			props[entry.key] = entry.value
-		}
-
-		// Write properties
-		props.store(writer, null)
-	});
+	/**
+	 * Writes a configuration.
+	 */
+	abstract fun write(writer: Writer, map: Map<String, String>)
 
 }
