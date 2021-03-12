@@ -1,6 +1,11 @@
 # Compiler Output
 target/
 
+# Runtime Output
+/config.yml
+/data.db
+/logs/
+
 # IntelliJ
 .idea/
 *.iml
