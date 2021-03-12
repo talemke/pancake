@@ -4,6 +4,7 @@ target/
 # Runtime Output
 /config.yml
 /data.db
+/cache/
 /logs/
 
 # IntelliJ
