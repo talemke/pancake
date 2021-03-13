@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  * @since Pancake 1.0
  * @author Tassilo
  */
-class RouteRegistrar(private val route: Route, private val pancake: Pancake) {
+class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
 
 	/**
 	 * Determines whether the JSON response should be pretty-printed or not.
