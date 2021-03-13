@@ -43,6 +43,26 @@ data class PancakeConfig(
 	 * The password to use when connecting to the MySQL Server.
 	 */
 	@ConfigEntry("Database.MySQL.Password")
-	var mysqlPassword: String = "password"
+	var mysqlPassword: String = "password",
+
+
+
+	/**
+	 * Whether to launch an HTTP server.
+	 */
+	@ConfigEntry("HTTP.Enabled")
+	var httpEnabled: Boolean = true,
+
+	/**
+	 * The hostname to bind the HTTP server to.
+	 */
+	@ConfigEntry("HTTP.Hostname")
+	var httpHostname: String = "127.0.0.1",
+
+	/**
+	 * The port of the HTTP server.
+	 */
+	@ConfigEntry("HTTP.Port")
+	var httpPort: Int = 8080,
 
 )
