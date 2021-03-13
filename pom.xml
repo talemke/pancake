@@ -67,7 +67,7 @@
 		<repository>
 			<id>tassia-nexus-deploy</id>
 			<name>Nexus</name>
-			<url>https://nexus.tassia.net/repository/maven-public/</url>
+			<url>https://nexus.tassia.net/repository/maven-releases/</url>
 		</repository>
 	</distributionManagement>
 
