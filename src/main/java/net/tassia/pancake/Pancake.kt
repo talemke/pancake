@@ -1,6 +1,7 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
+import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.event.IncomingMailEvent
 import net.tassia.pancake.event.MailRouteEvent
 import net.tassia.pancake.event.MailRoutedEvent
@@ -12,10 +13,12 @@ import java.util.logging.Logger
 /**
  * The base class for Pancake.
  *
+ * @param config the configuration
+ *
  * @since Pancake 1.0
  * @author Tassilo
  */
-class Pancake {
+class Pancake(val config: PancakeConfig) {
 
 	/**
 	 * Used to handle events for Pancake.
