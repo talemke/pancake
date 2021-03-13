@@ -124,7 +124,7 @@ class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
 	 * @param requestType the request type
 	 * @param function the function
 	 */
-	fun <T : Any> post(path: String, requestType: KClass<T>, function: (HttpTransaction<T>) -> Any?) {
+	fun <T : Any> post(path: String, requestType: KClass<T>, function: (HttpTransaction<T>, T) -> Any?) {
 		route.post(path) {
 			try {
 				// Create transaction
@@ -143,12 +143,13 @@ class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
 				try {
 					// Read request body
 					// TODO: Make JSON parsing non-blocking
-					transaction.request = withContext(Dispatchers.IO) {
+					val payload = withContext(Dispatchers.IO) {
 						JSON.parse(call.receiveStream(), requestType)
 					}
+					transaction.request = payload
 
 					// Submit
-					val response = transaction { return@transaction function(transaction) }
+					val response = transaction { return@transaction function(transaction, payload) }
 					submitResponse(response, call, transaction)
 
 				} catch (ex: UnrecognizedPropertyException) {
