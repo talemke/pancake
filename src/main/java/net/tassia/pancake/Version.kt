@@ -58,7 +58,13 @@ data class Version(
 
 ) {
 
-	override fun toString(): String {
+	/**
+	 * Formats this version to a displayable string. If this is a full release, the included information
+	 * will be less in the display string.
+	 *
+	 * @return display string
+	 */
+	fun toDisplayString(): String {
 		return when (type) {
 			VersionType.SNAPSHOT -> "$major.$minor.$patch-SNAPSHOT-$build-$branch@$head"
 			VersionType.RELEASE -> "$major.$minor.$patch"
