@@ -47,7 +47,7 @@ object PancakeLauncher {
 		}
 
 		// Launch
-		return Pancake()
+		return Pancake(cfg)
 	}
 
 }
