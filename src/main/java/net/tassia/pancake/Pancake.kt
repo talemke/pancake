@@ -1,6 +1,12 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
+import net.tassia.pancake.event.IncomingMailEvent
+import net.tassia.pancake.event.MailRouteEvent
+import net.tassia.pancake.event.MailRoutedEvent
+import net.tassia.pancake.listener.CoreIncomingMailListener
+import net.tassia.pancake.listener.CoreMailRouteListener
+import net.tassia.pancake.listener.CoreMailRoutedListener
 import java.util.logging.Logger
 
 /**
@@ -24,7 +30,15 @@ class Pancake {
 
 
 	init {
-		// TODO: Actually initialize Pancake
+		// Register core events
+		events.registerEvent(IncomingMailEvent::class)
+		events.registerEvent(MailRoutedEvent::class)
+		events.registerEvent(MailRouteEvent::class)
+
+		// Register core event listeners
+		events.registerListener(IncomingMailEvent::class, CoreIncomingMailListener(this))
+		events.registerListener(MailRoutedEvent::class, CoreMailRoutedListener())
+		events.registerListener(MailRouteEvent::class, CoreMailRouteListener())
 	}
 
 

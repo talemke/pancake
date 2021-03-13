@@ -5,6 +5,7 @@ import net.tassia.event.Event
 import net.tassia.pancake.entity.account.Account
 import net.tassia.pancake.entity.folder.Folder
 import net.tassia.pancake.entity.mail.Mail
+import net.tassia.pancake.entity.route.Route
 
 /**
  * Called when a [Mail] is about to be routed.
@@ -20,14 +21,24 @@ data class MailRouteEvent(
 	val mail: Mail,
 
 	/**
+	 * The receiver address to use for routing.
+	 */
+	val address: String,
+
+	/**
 	 * The account to route this mail to.
 	 */
-	val account: Account?,
+	var account: Account?,
 
 	/**
 	 * The folder to route this mail to.
 	 */
-	val folder: Folder?,
+	var folder: Folder?,
+
+	/**
+	 * The route that has been used to route this mail.
+	 */
+	var route: Route?,
 
 	override var isCancelled: Boolean = false
 
