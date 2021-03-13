@@ -4,6 +4,7 @@ import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.util.*
 import io.ktor.util.pipeline.*
+import net.tassia.pancake.Pancake
 
 /**
  * This feature inserts default headers (such as the 'Server' header) to every HTTP response.
@@ -20,7 +21,7 @@ class ResponseHeaders {
 	 */
 	fun insertHeaders(self: PipelineContext<Unit, ApplicationCall>) {
 		self.call.response.header("Server", "Ktor/1.5.1")
-		self.call.response.header("PancakeVersion", "") // TODO
+		self.call.response.header("PancakeVersion", Pancake.VERSION.toDisplayString())
 	}
 
 
