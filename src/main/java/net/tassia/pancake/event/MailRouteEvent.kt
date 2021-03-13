@@ -27,18 +27,8 @@ data class MailRouteEvent(
 	/**
 	 * The folder to route this mail to.
 	 */
-	val folder: Folder?
+	val folder: Folder?,
 
-) : Event(), Cancellable {
+	override var isCancelled: Boolean = false
 
-	private var cancelled = false
-
-	override fun isCancelled(): Boolean {
-		return cancelled
-	}
-
-	override fun setCancelled(cancelled: Boolean) {
-		this.cancelled = cancelled
-	}
-
-}
+) : Event(), Cancellable

@@ -14,7 +14,7 @@ class Pancake {
 	/**
 	 * Used to handle events for Pancake.
 	 */
-	val events = EventManager()
+	val events = EventManager.newDefault()
 
 	/**
 	 * The logger for Pancake.
