@@ -1,5 +1,7 @@
 package net.tassia.pancake
 
+import net.tassia.event.EventManager
+
 /**
  * The base class for Pancake.
  *
@@ -7,6 +9,13 @@ package net.tassia.pancake
  * @author Tassilo
  */
 class Pancake {
+
+	/**
+	 * Used to handle events for Pancake.
+	 */
+	val events = EventManager()
+
+
 
 	companion object {
 
