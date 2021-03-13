@@ -78,7 +78,7 @@ data class Version(
 	 *
 	 * @see [Version.parse]
 	 */
-	fun toIdentifier(): String = "$major.$minor.$patch-$type-$build-$branch@$head"
+	fun toIdentifier(): String = "$major.$minor.$patch-$type-$build-$branch@$headFull"
 
 
 
