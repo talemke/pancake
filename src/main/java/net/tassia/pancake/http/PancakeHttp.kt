@@ -7,6 +7,7 @@ import io.ktor.server.netty.*
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.http.event.HttpRegisterRoutesEvent
 import net.tassia.pancake.http.feature.Logging
+import net.tassia.pancake.http.feature.ResponseHeaders
 
 /**
  * The base class for the HTTP sub-system of Pancake.
@@ -34,8 +35,8 @@ class PancakeHttp(private val pancake: Pancake) {
 			pancake.logger.fine("HTTP | - CORS Headers")
 			// TODO
 
-			pancake.logger.fine("HTTP | - Default Response Headers")
-			// TODO
+			pancake.logger.fine("HTTP | - Response Headers")
+			install(ResponseHeaders)
 
 			pancake.logger.fine("HTTP | - Logging")
 			install(Logging) {
