@@ -1,7 +1,7 @@
 package net.tassia.pancake.event
 
 import net.tassia.event.Cancellable
-import net.tassia.event.Event
+import net.tassia.pancake.Pancake
 import net.tassia.pancake.entity.account.Account
 import net.tassia.pancake.entity.folder.Folder
 import net.tassia.pancake.entity.mail.Mail
@@ -14,6 +14,8 @@ import net.tassia.pancake.entity.route.Route
  * @author Tassilo
  */
 data class MailRouteEvent(
+
+	override val pancake: Pancake,
 
 	/**
 	 * The mail that should be routed.
@@ -42,4 +44,4 @@ data class MailRouteEvent(
 
 	override var isCancelled: Boolean = false
 
-) : Event(), Cancellable
+) : PancakeEvent(pancake), Cancellable

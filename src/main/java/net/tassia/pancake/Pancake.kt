@@ -39,9 +39,9 @@ class Pancake(val config: PancakeConfig) {
 		events.registerEvent(MailRouteEvent::class)
 
 		// Register core event listeners
-		events.registerListener(IncomingMailEvent::class, CoreIncomingMailListener(this))
-		events.registerListener(MailRoutedEvent::class, CoreMailRoutedListener())
-		events.registerListener(MailRouteEvent::class, CoreMailRouteListener())
+		events.registerListener(IncomingMailEvent::class, CoreIncomingMailListener)
+		events.registerListener(MailRoutedEvent::class, CoreMailRoutedListener)
+		events.registerListener(MailRouteEvent::class, CoreMailRouteListener)
 	}
 
 

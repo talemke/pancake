@@ -1,6 +1,6 @@
 package net.tassia.pancake.event
 
-import net.tassia.event.Event
+import net.tassia.pancake.Pancake
 import net.tassia.pancake.entity.mail.Mail
 
 /**
@@ -11,9 +11,11 @@ import net.tassia.pancake.entity.mail.Mail
  */
 data class IncomingMailEvent(
 
+	override val pancake: Pancake,
+
 	/**
 	 * The incoming mail.
 	 */
 	val mail: Mail
 
-) : Event()
+) : PancakeEvent(pancake)
