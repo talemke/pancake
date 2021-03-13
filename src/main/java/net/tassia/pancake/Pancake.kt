@@ -1,6 +1,7 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
+import java.util.logging.Logger
 
 /**
  * The base class for Pancake.
@@ -14,6 +15,17 @@ class Pancake {
 	 * Used to handle events for Pancake.
 	 */
 	val events = EventManager()
+
+	/**
+	 * The logger for Pancake.
+	 */
+	val logger = Logger.getLogger("Pancake")
+
+
+
+	init {
+		// TODO: Actually initialize Pancake
+	}
 
 
 
