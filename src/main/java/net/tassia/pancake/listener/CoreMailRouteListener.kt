@@ -11,7 +11,7 @@ import net.tassia.pancake.event.MailRouteEvent
  * @since Pancake 1.0
  * @author Tassilo
  */
-class CoreMailRouteListener : EventListener<MailRouteEvent> {
+object CoreMailRouteListener : EventListener<MailRouteEvent> {
 
 	override fun onEvent(event: MailRouteEvent) {
 		// 1. Check EQUAL routes
