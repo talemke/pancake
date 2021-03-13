@@ -1,5 +1,7 @@
 package net.tassia.pancake
 
+import java.util.regex.Pattern
+
 /**
  * Represents a simple version.
  *
@@ -61,6 +63,49 @@ data class Version(
 			VersionType.SNAPSHOT -> "$major.$minor.$patch-SNAPSHOT-$build-$branch@$head"
 			VersionType.RELEASE -> "$major.$minor.$patch"
 		}
+	}
+
+	/**
+	 * Generates an identifier string for this version.
+	 *
+	 * @return the identifier
+	 *
+	 * @see [Version.parse]
+	 */
+	fun toIdentifier(): String = "$major.$minor.$patch-$type-$build-$branch@$head"
+
+
+
+	companion object {
+
+		/**
+		 * The pattern for version identifiers.
+		 */
+		private val PATTERN = Pattern.compile("^([0-9]+).([0-9]+).([0-9]+)-([A-Z]+)-([0-9]+)-([A-z0-9-_]+)@([0-9a-f]+)$")!!
+
+		/**
+		 * Parses a version identifier string.
+		 *
+		 * @param input the identifier
+		 * @return the version, or `null`
+		 *
+		 * @see [Version.toIdentifier]
+		 */
+		fun parse(input: String): Version? {
+			val matcher = PATTERN.matcher(input)
+			if (!matcher.matches()) return null
+
+			return Version(
+				major = matcher.group(1).toInt(),
+				minor = matcher.group(2).toInt(),
+				patch = matcher.group(3).toInt(),
+				build = matcher.group(5).toInt(),
+				headFull = matcher.group(7),
+				branch = matcher.group(6),
+				type = VersionType.valueOf(matcher.group(4))
+			)
+		}
+
 	}
 
 }
