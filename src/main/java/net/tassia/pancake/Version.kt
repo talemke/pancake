@@ -66,7 +66,7 @@ data class Version(
 	 */
 	fun toDisplayString(): String {
 		return when (type) {
-			VersionType.SNAPSHOT -> "$major.$minor.$patch-SNAPSHOT-$build-$branch@$head"
+			VersionType.SNAPSHOT -> "$major.$minor.$patch-SNAPSHOT-$branch@$head"
 			VersionType.RELEASE -> "$major.$minor.$patch"
 		}
 	}
