@@ -1,6 +1,7 @@
 package net.tassia.pancake.http.event
 
-import net.tassia.event.Event
+import net.tassia.pancake.Pancake
+import net.tassia.pancake.event.PancakeEvent
 import net.tassia.pancake.http.RouteRegistrar
 
 /**
@@ -11,9 +12,11 @@ import net.tassia.pancake.http.RouteRegistrar
  */
 class HttpRegisterRoutesEvent(
 
+	override val pancake: Pancake,
+
 	/**
 	 * The route registrar.
 	 */
 	val registrar: RouteRegistrar
 
-) : Event()
+) : PancakeEvent(pancake)
