@@ -49,6 +49,11 @@ class Pancake(val config: PancakeConfig) {
 	companion object {
 
 		/**
+		 * The current version of Pancake.
+		 */
+		val VERSION = Version(1, 0, 0, 1, "dbd3766fc98765487e213418f5c600e027c8957a", branch = "main", type = VersionType.SNAPSHOT)
+
+		/**
 		 * The hard-coded limit of how long a single mail address ('name@hostname.tld') can be (in bytes).
 		 */
 		const val MAIL_ADDRESS_MAX = 255
