@@ -57,22 +57,24 @@ object ConfigIniDriver : ConfigDriver("ini") {
 		// Write other section
 		for (entry in sections.entries) {
 			if (entry.key == "") continue
-			writer.writeLine("")
+			repeat(5) { writer.writeLine("") }
 			writeIniSection(writer, entry.value, entry.key, commenter)
 		}
 	}
 
 	private fun writeIniSection(writer: Writer, config: Config, sectionName: String?, commenter: ConfigCommenter) {
 		// Write section comment
-		commenter.comment(sectionName, null)?.let { writer.writeLine(it) }
+		commenter.comment(sectionName, null)?.let { writer.writeLine("; $it") }
 
 		// Write section header
 		sectionName?.let { writer.writeLine("[$it]") }
 
 		// Write values
 		for (entry in config.entries) {
+			writer.writeLine("")
+
 			// Write value comment
-			commenter.comment(sectionName, entry.key)?.let { writer.writeLine(it) }
+			commenter.comment(sectionName, entry.key)?.let { writer.writeLine("; $it") }
 
 			// Write value
 			writer.writeLine(entry.key + " = " + entry.value)
