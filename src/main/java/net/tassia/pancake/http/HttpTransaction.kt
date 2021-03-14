@@ -4,6 +4,7 @@ import io.ktor.application.*
 import io.ktor.http.*
 import net.tassia.pancake.entity.account.Account
 import net.tassia.pancake.entity.group.Group
+import net.tassia.pancake.entity.session.Session
 import net.tassia.pancake.http.data.StatusResponse
 
 /**
@@ -49,6 +50,11 @@ class HttpTransaction<T>(call: ApplicationCall, var request: T?) {
 	 * The group of the account that sent the request.
 	 */
 	var group: Group? = null
+
+	/**
+	 * The session used.
+	 */
+	var session: Session? = null
 
 
 
