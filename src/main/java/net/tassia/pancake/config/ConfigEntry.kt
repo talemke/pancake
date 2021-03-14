@@ -6,6 +6,8 @@ package net.tassia.pancake.config
  * @since Pancake 1.0
  * @author Tassilo
  */
+@Target(AnnotationTarget.PROPERTY)
+@Retention(AnnotationRetention.RUNTIME)
 annotation class ConfigEntry(
 
 	/**
