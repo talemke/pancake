@@ -1,5 +1,7 @@
 package net.tassia.pancake.config
 
+import java.util.logging.Level
+
 /**
  * The core configuration for Pancake. All settings that are non-crucial for the boot process
  * are stored in the database.
@@ -8,6 +10,14 @@ package net.tassia.pancake.config
  * @author Tassilo
  */
 data class PancakeConfig(
+
+	/**
+	 * The level used to determine what events to log.
+	 */
+	@ConfigEntry("Logging.Level")
+	var loggingLevel: Level = Level.INFO,
+
+
 
 	/**
 	 * Which database to use (SQLite, MySQL).
