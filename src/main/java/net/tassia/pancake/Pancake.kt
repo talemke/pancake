@@ -55,11 +55,14 @@ class Pancake(val config: PancakeConfig) {
 		events.registerListener(CoreMailRoutedListener)
 		events.registerListener(CoreMailRouteListener)
 
-		// Start the CLI
+		// Create the CLI
 		this.cli = PancakeCLI(this)
 
 		// Done!
 		logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
+
+		// Start the CLI
+		this.cli.start()
 	}
 
 
