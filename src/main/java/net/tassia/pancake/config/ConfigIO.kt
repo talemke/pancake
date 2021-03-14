@@ -6,9 +6,7 @@ import kotlin.reflect.KProperty1
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
-import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.javaGetter
-import kotlin.reflect.jvm.javaSetter
 
 /**
  * Used to load and save configs. The configs are analyzed using Reflection and the [ConfigEntry] annotation.
