@@ -3,6 +3,7 @@ package net.tassia.pancake.cli
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.cli.event.CliEvent
 import net.tassia.pancake.cli.event.CliRegisterCommandsEvent
+import net.tassia.pancake.cli.listener.CoreCliRegisterCommandsListener
 
 /**
  * The base class for interacting with Pancake's command-line interface.
@@ -48,6 +49,7 @@ class PancakeCLI(private val pancake: Pancake) {
 	 */
 	fun start() {
 		// Register commands
+		pancake.events.registerListener(CoreCliRegisterCommandsListener)
 		pancake.events.callEvent(CliRegisterCommandsEvent(pancake))
 
 		// Start thread

@@ -1,4 +1,4 @@
-package net.tassia.pancake.listener
+package net.tassia.pancake.cli.listener
 
 import net.tassia.event.EventListener
 import net.tassia.pancake.cli.command.HelpCommand

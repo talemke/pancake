@@ -5,7 +5,6 @@ import net.tassia.pancake.cli.PancakeCLI
 import net.tassia.pancake.event.IncomingMailEvent
 import net.tassia.pancake.event.MailRouteEvent
 import net.tassia.pancake.event.MailRoutedEvent
-import net.tassia.pancake.listener.CoreCliRegisterCommandsListener
 import net.tassia.pancake.listener.CoreIncomingMailListener
 import net.tassia.pancake.listener.CoreMailRouteListener
 import net.tassia.pancake.listener.CoreMailRoutedListener
@@ -52,7 +51,6 @@ class Pancake(val config: PancakeConfig) {
 		events.registerEvent<MailRouteEvent>()
 
 		// Register core event listeners
-		events.registerListener(CoreCliRegisterCommandsListener)
 		events.registerListener(CoreIncomingMailListener)
 		events.registerListener(CoreMailRoutedListener)
 		events.registerListener(CoreMailRouteListener)
