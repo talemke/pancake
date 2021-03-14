@@ -23,7 +23,7 @@ class CommandListener(private val pancake: Pancake, private val getter: (String)
 
 				// Command exists?
 				if (cmd == null) {
-					println("Unknown command. Type 'help' for help.")
+					CLI.failure("Unknown command. Type 'help' for help.")
 					continue
 				}
 
@@ -75,16 +75,16 @@ class CommandListener(private val pancake: Pancake, private val getter: (String)
 
 	private fun awaitCommand(): String {
 		// Print new line (pretty)
-		println()
+		CLI.print()
 
-		// Print shell informaiton
-		print("Pancake> ")
+		// Print shell information
+		CLI.print("Pancake> ", false)
 
 		// Read the next command
 		val command = scanner.nextLine()
 
 		// Print new line (pretty)
-		println()
+		CLI.print()
 
 		// Return the read command
 		return command
