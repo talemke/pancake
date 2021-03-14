@@ -1,12 +1,12 @@
 package net.tassia.pancake.config.driver
 
+import net.tassia.pancake.config.ConfigCommenter
 import net.tassia.pancake.config.ConfigDriver
 import java.io.Reader
 import java.io.Writer
 import java.util.*
 
 private typealias Config = Map<String, String>
-private typealias SectionCommenter = (String?, String?) -> String?
 
 /**
  * The `.ini` file format.
@@ -33,7 +33,7 @@ object ConfigIniDriver : ConfigDriver("ini") {
 
 
 
-	override fun write(writer: Writer, map: Config) = writeIni(writer, map)
+	override fun write(writer: Writer, map: Config, commenter: ConfigCommenter) = writeIni(writer, map, commenter)
 
 	private fun insertData(section: String?, key: String, value: String, store: MutableMap<String, MutableMap<String, String>>) {
 		val store2 = store[section ?: ""] ?: mutableMapOf()
@@ -41,7 +41,7 @@ object ConfigIniDriver : ConfigDriver("ini") {
 		store[section ?: ""] = store2
 	}
 
-	private fun writeIni(writer: Writer, config: Config, sectionCommenter: SectionCommenter = {_, _ -> null}) {
+	private fun writeIni(writer: Writer, config: Config, commenter: ConfigCommenter) {
 		// Load sections
 		val sections = mutableMapOf<String, MutableMap<String, String>>()
 		for (entry in config.entries) {
@@ -54,19 +54,19 @@ object ConfigIniDriver : ConfigDriver("ini") {
 		}
 
 		// Write root section
-		sections[""]?.let { writeIniSection(writer, it, null, sectionCommenter) }
+		sections[""]?.let { writeIniSection(writer, it, null, commenter) }
 
 		// Write other section
 		for (entry in sections.entries) {
 			if (entry.key == "") continue
 			writer.writeLine("")
-			writeIniSection(writer, entry.value, entry.key, sectionCommenter)
+			writeIniSection(writer, entry.value, entry.key, commenter)
 		}
 	}
 
-	private fun writeIniSection(writer: Writer, config: Config, sectionName: String?, sectionCommenter: SectionCommenter) {
+	private fun writeIniSection(writer: Writer, config: Config, sectionName: String?, commenter: ConfigCommenter) {
 		// Write section comment
-		sectionCommenter(sectionName, null)?.let { writer.writeLine(it) }
+		commenter.comment(sectionName, null)?.let { writer.writeLine(it) }
 
 		// Write section header
 		sectionName?.let { writer.writeLine("[$it]") }
@@ -74,7 +74,7 @@ object ConfigIniDriver : ConfigDriver("ini") {
 		// Write values
 		for (entry in config.entries) {
 			// Write value comment
-			sectionCommenter(sectionName, entry.key)?.let { writer.writeLine(it) }
+			commenter.comment(sectionName, entry.key)?.let { writer.writeLine(it) }
 
 			// Write value
 			writer.writeLine(entry.key + " = " + entry.value)
