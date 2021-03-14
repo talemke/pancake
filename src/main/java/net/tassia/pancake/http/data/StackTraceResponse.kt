@@ -11,12 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 class StackTraceResponse(element: StackTraceElement) {
 
 	/**
-	 * The class loader.
-	 */
-	@JsonProperty("class_loader")
-	val classLoader: String? = element.classLoaderName
-
-	/**
 	 * The class name.
 	 */
 	@JsonProperty("class_name")
