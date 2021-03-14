@@ -25,7 +25,7 @@ object PancakeLauncher {
 	 */
 	fun new(args: Array<String>): Pancake {
 		// Load configuration
-		val cfg = File("config.yml").let {
+		val cfg = File("config.ini").let {
 			val config = PancakeConfig()
 			if (it.exists()) {
 				ConfigIO.load(it, config, ConfigIniDriver)
