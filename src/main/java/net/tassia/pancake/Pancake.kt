@@ -9,6 +9,7 @@ import net.tassia.pancake.listener.CoreIncomingMailListener
 import net.tassia.pancake.listener.CoreMailRouteListener
 import net.tassia.pancake.listener.CoreMailRoutedListener
 import java.util.logging.Logger
+import kotlin.system.exitProcess
 
 /**
  * The base class for Pancake.
@@ -42,6 +43,18 @@ class Pancake(val config: PancakeConfig) {
 		events.registerListener(IncomingMailEvent::class, CoreIncomingMailListener)
 		events.registerListener(MailRoutedEvent::class, CoreMailRoutedListener)
 		events.registerListener(MailRouteEvent::class, CoreMailRouteListener)
+	}
+
+
+
+	/**
+	 * Exits the Pancake application.
+	 *
+	 * @param status the status code (e.g. `0` for success)
+	 */
+	fun exit(status: Int) {
+		// Exit the running process
+		exitProcess(status)
 	}
 
 
