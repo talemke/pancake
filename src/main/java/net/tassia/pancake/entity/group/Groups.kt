@@ -13,14 +13,22 @@ import java.util.*
  */
 object Groups {
 
-	fun getPrivilege(group: Group, name: String): String? {
+	fun getPrivilege(group: Group, name: String): GroupPrivilege? {
 		return getPrivilege(group.id.value, name)
 	}
 
-	fun getPrivilege(groupID: UUID, name: String): String? {
+	fun getPrivilege(groupID: UUID, name: String): GroupPrivilege? {
 		return GroupPrivilege.find {
 			(GroupPrivilegeTable.group eq groupID) and (GroupPrivilegeTable.name eq name)
-		}.singleOrNull()?.value
+		}.singleOrNull()
+	}
+
+	fun getPrivilegeString(group: Group, name: String): String? {
+		return getPrivilege(group, name)?.value
+	}
+
+	fun getPrivilegeString(groupID: UUID, name: String): String? {
+		return getPrivilege(groupID, name)?.value
 	}
 
 
