@@ -37,6 +37,7 @@ class Pancake(val config: PancakeConfig) {
 		// Setup logger
 		logger.useParentHandlers = false
 		logger.addHandler(PrintStreamLoggingHandler(System.out))
+		logger.level = config.loggingLevel
 		logger.info("Initializing Pancake...")
 
 		// Register core events
