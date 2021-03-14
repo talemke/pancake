@@ -2,7 +2,7 @@
 target/
 
 # Runtime Output
-/config.yml
+/config.ini
 /data.db
 /cache/
 /logs/
