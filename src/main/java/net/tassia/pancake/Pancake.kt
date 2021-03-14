@@ -5,6 +5,7 @@ import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.event.IncomingMailEvent
 import net.tassia.pancake.event.MailRouteEvent
 import net.tassia.pancake.event.MailRoutedEvent
+import net.tassia.pancake.http.PancakeHttp
 import net.tassia.pancake.listener.CoreIncomingMailListener
 import net.tassia.pancake.listener.CoreMailRouteListener
 import net.tassia.pancake.listener.CoreMailRoutedListener
@@ -31,6 +32,11 @@ class Pancake(val config: PancakeConfig) {
 	 */
 	val logger = Logger.getLogger("Pancake")
 
+	/**
+	 * The HTTP server. Will be `null` if [PancakeConfig.httpEnabled] is set to `false`.
+	 */
+	val http: PancakeHttp?
+
 
 
 	init {
@@ -43,6 +49,9 @@ class Pancake(val config: PancakeConfig) {
 		events.registerListener(IncomingMailEvent::class, CoreIncomingMailListener)
 		events.registerListener(MailRoutedEvent::class, CoreMailRoutedListener)
 		events.registerListener(MailRouteEvent::class, CoreMailRouteListener)
+
+		// Start HTTP server
+		this.http = if (config.httpEnabled) PancakeHttp(this) else null
 	}
 
 
@@ -53,6 +62,9 @@ class Pancake(val config: PancakeConfig) {
 	 * @param status the status code (e.g. `0` for success)
 	 */
 	fun exit(status: Int) {
+		// Stop HTTP server
+		this.http?.stop()
+
 		// Exit the running process
 		exitProcess(status)
 	}
