@@ -54,13 +54,10 @@ class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
 
 		// Find session
 		val session = Sessions.getSessionByToken(header) ?: return false
-		transaction.session = session
+		val account = session.account
 
-		// Find account
-		transaction.account = session.account
-
-		// Find group
-		transaction.group = transaction.account?.group
+		// Store auth information
+		transaction.auth = AuthInformation(session, account, account.group)
 		return true
 	}
 

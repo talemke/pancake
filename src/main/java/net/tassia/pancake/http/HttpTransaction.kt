@@ -42,19 +42,9 @@ class HttpTransaction<T>(call: ApplicationCall, var request: T?) {
 	var response: Any = Object()
 
 	/**
-	 * The account that sent the request.
+	 * Authentication information.
 	 */
-	var account: Account? = null
-
-	/**
-	 * The group of the account that sent the request.
-	 */
-	var group: Group? = null
-
-	/**
-	 * The session used.
-	 */
-	var session: Session? = null
+	var auth: AuthInformation? = null
 
 
 
