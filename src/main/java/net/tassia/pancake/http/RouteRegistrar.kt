@@ -136,6 +136,16 @@ class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
 	 * Registers a new JSON `POST` route.
 	 *
 	 * @param path the path
+	 * @param function the function
+	 */
+	inline fun <reified T : Any> post(path: String, noinline function: (HttpTransaction<T>, T) -> Any?) {
+		post(path, T::class, function)
+	}
+
+	/**
+	 * Registers a new JSON `POST` route.
+	 *
+	 * @param path the path
 	 * @param requestType the request type
 	 * @param function the function
 	 */
