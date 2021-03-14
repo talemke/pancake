@@ -2,6 +2,7 @@ package net.tassia.pancake.http
 
 import net.tassia.pancake.entity.account.Account
 import net.tassia.pancake.entity.group.Group
+import net.tassia.pancake.entity.group.GroupPrivilege
 import net.tassia.pancake.entity.session.Session
 
 /**
@@ -25,6 +26,11 @@ data class AuthInformation(
 	/**
 	 * The group of the account.
 	 */
-	val group: Group
+	val group: Group,
+
+	/**
+	 * The privilege required by the request.
+	 */
+	val privilege: GroupPrivilege?,
 
 )
