@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.tassia.pancake.JSON
 import net.tassia.pancake.Pancake
+import net.tassia.pancake.entity.session.Sessions
 import net.tassia.pancake.http.data.ExceptionResponse
 import net.tassia.pancake.http.data.StatusResponse
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -46,7 +47,21 @@ class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
 	 * @return whether the client has the privilege, or nope
 	 */
 	private fun authenticate(call: ApplicationCall, privilege: String?, transaction: HttpTransaction<*>): Boolean {
-		TODO()
+		// Extract header
+		val headerFull = call.request.header("Authentication") ?: return false
+		if (!headerFull.startsWith("Personal ")) return false
+		val header = headerFull.substring("Personal ".length)
+
+		// Find session
+		val session = Sessions.getSessionByToken(header) ?: return false
+		transaction.session = session
+
+		// Find account
+		transaction.account = session.account
+
+		// Find group
+		transaction.group = transaction.account?.group
+		return true
 	}
 
 	/**
@@ -102,7 +117,7 @@ class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
 				val transaction = HttpTransaction(call, null)
 
 				// Authentication
-				// TODO
+				transaction { authenticate(call, null, transaction) }
 
 				// Submit
 				val response = transaction { function(transaction) }
@@ -131,7 +146,7 @@ class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
 				val transaction = HttpTransaction<T>(call, null)
 
 				// Authentication
-				// TODO
+				transaction { authenticate(call, null, transaction) }
 
 				// Ensure JSON content type
 				if (!call.request.contentType().match(ContentType.Application.Json)) {
