@@ -8,6 +8,7 @@ import net.tassia.pancake.Pancake
 import net.tassia.pancake.http.event.HttpRegisterRoutesEvent
 import net.tassia.pancake.http.feature.Logging
 import net.tassia.pancake.http.feature.ResponseHeaders
+import net.tassia.pancake.http.route.v1.registerV1
 
 /**
  * The base class for the HTTP sub-system of Pancake.
@@ -47,6 +48,7 @@ class PancakeHttp(private val pancake: Pancake) {
 			install(Routing)
 
 			pancake.logger.info("HTTP | Register Routes...")
+			pancake.events.registerListener(HttpRegisterRoutesEvent::class, ::registerV1)
 			routing {
 				pancake.events.callEvent(HttpRegisterRoutesEvent(pancake, RouteRegistrar(this, pancake)))
 			}
