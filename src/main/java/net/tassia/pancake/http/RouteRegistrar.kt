@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.tassia.pancake.JSON
 import net.tassia.pancake.Pancake
+import net.tassia.pancake.entity.group.Groups
 import net.tassia.pancake.entity.session.Sessions
 import net.tassia.pancake.http.data.ExceptionResponse
 import net.tassia.pancake.http.data.StatusResponse
@@ -52,13 +53,15 @@ class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
 		if (!headerFull.startsWith("Personal ")) return false
 		val header = headerFull.substring("Personal ".length)
 
-		// Find session
+		// Find credentials
 		val session = Sessions.getSessionByToken(header) ?: return false
 		val account = session.account
+		val group = account.group
 
 		// Store auth information
-		transaction.auth = AuthInformation(session, account, account.group)
-		return true
+		val auth = AuthInformation(session, account, group, privilege?.let { Groups.getPrivilege(group, privilege) })
+		transaction.auth = auth
+		return auth.privilege?.let { it.value != "false" } ?: false
 	}
 
 	/**
