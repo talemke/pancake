@@ -1,4 +1,4 @@
-package net.tassia.pancake.config
+package net.tassia.pancake
 
 /**
  * Defines how to store the data.
