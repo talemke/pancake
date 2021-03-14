@@ -1,6 +1,7 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
+import net.tassia.pancake.cli.PancakeCLI
 import net.tassia.pancake.event.IncomingMailEvent
 import net.tassia.pancake.event.MailRouteEvent
 import net.tassia.pancake.event.MailRoutedEvent
@@ -30,6 +31,11 @@ class Pancake(val config: PancakeConfig) {
 	 */
 	val logger = Logger.getLogger("Pancake")
 
+	/**
+	 * The command-line interface.
+	 */
+	val cli: PancakeCLI
+
 
 
 	init {
@@ -48,6 +54,9 @@ class Pancake(val config: PancakeConfig) {
 		events.registerListener(CoreIncomingMailListener)
 		events.registerListener(CoreMailRoutedListener)
 		events.registerListener(CoreMailRouteListener)
+
+		// Start the CLI
+		this.cli = PancakeCLI(this)
 
 		// Done!
 		logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
