@@ -1,6 +1,12 @@
 
 package net.tassia.pancake.cli
 
+/**
+ * Contains some nice ANSI color codes, allowing for nicer console outputs.
+ *
+ * @since Pancake 1.0
+ * @author Tassilo
+ */
 object ANSI {
 
 	private const val BLACK = "\u001b[30m"
@@ -12,13 +18,40 @@ object ANSI {
 	private const val CYAN = "\u001b[36m"
 	private const val WHITE = "\u001b[37m"
 
+
+
+	/**
+	 * A primary color, used for `INFO` outputs.
+	 */
 	const val PRIMARY = ""
+
+	/**
+	 * A secondary color, used for `DEBUG` outputs.
+	 */
 	const val SECONDARY = "\u001B[38;2;195;195;195m"
 
+
+
+	/**
+	 * A green color, used to indicate successes.
+	 */
 	const val SUCCESS = GREEN
+
+	/**
+	 * A yellow color, used to indicate warnings.
+	 */
 	const val WARNING = YELLOW
+
+	/**
+	 * A red color, used to indicate failures.
+	 */
 	const val FAILURE = RED
 
+
+
+	/**
+	 * The `RESET` character.
+	 */
 	const val RESET = "\u001b[0m"
 
 }
