@@ -20,12 +20,19 @@ abstract class ConfigDriver(
 
 	/**
 	 * Reads a configuration.
+	 *
+	 * @param reader the reader to read from
+	 * @return the read config
 	 */
 	abstract fun read(reader: Reader): Map<String, String>
 
 	/**
 	 * Writes a configuration.
+	 *
+	 * @param writer the writer to read to
+	 * @param map the config
+	 * @param commenter the commenter
 	 */
-	abstract fun write(writer: Writer, map: Map<String, String>)
+	abstract fun write(writer: Writer, map: Map<String, String>, commenter: ConfigCommenter)
 
 }

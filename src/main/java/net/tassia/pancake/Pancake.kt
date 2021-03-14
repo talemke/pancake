@@ -1,7 +1,6 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
-import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.event.IncomingMailEvent
 import net.tassia.pancake.event.MailRouteEvent
 import net.tassia.pancake.event.MailRoutedEvent
@@ -43,6 +42,7 @@ class Pancake(val config: PancakeConfig) {
 		// Setup logger
 		logger.useParentHandlers = false
 		logger.addHandler(PrintStreamLoggingHandler(System.out))
+		logger.level = config.loggingLevel
 		logger.info("Initializing Pancake...")
 
 		// Register core events
@@ -59,7 +59,7 @@ class Pancake(val config: PancakeConfig) {
 		this.http = if (config.httpEnabled) PancakeHttp(this) else null
 
 		// Done!
-		logger.info("Done! Running Pancake/${Pancake.VERSION.toDisplayString()}")
+		logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
 	}
 
 
