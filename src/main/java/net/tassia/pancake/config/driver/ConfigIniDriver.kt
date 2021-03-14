@@ -2,6 +2,7 @@ package net.tassia.pancake.config.driver
 
 import net.tassia.pancake.config.ConfigCommenter
 import net.tassia.pancake.config.ConfigDriver
+import net.tassia.pancake.config.ConfigIO
 import java.io.Reader
 import java.io.Writer
 import java.util.*
@@ -45,11 +46,8 @@ object ConfigIniDriver : ConfigDriver("ini") {
 		// Load sections
 		val sections = mutableMapOf<String, MutableMap<String, String>>()
 		for (entry in config.entries) {
-			val i = entry.key.lastIndexOf('.')
-			if (i == -1) {
-				insertData(null, entry.key, entry.value, sections)
-			} else {
-				insertData(entry.key.substring(0, i), entry.key.substring(i + 1), entry.value, sections)
+			ConfigIO.examineSection(entry.key).let {
+				insertData(it.first, it.second, entry.value, sections)
 			}
 		}
 
