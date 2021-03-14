@@ -10,9 +10,15 @@ class PancakeCLI(pancake: Pancake) {
 			it.key.name.equals(search, true)
 		}?.value
 	}
-	private val thread: Thread = Thread(listener, "PancakeCLI").also { it.start() }
+	private val thread: Thread = Thread(listener, "PancakeCLI")
 
 
+
+	fun start() {
+		if (!thread.isAlive) {
+			thread.start()
+		}
+	}
 
 	fun stop() {
 		listener.listening = false
