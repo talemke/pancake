@@ -23,4 +23,13 @@ fun interface ConfigCommenter {
 	 */
 	fun comment(section: String?, name: String?): String?
 
+
+
+	/**
+	 * A NOOP commenter, commenting nothing.
+	 */
+	companion object NOOP : ConfigCommenter {
+		override fun comment(section: String?, name: String?): String? = null
+	}
+
 }
