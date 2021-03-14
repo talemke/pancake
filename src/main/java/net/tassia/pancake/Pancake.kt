@@ -28,7 +28,7 @@ class Pancake(val config: PancakeConfig) {
 	/**
 	 * The logger for Pancake.
 	 */
-	val logger = Logger.getLogger("Pancake")
+	val logger: Logger = Logger.getLogger("Pancake")
 
 
 
