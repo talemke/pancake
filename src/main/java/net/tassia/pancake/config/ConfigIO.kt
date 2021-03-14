@@ -30,6 +30,18 @@ object ConfigIO {
 
 
 	/**
+	 * Examines section data from the given path.
+	 *
+	 * @return section and name
+	 */
+	fun examineSection(fullPath: String): Pair<String?, String> {
+		val i = fullPath.lastIndexOf('.')
+		return if (i == -1) Pair(null, fullPath) else Pair(fullPath.substring(0, i), fullPath.substring(i + 1))
+	}
+
+
+
+	/**
 	 * Saves the given config to a file.
 	 *
 	 * @param file the file to save to
@@ -37,7 +49,7 @@ object ConfigIO {
 	 * @param driver the driver
 	 * @param commenter the commenter
 	 */
-	fun save(file: File, config: Any, driver: ConfigDriver, commenter: ConfigCommenter = ConfigCommenter.NOOP) {
+	fun save(file: File, config: Any, driver: ConfigDriver, commenter: ConfigCommenter? = null) {
 		FileWriter(file).use { save(it, config, driver, commenter) }
 	}
 
@@ -49,8 +61,9 @@ object ConfigIO {
 	 * @param driver the driver
 	 * @param commenter the commenter
 	 */
-	fun save(writer: Writer, config: Any, driver: ConfigDriver, commenter: ConfigCommenter) {
+	fun save(writer: Writer, config: Any, driver: ConfigDriver, commenter: ConfigCommenter?) {
 		// Build map
+		val comments = MutableCommenter()
 		val map = mutableMapOf<String, String>()
 
 		// Fill properties
@@ -59,6 +72,14 @@ object ConfigIO {
 
 			// Check for annotation
 			val info = field.findAnnotation<ConfigEntry>() ?: continue
+
+			// Add description?
+			val description = field.findAnnotation<ConfigDescription>()
+			if (description != null) {
+				examineSection(info.path).let {
+					comments[it.first, it.second] = description.description
+				}
+			}
 
 			// Get value
 			val data: Any = (field as KProperty1<Any, *>).get(config) ?: continue
@@ -77,7 +98,7 @@ object ConfigIO {
 		}
 
 		// Save config
-		driver.write(writer, map, commenter)
+		driver.write(writer, map, commenter ?: comments)
 	}
 
 
