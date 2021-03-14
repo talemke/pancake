@@ -35,9 +35,10 @@ object ConfigIO {
 	 * @param file the file to save to
 	 * @param config the config to save
 	 * @param driver the driver
+	 * @param commenter the commenter
 	 */
-	fun save(file: File, config: Any, driver: ConfigDriver) {
-		FileWriter(file).use { save(it, config, driver) }
+	fun save(file: File, config: Any, driver: ConfigDriver, commenter: ConfigCommenter = ConfigCommenter.NOOP) {
+		FileWriter(file).use { save(it, config, driver, commenter) }
 	}
 
 	/**
@@ -46,8 +47,9 @@ object ConfigIO {
 	 * @param writer the writer
 	 * @param config the config
 	 * @param driver the driver
+	 * @param commenter the commenter
 	 */
-	fun save(writer: Writer, config: Any, driver: ConfigDriver) {
+	fun save(writer: Writer, config: Any, driver: ConfigDriver, commenter: ConfigCommenter) {
 		// Build map
 		val map = mutableMapOf<String, String>()
 
@@ -75,7 +77,7 @@ object ConfigIO {
 		}
 
 		// Save config
-		driver.write(writer, map)
+		driver.write(writer, map, commenter)
 	}
 
 
