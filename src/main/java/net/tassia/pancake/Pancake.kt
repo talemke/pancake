@@ -50,7 +50,7 @@ class Pancake(val config: PancakeConfig) {
 		events.registerListener(MailRouteEvent::class, CoreMailRouteListener)
 
 		// Done!
-		logger.info("Done! Running Pancake/${Pancake.VERSION.toDisplayString()}")
+		logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
 	}
 
 
