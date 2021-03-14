@@ -69,6 +69,10 @@ class CommandListener(private val pancake: Pancake, private val getter: (String)
 				listening = false
 				break
 
+			} catch (ex: Throwable) {
+				CLI.failure("An unexpected error has occurred while executing this command.")
+				CLI.failure(ex::class.simpleName + ": " + ex.message)
+
 			}
 		}
 	}
