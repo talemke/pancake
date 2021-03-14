@@ -46,14 +46,14 @@ class Pancake(val config: PancakeConfig) {
 		logger.info("Initializing Pancake...")
 
 		// Register core events
-		events.registerEvent(IncomingMailEvent::class)
-		events.registerEvent(MailRoutedEvent::class)
-		events.registerEvent(MailRouteEvent::class)
+		events.registerEvent<IncomingMailEvent>()
+		events.registerEvent<MailRoutedEvent>()
+		events.registerEvent<MailRouteEvent>()
 
 		// Register core event listeners
-		events.registerListener(IncomingMailEvent::class, CoreIncomingMailListener)
-		events.registerListener(MailRoutedEvent::class, CoreMailRoutedListener)
-		events.registerListener(MailRouteEvent::class, CoreMailRouteListener)
+		events.registerListener(CoreIncomingMailListener)
+		events.registerListener(CoreMailRoutedListener)
+		events.registerListener(CoreMailRouteListener)
 
 		// Start HTTP server
 		this.http = if (config.httpEnabled) PancakeHttp(this) else null
