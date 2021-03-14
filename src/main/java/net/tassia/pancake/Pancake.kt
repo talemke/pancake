@@ -24,22 +24,20 @@ class Pancake(val config: PancakeConfig) {
 	/**
 	 * Used to handle events for Pancake.
 	 */
-	val events: EventManager
+	val events = EventManager.newDefault()
 
 	/**
 	 * The logger for Pancake.
 	 */
-	val logger: Logger
+	val logger = Logger.getLogger("Pancake")
 
 
 
 	init {
-		// Create logger
-		this.logger = Logger.getLogger("Pancake")
+		// Setup logger
 		logger.useParentHandlers = false
-
-		// Create event manager
-		this.events = EventManager.newDefault()
+		logger.addHandler(PrintStreamLoggingHandler(System.out))
+		logger.info("Initializing Pancake...")
 
 		// Register core events
 		events.registerEvent(IncomingMailEvent::class)
@@ -50,6 +48,9 @@ class Pancake(val config: PancakeConfig) {
 		events.registerListener(IncomingMailEvent::class, CoreIncomingMailListener)
 		events.registerListener(MailRoutedEvent::class, CoreMailRoutedListener)
 		events.registerListener(MailRouteEvent::class, CoreMailRouteListener)
+
+		// Done!
+		logger.info("Done! Running Pancake/${Pancake.VERSION.toDisplayString()}")
 	}
 
 
