@@ -40,6 +40,11 @@ class Pancake(val config: PancakeConfig) {
 
 
 	init {
+		// Setup logger
+		logger.useParentHandlers = false
+		logger.addHandler(PrintStreamLoggingHandler(System.out))
+		logger.info("Initializing Pancake...")
+
 		// Register core events
 		events.registerEvent(IncomingMailEvent::class)
 		events.registerEvent(MailRoutedEvent::class)
@@ -52,6 +57,9 @@ class Pancake(val config: PancakeConfig) {
 
 		// Start HTTP server
 		this.http = if (config.httpEnabled) PancakeHttp(this) else null
+
+		// Done!
+		logger.info("Done! Running Pancake/${Pancake.VERSION.toDisplayString()}")
 	}
 
 
