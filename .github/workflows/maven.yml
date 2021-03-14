@@ -18,3 +18,5 @@ jobs:
           java-version: 1.8
       - name: "Build"
         run: "mvn --batch-mode package"
+      - name: "Test"
+        run: "mvn --batch-mode test"
