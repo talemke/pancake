@@ -29,7 +29,7 @@ class Pancake(val config: PancakeConfig) {
 	/**
 	 * The logger for Pancake.
 	 */
-	val logger = Logger.getLogger("Pancake")
+	val logger: Logger = Logger.getLogger("Pancake")
 
 	/**
 	 * The HTTP server. Will be `null` if [PancakeConfig.httpEnabled] is set to `false`.
