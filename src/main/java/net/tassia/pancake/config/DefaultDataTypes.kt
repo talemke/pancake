@@ -1,6 +1,7 @@
 package net.tassia.pancake.config
 
 import java.util.*
+import java.util.logging.Level
 
 
 /**
@@ -77,4 +78,15 @@ val StringDataType = ConfigDataType(
  */
 val UUIDDataType = ConfigDataType(
 	UUID::class, UUID::toString, UUID::fromString
+)
+
+
+/**
+ * The [ConfigDataType] for [Level]s.
+ *
+ * @since Pancake 1.0
+ * @author Tassilo
+ */
+val LoggingLevelDataType = ConfigDataType(
+	Level::class, Level::toString, Level::parse
 )
