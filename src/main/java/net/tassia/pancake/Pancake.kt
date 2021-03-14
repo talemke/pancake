@@ -1,7 +1,6 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
-import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.event.IncomingMailEvent
 import net.tassia.pancake.event.MailRouteEvent
 import net.tassia.pancake.event.MailRoutedEvent

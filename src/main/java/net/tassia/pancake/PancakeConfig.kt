@@ -1,5 +1,7 @@
-package net.tassia.pancake.config
+package net.tassia.pancake
 
+import net.tassia.pancake.config.ConfigEntry
+import net.tassia.pancake.config.DatabaseDriver
 import java.util.logging.Level
 
 /**

@@ -2,7 +2,6 @@ package net.tassia.pancake
 
 import net.tassia.pancake.config.ConfigIO
 import net.tassia.pancake.config.DatabaseDriver
-import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.config.driver.ConfigIniDriver
 import org.jetbrains.exposed.sql.Database
 import java.io.File
