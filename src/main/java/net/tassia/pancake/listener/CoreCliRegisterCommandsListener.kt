@@ -2,6 +2,7 @@ package net.tassia.pancake.listener
 
 import net.tassia.event.EventListener
 import net.tassia.pancake.cli.command.HelpCommand
+import net.tassia.pancake.cli.command.QuitCommand
 import net.tassia.pancake.cli.event.CliRegisterCommandsEvent
 
 /**
@@ -15,6 +16,7 @@ object CoreCliRegisterCommandsListener : EventListener<CliRegisterCommandsEvent>
 	override fun onEvent(event: CliRegisterCommandsEvent) {
 		event.cli.also {
 			it.add(HelpCommand.Info, HelpCommand.Executor)
+			it.add(QuitCommand.Info, QuitCommand.Executor)
 		}
 	}
 
