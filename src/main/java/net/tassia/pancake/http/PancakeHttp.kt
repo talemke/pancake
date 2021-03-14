@@ -59,4 +59,14 @@ class PancakeHttp(private val pancake: Pancake) {
 		engine.start(wait = false)
 	}
 
+	/**
+	 * Shuts down the HTTP server.
+	 *
+	 * @param gracePeriodMillis the maximum amount of time for activity to cool down
+	 * @param timeoutMillis the maximum amount of time to wait until server stops gracefully
+	 */
+	fun stop(gracePeriodMillis: Long = 5000, timeoutMillis: Long = 5000) {
+		engine.stop(gracePeriodMillis, timeoutMillis)
+	}
+
 }
