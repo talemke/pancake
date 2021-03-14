@@ -6,6 +6,9 @@ import kotlin.reflect.KProperty1
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.javaField
+import kotlin.reflect.jvm.javaGetter
+import kotlin.reflect.jvm.javaSetter
 
 /**
  * Used to load and save configs. The configs are analyzed using Reflection and the [ConfigEntry] annotation.
@@ -21,7 +24,7 @@ object ConfigIO {
 	 */
 	val dataTypes: MutableSet<ConfigDataType<*>> = mutableSetOf(
 		BooleanDataType, IntDataType, LongDataType, FloatDataType, DoubleDataType,
-		StringDataType, UUIDDataType
+		StringDataType, UUIDDataType, LoggingLevelDataType
 	)
 
 
@@ -59,11 +62,15 @@ object ConfigIO {
 			val data: Any = (field as KProperty1<Any, *>).get(config) ?: continue
 
 			// Valid type?
-			val dataType = dataTypes.find { it.type.createType() == field.returnType }
-			if (dataType != null) {
-				map[info.path] = (dataType as ConfigDataType<Any>).write(data)
+			if (data is Enum<*>) {
+				map[info.path] = data.name
 			} else {
-				throw IllegalArgumentException("Property $fieldName has unknown type: ${field.returnType}")
+				val dataType = dataTypes.find { it.type.createType() == field.returnType }
+				if (dataType != null) {
+					map[info.path] = (dataType as ConfigDataType<Any>).write(data)
+				} else {
+					throw IllegalArgumentException("Property $fieldName has unknown type: ${field.returnType}")
+				}
 			}
 		}
 
@@ -114,11 +121,15 @@ object ConfigIO {
 
 
 			// Valid type?
-			val dataType = dataTypes.find { it.type.createType() == field.returnType }
-			if (dataType != null) {
-				field.setter.call(config, dataType.read(data))
+			if (field.javaGetter!!.returnType.isEnum) {
+				field.setter.call(config, field.javaGetter!!.returnType.getMethod("valueOf").invoke(null, data))
 			} else {
-				throw IllegalArgumentException("Property $fieldName has unknown type: ${field.returnType}")
+				val dataType = dataTypes.find { it.type.createType() == field.returnType }
+				if (dataType != null) {
+					field.setter.call(config, dataType.read(data))
+				} else {
+					throw IllegalArgumentException("Property $fieldName has unknown type: ${field.returnType}")
+				}
 			}
 		}
 		return config
