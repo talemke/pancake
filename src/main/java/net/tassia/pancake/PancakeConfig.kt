@@ -70,18 +70,21 @@ data class PancakeConfig(
 	 * Whether to launch an HTTP server.
 	 */
 	@ConfigEntry("HTTP.Enabled")
+	@ConfigDescription("Whether to launch an HTTP server.")
 	var httpEnabled: Boolean = true,
 
 	/**
 	 * The hostname to bind the HTTP server to.
 	 */
 	@ConfigEntry("HTTP.Hostname")
+	@ConfigDescription("The hostname to bind the HTTP server to.")
 	var httpHostname: String = "127.0.0.1",
 
 	/**
 	 * The port of the HTTP server.
 	 */
 	@ConfigEntry("HTTP.Port")
+	@ConfigDescription("The port of the HTTP server.")
 	var httpPort: Int = 8080,
 
 )
