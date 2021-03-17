@@ -1,18 +1,21 @@
 package net.tassia.pancake.plugin
 
+import net.tassia.event.Event
 import net.tassia.pancake.Pancake
+import kotlin.reflect.KClass
 
-abstract class Plugin(val pancake: Pancake) {
+abstract class Plugin(open val pancake: Pancake) {
 
 	abstract val info: PluginInfo
+	open val events: Set<KClass<out Event>> = setOf()
 
 
 
-	abstract fun onEnable()
-	abstract fun onDisable()
+	open fun onEnable() = Unit
+	open fun onDisable() = Unit
 
-	abstract fun onInstall()
-	abstract fun onUninstall()
+	open fun onInstall() = Unit
+	open fun onUninstall() = Unit
 
 
 
