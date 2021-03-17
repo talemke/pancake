@@ -1,7 +1,7 @@
 package net.tassia.pancake.plugins.cli
 
 import net.tassia.pancake.Pancake
-import net.tassia.pancake.Readers.readUntilOrEOF
+import net.tassia.pancake.io.Readers.readUntilOrEOF
 import java.io.StringReader
 import java.util.*
 

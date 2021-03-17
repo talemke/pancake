@@ -17,6 +17,6 @@ open class CliEvent(
 	/**
 	 * The current [PancakeCLI].
 	 */
-	val cli: PancakeCLI = pancake.cli,
+	open val cli: PancakeCLI,
 
 ) : PancakeEvent(pancake)

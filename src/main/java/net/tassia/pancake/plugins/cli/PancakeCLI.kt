@@ -47,7 +47,7 @@ class PancakeCLI(override val pancake: Pancake) : Plugin(pancake) {
 	override fun onEnable() {
 		// Register commands
 		pancake.events.registerListener(CoreCliRegisterCommandsListener)
-		pancake.events.callEvent(CliRegisterCommandsEvent(pancake))
+		pancake.events.callEvent(CliRegisterCommandsEvent(pancake, this))
 
 		// Start thread
 		if (!thread.isAlive) {
