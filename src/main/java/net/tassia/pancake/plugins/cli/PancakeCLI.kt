@@ -96,7 +96,7 @@ class PancakeCLI(override val pancake: Pancake) : Plugin(pancake) {
 		/**
 		 * The version information for the CLI plugin.
 		 */
-		val Version = Version(1, 0, 0, 1, "dbd3766fc98765487e213418f5c600e027c8957a", branch = "main", type = VersionType.SNAPSHOT)
+		val Version = Version(1, 0, 0, 1, "dbd3766fc98765487e213418f5c600e027c8957a", branch = "main", type = VersionType.RELEASE)
 
 		/**
 		 * The plugin information for the CLI plugin.
