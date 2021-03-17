@@ -21,6 +21,8 @@ class PancakeCLI(override val pancake: Pancake) : Plugin(pancake) {
 
 	override val info: PluginInfo = Info
 
+	override val events = setOf(CliEvent::class, CliRegisterCommandsEvent::class)
+
 	/**
 	 * A map of all registered commands.
 	 */
@@ -43,10 +45,6 @@ class PancakeCLI(override val pancake: Pancake) : Plugin(pancake) {
 
 
 	override fun onEnable() {
-		// Register CLI events
-		pancake.events.registerEvent<CliEvent>()
-		pancake.events.registerEvent<CliRegisterCommandsEvent>()
-
 		// Register commands
 		pancake.events.registerListener(CoreCliRegisterCommandsListener)
 		pancake.events.callEvent(CliRegisterCommandsEvent(pancake))
