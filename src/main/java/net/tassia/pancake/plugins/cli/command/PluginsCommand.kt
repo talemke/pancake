@@ -38,7 +38,12 @@ object PluginsCommand {
 				pl.forEach(this::printPluginListLine)
 			}
 			args.size == 1 -> {
-
+				val plugin = pancake.plugins.plugin(args[0])
+				if (plugin != null) {
+					printPlugin(plugin)
+				} else {
+					CLI.failure("This plugin was not found.")
+				}
 			}
 			else -> {
 				CLI.failure("Incorrect usage.")
@@ -55,6 +60,29 @@ object PluginsCommand {
 		} else {
 			val installed = if (plugin.isInstalled()) "Installed" else "Not Installed"
 			CLI.failure("$msg ($installed)")
+		}
+	}
+
+	private fun printPlugin(plugin: Plugin) {
+		plugin.info.run {
+			CLI.print("---- << Plugin: $name >> ----")
+			CLI.print("Version: ${version.toDisplayString()}")
+			CLI.print("By: ${authors.joinToString()}")
+			CLI.print()
+			CLI.print(description)
+			CLI.print()
+
+			if (plugin.isInstalled()) {
+				CLI.success("Installed")
+			} else {
+				CLI.failure("Not Installed")
+			}
+
+			if (plugin.isEnabled()) {
+				CLI.success("Enabled")
+			} else {
+				CLI.failure("Not Enabled")
+			}
 		}
 	}
 
