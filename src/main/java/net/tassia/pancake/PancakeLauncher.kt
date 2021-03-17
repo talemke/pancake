@@ -2,6 +2,9 @@ package net.tassia.pancake
 
 import net.tassia.pancake.config.ConfigIO
 import net.tassia.pancake.config.driver.ConfigIniDriver
+import net.tassia.pancake.io.DatabaseDriver
+import net.tassia.pancake.io.PancakeConfig
+import net.tassia.pancake.io.PancakeIO
 import org.jetbrains.exposed.sql.Database
 import java.io.File
 
@@ -22,6 +25,9 @@ object PancakeLauncher {
 	 * @return the instance
 	 */
 	fun new(args: Array<String>): Pancake {
+		// Prepare IO
+		PancakeIO.createFolders()
+
 		// Load configuration
 		val cfg = File("config.ini").let {
 			val config = PancakeConfig()
