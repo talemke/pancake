@@ -1,9 +1,9 @@
-package net.tassia.pancake.cli
+package net.tassia.pancake.plugins.cli
 
 import net.tassia.pancake.Pancake
-import net.tassia.pancake.cli.event.CliEvent
-import net.tassia.pancake.cli.event.CliRegisterCommandsEvent
-import net.tassia.pancake.cli.listener.CoreCliRegisterCommandsListener
+import net.tassia.pancake.plugins.cli.event.CliEvent
+import net.tassia.pancake.plugins.cli.event.CliRegisterCommandsEvent
+import net.tassia.pancake.plugins.cli.listener.CoreCliRegisterCommandsListener
 
 /**
  * The base class for interacting with Pancake's command-line interface.

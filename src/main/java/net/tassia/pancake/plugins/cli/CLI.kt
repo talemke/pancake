@@ -1,4 +1,4 @@
-package net.tassia.pancake.cli
+package net.tassia.pancake.plugins.cli
 
 import java.util.*
 

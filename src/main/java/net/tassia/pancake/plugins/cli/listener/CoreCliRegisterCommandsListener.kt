@@ -1,9 +1,9 @@
-package net.tassia.pancake.cli.listener
+package net.tassia.pancake.plugins.cli.listener
 
 import net.tassia.event.EventListener
-import net.tassia.pancake.cli.command.HelpCommand
-import net.tassia.pancake.cli.command.QuitCommand
-import net.tassia.pancake.cli.event.CliRegisterCommandsEvent
+import net.tassia.pancake.plugins.cli.command.HelpCommand
+import net.tassia.pancake.plugins.cli.command.QuitCommand
+import net.tassia.pancake.plugins.cli.event.CliRegisterCommandsEvent
 
 /**
  * Responsible for registering core CLI commands.

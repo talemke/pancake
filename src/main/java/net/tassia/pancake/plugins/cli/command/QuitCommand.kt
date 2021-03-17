@@ -1,8 +1,8 @@
-package net.tassia.pancake.cli.command
+package net.tassia.pancake.plugins.cli.command
 
-import net.tassia.pancake.cli.CLI
-import net.tassia.pancake.cli.Command
-import net.tassia.pancake.cli.CommandInfo
+import net.tassia.pancake.plugins.cli.CLI
+import net.tassia.pancake.plugins.cli.Command
+import net.tassia.pancake.plugins.cli.CommandInfo
 
 /**
  * The 'QUIT' command. Exits the application.

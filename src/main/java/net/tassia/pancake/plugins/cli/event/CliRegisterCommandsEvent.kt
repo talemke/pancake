@@ -1,4 +1,4 @@
-package net.tassia.pancake.cli.event
+package net.tassia.pancake.plugins.cli.event
 
 import net.tassia.pancake.Pancake
 

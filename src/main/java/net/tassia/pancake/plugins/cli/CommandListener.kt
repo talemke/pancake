@@ -1,4 +1,4 @@
-package net.tassia.pancake.cli
+package net.tassia.pancake.plugins.cli
 
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.Readers.readUntilOrEOF
