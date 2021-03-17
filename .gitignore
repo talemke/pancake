@@ -3,9 +3,9 @@ target/
 
 # Runtime Output
 /config.ini
-/data.db
-/cache/
+/data/
 /logs/
+/plugins/
 
 # IntelliJ
 .idea/

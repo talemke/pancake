@@ -1,4 +1,4 @@
-package net.tassia.pancake
+package net.tassia.pancake.io
 
 import java.io.EOFException
 import java.io.Reader

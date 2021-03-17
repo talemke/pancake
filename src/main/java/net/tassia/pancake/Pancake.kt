@@ -1,13 +1,15 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
-import net.tassia.pancake.cli.PancakeCLI
 import net.tassia.pancake.event.IncomingMailEvent
 import net.tassia.pancake.event.MailRouteEvent
 import net.tassia.pancake.event.MailRoutedEvent
+import net.tassia.pancake.io.PancakeConfig
+import net.tassia.pancake.io.PrintStreamLoggingHandler
 import net.tassia.pancake.listener.CoreIncomingMailListener
 import net.tassia.pancake.listener.CoreMailRouteListener
 import net.tassia.pancake.listener.CoreMailRoutedListener
+import net.tassia.pancake.plugin.PluginManager
 import java.util.logging.Logger
 import kotlin.system.exitProcess
 
@@ -32,9 +34,9 @@ class Pancake(val config: PancakeConfig) {
 	val logger: Logger = Logger.getLogger("Pancake")
 
 	/**
-	 * The command-line interface.
+	 * The [PluginManager] for Pancake.
 	 */
-	val cli: PancakeCLI
+	val plugins = PluginManager(this)
 
 
 
@@ -55,14 +57,14 @@ class Pancake(val config: PancakeConfig) {
 		events.registerListener(CoreMailRoutedListener)
 		events.registerListener(CoreMailRouteListener)
 
-		// Create the CLI
-		this.cli = PancakeCLI(this)
+		// Load plugins
+		plugins.locatePlugins()
+
+		// Enable plugins
+		plugins.enablePlugins()
 
 		// Done!
 		logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
-
-		// Start the CLI
-		this.cli.start()
 	}
 
 
@@ -73,6 +75,9 @@ class Pancake(val config: PancakeConfig) {
 	 * @param status the status code (e.g. `0` for success)
 	 */
 	fun exit(status: Int) {
+		// Disable plugins
+		plugins.disablePlugins()
+
 		// Exit the running process
 		exitProcess(status)
 	}
