@@ -1,4 +1,3 @@
-
 package net.tassia.pancake.plugins.cli
 
 /**
