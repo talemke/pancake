@@ -47,7 +47,7 @@ class PluginManager(val pancake: Pancake) {
 		var count = 0
 
 		// TODO
-		
+
 		registerPlugin(PancakeCLI.Info)
 
 		pancake.logger.info("Loaded $count plugins.")
