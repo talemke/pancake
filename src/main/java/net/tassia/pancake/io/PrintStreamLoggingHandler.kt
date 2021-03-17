@@ -1,4 +1,4 @@
-package net.tassia.pancake
+package net.tassia.pancake.io
 
 import java.io.PrintStream
 import java.io.PrintWriter

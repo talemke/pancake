@@ -1,4 +1,4 @@
-package net.tassia.pancake
+package net.tassia.pancake.io
 
 import net.tassia.pancake.config.ConfigDescription
 import net.tassia.pancake.config.ConfigEntry

@@ -4,10 +4,12 @@ import net.tassia.event.EventManager
 import net.tassia.pancake.event.IncomingMailEvent
 import net.tassia.pancake.event.MailRouteEvent
 import net.tassia.pancake.event.MailRoutedEvent
-import net.tassia.pancake.http.PancakeHttp
+import net.tassia.pancake.io.PancakeConfig
+import net.tassia.pancake.io.PrintStreamLoggingHandler
 import net.tassia.pancake.listener.CoreIncomingMailListener
 import net.tassia.pancake.listener.CoreMailRouteListener
 import net.tassia.pancake.listener.CoreMailRoutedListener
+import net.tassia.pancake.plugin.PluginManager
 import java.util.logging.Logger
 import kotlin.system.exitProcess
 
@@ -32,9 +34,9 @@ class Pancake(val config: PancakeConfig) {
 	val logger: Logger = Logger.getLogger("Pancake")
 
 	/**
-	 * The HTTP server. Will be `null` if [PancakeConfig.httpEnabled] is set to `false`.
+	 * The [PluginManager] for Pancake.
 	 */
-	val http: PancakeHttp?
+	val plugins = PluginManager(this)
 
 
 
@@ -55,8 +57,11 @@ class Pancake(val config: PancakeConfig) {
 		events.registerListener(CoreMailRoutedListener)
 		events.registerListener(CoreMailRouteListener)
 
-		// Start HTTP server
-		this.http = if (config.httpEnabled) PancakeHttp(this) else null
+		// Load plugins
+		plugins.locatePlugins()
+
+		// Enable plugins
+		plugins.enablePlugins()
 
 		// Done!
 		logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
@@ -70,8 +75,8 @@ class Pancake(val config: PancakeConfig) {
 	 * @param status the status code (e.g. `0` for success)
 	 */
 	fun exit(status: Int) {
-		// Stop HTTP server
-		this.http?.stop()
+		// Disable plugins
+		plugins.disablePlugins()
 
 		// Exit the running process
 		exitProcess(status)
