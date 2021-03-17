@@ -66,6 +66,7 @@ class PluginManager(val pancake: Pancake) {
 		plugin.info.also {
 			pancake.logger.info("- Enabling ${it.name}, version ${it.version.toDisplayString()}")
 		}
+		plugin.events.forEach { pancake.events.registerEvent(it) }
 		plugin.onEnable()
 		enabled.add(plugin.info)
 	}
