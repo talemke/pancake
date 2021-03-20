@@ -1,11 +1,8 @@
-package net.tassia.pancake.http
+package net.tassia.pancake.plugins.http
 
 import io.ktor.application.*
 import io.ktor.http.*
-import net.tassia.pancake.entity.account.Account
-import net.tassia.pancake.entity.group.Group
-import net.tassia.pancake.entity.session.Session
-import net.tassia.pancake.http.data.StatusResponse
+import net.tassia.pancake.plugins.http.data.StatusResponse
 
 /**
  * Represents a simple HTTP transaction.

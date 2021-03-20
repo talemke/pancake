@@ -1,8 +1,8 @@
-package net.tassia.pancake.http.event
+package net.tassia.pancake.plugins.http.event
 
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.event.PancakeEvent
-import net.tassia.pancake.http.RouteRegistrar
+import net.tassia.pancake.plugins.http.RouteRegistrar
 
 /**
  * Called when the HTTP server is about to startup so all systems/plugins can register their routes.

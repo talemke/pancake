@@ -1,4 +1,4 @@
-package net.tassia.pancake.http.feature
+package net.tassia.pancake.plugins.http.feature
 
 import io.ktor.application.*
 import io.ktor.response.*

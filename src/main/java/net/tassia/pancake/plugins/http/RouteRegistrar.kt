@@ -1,4 +1,4 @@
-package net.tassia.pancake.http
+package net.tassia.pancake.plugins.http
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
@@ -13,8 +13,8 @@ import net.tassia.pancake.JSON
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.entity.group.Groups
 import net.tassia.pancake.entity.session.Sessions
-import net.tassia.pancake.http.data.ExceptionResponse
-import net.tassia.pancake.http.data.StatusResponse
+import net.tassia.pancake.plugins.http.data.ExceptionResponse
+import net.tassia.pancake.plugins.http.data.StatusResponse
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.nio.charset.StandardCharsets
 import java.util.logging.Level
