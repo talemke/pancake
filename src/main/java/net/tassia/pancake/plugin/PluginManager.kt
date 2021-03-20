@@ -67,7 +67,7 @@ class PluginManager(val pancake: Pancake) {
 		plugins.values.forEach { loadPlugin(it) }
 	}
 
-	fun loadPlugin(plugin: Plugin) {
+	private fun loadPlugin(plugin: Plugin) {
 		plugin.info.also {
 			Logger.info("- Loading ${it.name}, version ${it.version.toDisplayString()}")
 		}
