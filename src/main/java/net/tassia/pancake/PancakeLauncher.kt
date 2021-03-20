@@ -38,6 +38,9 @@ object PancakeLauncher {
 			return@let config
 		}
 
+		// Prepare logger
+		// TODO
+
 		// Connect to database
 		DatabaseConnector.connect(cfg)
 
