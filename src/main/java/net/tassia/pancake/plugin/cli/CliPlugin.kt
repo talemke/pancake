@@ -1,6 +1,6 @@
 package net.tassia.pancake.plugin.cli
 
-import net.tassia.event.Event
+import net.tassia.event.EventManager
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInfo
@@ -11,7 +11,6 @@ import net.tassia.pancake.plugin.cli.event.CliRegisterCommandsEvent
 import net.tassia.pancake.plugin.core.listener.mail.CoreIncomingMailListener
 import net.tassia.pancake.plugin.core.listener.mail.CoreMailRouteListener
 import net.tassia.pancake.plugin.core.listener.mail.CoreMailRoutedListener
-import kotlin.reflect.KClass
 
 /**
  * The base class for interacting with Pancake's command-line interface.
@@ -24,10 +23,6 @@ import kotlin.reflect.KClass
 class CliPlugin(override val pancake: Pancake) : Plugin(pancake) {
 
 	override val info: PluginInfo = Info
-
-	override val events: Set<KClass<out Event>> = setOf(
-		CliEvent::class, CliRegisterCommandsEvent::class
-	)
 
 
 
@@ -108,7 +103,15 @@ class CliPlugin(override val pancake: Pancake) : Plugin(pancake) {
 		/**
 		 * The version information for the core plugin.
 		 */
-		val Version = Pancake.VERSION
+		private val Version = Pancake.VERSION
+
+		/**
+		 * Registers all events for this plugin.
+		 */
+		private val RegisterEvents = { events: EventManager ->
+			events.registerEvent<CliEvent>()
+			events.registerEvent<CliRegisterCommandsEvent>()
+		}
 
 		/**
 		 * The plugin information for the core plugin.
@@ -119,7 +122,8 @@ class CliPlugin(override val pancake: Pancake) : Plugin(pancake) {
 			description = "The command-line interface for Pancake.",
 			authors = setOf("Tassilo"),
 			version = Version,
-			constructor = ::CliPlugin
+			constructor = ::CliPlugin,
+			events = RegisterEvents,
 		)
 
 	}
