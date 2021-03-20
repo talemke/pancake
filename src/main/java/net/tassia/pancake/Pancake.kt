@@ -10,6 +10,8 @@ import net.tassia.pancake.listener.CoreIncomingMailListener
 import net.tassia.pancake.listener.CoreMailRouteListener
 import net.tassia.pancake.listener.CoreMailRoutedListener
 import net.tassia.pancake.plugin.PluginManager
+import net.tassia.pancake.util.version.Version
+import net.tassia.pancake.util.version.VersionType
 import java.util.logging.Logger
 import kotlin.system.exitProcess
 

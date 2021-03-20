@@ -1,4 +1,4 @@
-package net.tassia.pancake.security
+package net.tassia.pancake.security.hash
 
 /**
  * Defines how to hash passwords (actually, how to hash any data).

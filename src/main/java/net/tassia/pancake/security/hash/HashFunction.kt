@@ -1,4 +1,4 @@
-package net.tassia.pancake.security
+package net.tassia.pancake.security.hash
 
 /**
  * Abstraction for password hash functions.

@@ -1,5 +1,6 @@
-package net.tassia.pancake.security
+package net.tassia.pancake.security.hash
 
+import net.tassia.pancake.security.hash.HashFunction
 import java.security.MessageDigest
 
 /**
