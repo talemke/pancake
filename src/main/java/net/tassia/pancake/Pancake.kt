@@ -33,7 +33,7 @@ class Pancake(val config: PancakeConfig) {
 
 
 	init {
-		// Setup logger
+		// Initialize
 		Logger.info("Initializing Pancake...")
 
 		// Register core events
