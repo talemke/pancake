@@ -2,6 +2,7 @@ package net.tassia.pancake
 
 import net.tassia.pancake.config.ConfigIO
 import net.tassia.pancake.config.driver.ConfigIniDriver
+import net.tassia.pancake.io.DatabaseConnector
 import net.tassia.pancake.io.DatabaseDriver
 import net.tassia.pancake.io.PancakeConfig
 import net.tassia.pancake.io.PancakeIO
@@ -40,15 +41,7 @@ object PancakeLauncher {
 		}
 
 		// Connect to database
-		when (cfg.databaseDriver) {
-			DatabaseDriver.SQLITE -> {
-				Database.connect("jdbc:sqlite:./data/storage.db", "org.sqlite.JDBC")
-			}
-			DatabaseDriver.MYSQL -> {
-				Database.connect("jdbc:mysql://${cfg.mysqlHostname}:${cfg.mysqlPort}/${cfg.mysqlDatabase}",
-					driver = "com.mysql.jdbc.Driver", user = cfg.mysqlUsername, password = cfg.mysqlPassword)
-			}
-		}
+		DatabaseConnector.connect(cfg)
 
 		// Launch
 		return Pancake(cfg)
