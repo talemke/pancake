@@ -68,6 +68,10 @@ class Pancake(val config: PancakeConfig) {
 		// Disable plugins
 		plugins.disablePlugins()
 
+		// Flush and close logger
+		Logger.flush()
+		Logger.close()
+
 		// Exit the running process
 		exitProcess(status)
 	}
