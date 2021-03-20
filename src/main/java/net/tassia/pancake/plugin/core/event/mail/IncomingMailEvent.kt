@@ -1,7 +1,8 @@
-package net.tassia.pancake.event
+package net.tassia.pancake.plugin.core.event.mail
 
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.entity.mail.Mail
+import net.tassia.pancake.event.MailEvent
 
 /**
  * This event is called when a new [Mail] has been received.
@@ -11,11 +12,7 @@ import net.tassia.pancake.entity.mail.Mail
  */
 data class IncomingMailEvent(
 
+	override val mail: Mail,
 	override val pancake: Pancake,
 
-	/**
-	 * The incoming mail.
-	 */
-	val mail: Mail
-
-) : PancakeEvent(pancake)
+) : MailEvent(mail, pancake)

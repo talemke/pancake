@@ -1,9 +1,9 @@
-package net.tassia.pancake.listener
+package net.tassia.pancake.plugin.core.listener.mail
 
 import net.tassia.event.EventListener
 import net.tassia.pancake.entity.route.Route
 import net.tassia.pancake.entity.route.Routes
-import net.tassia.pancake.event.MailRouteEvent
+import net.tassia.pancake.plugin.core.event.mail.MailRouteEvent
 
 /**
  * Listens for mails wanting to be routed and, well, routes them.

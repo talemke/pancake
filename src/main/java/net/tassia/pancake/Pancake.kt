@@ -1,14 +1,10 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
-import net.tassia.pancake.event.IncomingMailEvent
-import net.tassia.pancake.event.MailRouteEvent
-import net.tassia.pancake.event.MailRoutedEvent
+import net.tassia.pancake.event.MailEvent
+import net.tassia.pancake.event.PancakeEvent
 import net.tassia.pancake.io.PancakeConfig
 import net.tassia.pancake.io.PrintStreamLoggingHandler
-import net.tassia.pancake.listener.CoreIncomingMailListener
-import net.tassia.pancake.listener.CoreMailRouteListener
-import net.tassia.pancake.listener.CoreMailRoutedListener
 import net.tassia.pancake.plugin.PluginManager
 import net.tassia.pancake.util.version.Version
 import net.tassia.pancake.util.version.VersionType
@@ -50,14 +46,8 @@ class Pancake(val config: PancakeConfig) {
 		logger.info("Initializing Pancake...")
 
 		// Register core events
-		events.registerEvent<IncomingMailEvent>()
-		events.registerEvent<MailRoutedEvent>()
-		events.registerEvent<MailRouteEvent>()
-
-		// Register core event listeners
-		events.registerListener(CoreIncomingMailListener)
-		events.registerListener(CoreMailRoutedListener)
-		events.registerListener(CoreMailRouteListener)
+		events.registerEvent<PancakeEvent>()
+		events.registerEvent<MailEvent>()
 
 		// Load plugins
 		plugins.locatePlugins()

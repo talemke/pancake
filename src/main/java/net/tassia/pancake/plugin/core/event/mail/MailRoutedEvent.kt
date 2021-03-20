@@ -1,10 +1,11 @@
-package net.tassia.pancake.event
+package net.tassia.pancake.plugin.core.event.mail
 
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.entity.account.Account
 import net.tassia.pancake.entity.folder.Folder
 import net.tassia.pancake.entity.mail.Mail
 import net.tassia.pancake.entity.route.Route
+import net.tassia.pancake.event.MailEvent
 
 /**
  * Called when a [Mail] has been received and routed.
@@ -14,12 +15,8 @@ import net.tassia.pancake.entity.route.Route
  */
 data class MailRoutedEvent(
 
+	override val mail: Mail,
 	override val pancake: Pancake,
-
-	/**
-	 * The mail.
-	 */
-	val mail: Mail,
 
 	/**
 	 * The receiver address used for routing.
@@ -43,4 +40,4 @@ data class MailRoutedEvent(
 	 */
 	val route: Route?
 
-) : PancakeEvent(pancake)
+) : MailEvent(mail, pancake)

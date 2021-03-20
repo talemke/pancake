@@ -1,7 +1,7 @@
-package net.tassia.pancake.listener
+package net.tassia.pancake.plugin.core.listener.mail
 
 import net.tassia.event.EventListener
-import net.tassia.pancake.event.MailRoutedEvent
+import net.tassia.pancake.plugin.core.event.mail.MailRoutedEvent
 
 /**
  * Listens for routed mails, and either moves them to their folder, or, if they have not been routed, discards them.
