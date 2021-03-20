@@ -47,4 +47,9 @@ data class PluginInfo(
 	 */
 	val constructor: (Pancake) -> Plugin,
 
-	)
+	/**
+	 * A set of dependencies this plugins has.
+	 */
+	val dependencies: Set<String> = setOf(),
+
+)
