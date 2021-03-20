@@ -1,8 +1,8 @@
-package net.tassia.pancake.plugins.cli.command
+package net.tassia.pancake.plugin.cli.command.basic
 
-import net.tassia.pancake.plugins.cli.CLI
-import net.tassia.pancake.plugins.cli.Command
-import net.tassia.pancake.plugins.cli.CommandInfo
+import net.tassia.pancake.plugin.cli.CLI
+import net.tassia.pancake.plugin.cli.command.Command
+import net.tassia.pancake.plugin.cli.command.CommandInfo
 
 /**
  * The 'QUIT' command. Exits the application.
@@ -27,7 +27,7 @@ object QuitCommand {
 	/**
 	 * The command executor.
 	 */
-	val Executor = Command { pancake, _, _, _ ->
+	val Executor = Command { pancake, _, _ ->
 		CLI.print("Good bye!")
 		pancake.exit(0)
 	}

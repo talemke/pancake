@@ -1,4 +1,4 @@
-package net.tassia.pancake.plugins.cli
+package net.tassia.pancake.plugin.cli.command
 
 /**
  * Holds information about a command.

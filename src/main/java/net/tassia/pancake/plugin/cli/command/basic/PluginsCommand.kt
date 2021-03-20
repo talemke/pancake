@@ -1,9 +1,9 @@
-package net.tassia.pancake.plugins.cli.command
+package net.tassia.pancake.plugin.cli.command.basic
 
 import net.tassia.pancake.plugin.Plugin
-import net.tassia.pancake.plugins.cli.CLI
-import net.tassia.pancake.plugins.cli.Command
-import net.tassia.pancake.plugins.cli.CommandInfo
+import net.tassia.pancake.plugin.cli.CLI
+import net.tassia.pancake.plugin.cli.command.Command
+import net.tassia.pancake.plugin.cli.command.CommandInfo
 
 /**
  * The 'PLUGINS' command. Shows all available plugins.
@@ -29,7 +29,7 @@ object PluginsCommand {
 	/**
 	 * The command executor.
 	 */
-	val Executor = Command { pancake, args, _, _ ->
+	val Executor = Command { pancake, args, _ ->
 		when {
 			args.isEmpty() -> {
 				val pl = pancake.plugins.plugins().values

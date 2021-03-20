@@ -1,7 +1,7 @@
-package net.tassia.pancake.plugins.cli.event
+package net.tassia.pancake.plugin.cli.event
 
 import net.tassia.pancake.Pancake
-import net.tassia.pancake.plugins.cli.PancakeCLI
+import net.tassia.pancake.plugin.cli.CliPlugin
 
 /**
  * This event is called when commands are about to registered.
@@ -11,7 +11,7 @@ import net.tassia.pancake.plugins.cli.PancakeCLI
  */
 data class CliRegisterCommandsEvent(
 
+	override val cli: CliPlugin,
 	override val pancake: Pancake,
-	override val cli: PancakeCLI,
 
-) : CliEvent(pancake, cli)
+) : CliEvent(cli, pancake)

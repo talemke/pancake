@@ -2,7 +2,6 @@ package net.tassia.pancake.plugin
 
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.plugin.core.CorePlugin
-import net.tassia.pancake.plugins.cli.PancakeCLI
 
 /**
  * Used to manage plugins.

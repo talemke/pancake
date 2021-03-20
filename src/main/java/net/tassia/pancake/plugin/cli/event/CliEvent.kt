@@ -1,8 +1,8 @@
-package net.tassia.pancake.plugins.cli.event
+package net.tassia.pancake.plugin.cli.event
 
 import net.tassia.pancake.Pancake
-import net.tassia.pancake.plugins.cli.PancakeCLI
 import net.tassia.pancake.event.PancakeEvent
+import net.tassia.pancake.plugin.cli.CliPlugin
 
 /**
  * All CLI related events extend this class.
@@ -12,11 +12,11 @@ import net.tassia.pancake.event.PancakeEvent
  */
 open class CliEvent(
 
-	override val pancake: Pancake,
-
 	/**
-	 * The current [PancakeCLI].
+	 * The current [CliPlugin].
 	 */
-	open val cli: PancakeCLI,
+	open val cli: CliPlugin,
+
+	override val pancake: Pancake,
 
 ) : PancakeEvent(pancake)

@@ -1,4 +1,4 @@
-package net.tassia.pancake.plugins.cli
+package net.tassia.pancake.plugin.cli.command
 
 import net.tassia.pancake.Pancake
 
@@ -15,9 +15,8 @@ fun interface Command {
 	 *
 	 * @param pancake the [Pancake] instance
 	 * @param args the arguments
-	 * @param toggles toggle flags
-	 * @param flags value flags
+	 * @param flags the flags
 	 */
-	fun onCommand(pancake: Pancake, args: List<String>, toggles: Map<String, Boolean>, flags: Map<String, String>)
+	fun onCommand(pancake: Pancake, args: List<String>, flags: Map<String, String>)
 
 }

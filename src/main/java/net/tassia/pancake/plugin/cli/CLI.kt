@@ -1,4 +1,4 @@
-package net.tassia.pancake.plugins.cli
+package net.tassia.pancake.plugin.cli
 
 import net.tassia.pancake.util.ANSI
 import net.tassia.pancake.util.Icon

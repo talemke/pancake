@@ -1,14 +1,19 @@
-package net.tassia.pancake.plugins.cli
+package net.tassia.pancake.plugin.cli
 
 import net.tassia.pancake.Pancake
+import net.tassia.pancake.plugin.cli.command.Command
 import net.tassia.pancake.util.Readers.readUntilOrEOF
 import java.io.StringReader
 import java.util.*
 
-class CommandListener(private val pancake: Pancake, private val getter: (String) -> Command?) : Runnable {
+class CommandListener(
 
-	private val scanner: Scanner = Scanner(System.`in`)
-	var listening: Boolean = true
+	private val pancake: Pancake,
+	private val scanner: Scanner = Scanner(System.`in`),
+	var listening: Boolean = true,
+	private val getter: (String) -> Command?,
+
+) : Runnable {
 
 	override fun run() {
 		while (listening) {
@@ -29,7 +34,6 @@ class CommandListener(private val pancake: Pancake, private val getter: (String)
 
 				// Read arguments/flags
 				val args = mutableListOf<String>()
-				val toggles = mutableMapOf<String, Boolean>()
 				val flags = mutableMapOf<String, String>()
 
 				while (true) {
@@ -50,20 +54,17 @@ class CommandListener(private val pancake: Pancake, private val getter: (String)
 						val flagFull = nextArg.substring(2)
 						if (flagFull.contains('=')) {
 							val flagName = flagFull.split('=')[0]
-							when (val flagValue = flagFull.substring(flagName.length + 1)) {
-								"true" -> toggles[flagName.toLowerCase()] = true
-								"false" -> toggles[flagName.toLowerCase()] = false
-								else -> flags[flagName.toLowerCase()] = flagValue.toLowerCase()
-							}
+							val flagValue = flagFull.substring(flagName.length + 1)
+							flags[flagName.toLowerCase()] = flagValue.toLowerCase()
 						} else {
-							toggles[flagFull.toLowerCase()] = true
+							flags[flagFull.toLowerCase()] = true.toString()
 						}
 					} else {
 						args.add(nextArg)
 					}
 				}
 
-				cmd.onCommand(pancake, args, toggles, flags)
+				cmd.onCommand(pancake, args, flags)
 
 			} catch (_: InterruptedException) {
 				listening = false

@@ -1,11 +1,17 @@
-package net.tassia.pancake.plugins.cli
+package net.tassia.pancake.plugin.cli
 
+import net.tassia.event.Event
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInfo
-import net.tassia.pancake.plugins.cli.event.CliEvent
-import net.tassia.pancake.plugins.cli.event.CliRegisterCommandsEvent
-import net.tassia.pancake.plugins.cli.listener.CoreCliRegisterCommandsListener
+import net.tassia.pancake.plugin.cli.command.Command
+import net.tassia.pancake.plugin.cli.command.CommandInfo
+import net.tassia.pancake.plugin.cli.event.CliEvent
+import net.tassia.pancake.plugin.cli.event.CliRegisterCommandsEvent
+import net.tassia.pancake.plugin.core.listener.mail.CoreIncomingMailListener
+import net.tassia.pancake.plugin.core.listener.mail.CoreMailRouteListener
+import net.tassia.pancake.plugin.core.listener.mail.CoreMailRoutedListener
+import kotlin.reflect.KClass
 
 /**
  * The base class for interacting with Pancake's command-line interface.
@@ -15,11 +21,15 @@ import net.tassia.pancake.plugins.cli.listener.CoreCliRegisterCommandsListener
  * @since Pancake 1.0
  * @author Tassilo
  */
-class PancakeCLI(override val pancake: Pancake) : Plugin(pancake) {
+class CliPlugin(override val pancake: Pancake) : Plugin(pancake) {
 
 	override val info: PluginInfo = Info
 
-	override val events = setOf(CliEvent::class, CliRegisterCommandsEvent::class)
+	override val events: Set<KClass<out Event>> = setOf(
+		CliEvent::class, CliRegisterCommandsEvent::class
+	)
+
+
 
 	/**
 	 * A map of all registered commands.
@@ -43,9 +53,13 @@ class PancakeCLI(override val pancake: Pancake) : Plugin(pancake) {
 
 
 	override fun onEnable() {
+		// Register listeners
+		pancake.events.registerListener(CoreIncomingMailListener)
+		pancake.events.registerListener(CoreMailRoutedListener)
+		pancake.events.registerListener(CoreMailRouteListener)
+
 		// Register commands
-		pancake.events.registerListener(CoreCliRegisterCommandsListener)
-		pancake.events.callEvent(CliRegisterCommandsEvent(pancake, this))
+		// TODO
 
 		// Start thread
 		if (!thread.isAlive) {
@@ -53,15 +67,15 @@ class PancakeCLI(override val pancake: Pancake) : Plugin(pancake) {
 		}
 	}
 
+
+
 	override fun onDisable() {
+		// Stop thread
 		listener.listening = false
 		if (thread.isAlive) {
 			thread.interrupt()
 		}
 	}
-
-	override fun onInstall() = Unit
-	override fun onUninstall() = Unit
 
 
 
@@ -92,12 +106,12 @@ class PancakeCLI(override val pancake: Pancake) : Plugin(pancake) {
 	companion object {
 
 		/**
-		 * The version information for the CLI plugin.
+		 * The version information for the core plugin.
 		 */
 		val Version = Pancake.VERSION
 
 		/**
-		 * The plugin information for the CLI plugin.
+		 * The plugin information for the core plugin.
 		 */
 		val Info = PluginInfo(
 			id = "net.tassia:CLI",
@@ -105,7 +119,7 @@ class PancakeCLI(override val pancake: Pancake) : Plugin(pancake) {
 			description = "The command-line interface for Pancake.",
 			authors = setOf("Tassilo"),
 			version = Version,
-			constructor = ::PancakeCLI
+			constructor = ::CliPlugin
 		)
 
 	}

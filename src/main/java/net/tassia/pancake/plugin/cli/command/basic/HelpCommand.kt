@@ -1,7 +1,7 @@
-package net.tassia.pancake.plugins.cli.command
+package net.tassia.pancake.plugin.cli.command.basic
 
-import net.tassia.pancake.plugins.cli.Command
-import net.tassia.pancake.plugins.cli.CommandInfo
+import net.tassia.pancake.plugin.cli.command.Command
+import net.tassia.pancake.plugin.cli.command.CommandInfo
 
 /**
  * The 'HELP' command. Shows helpful information.
@@ -26,7 +26,7 @@ object HelpCommand {
 	/**
 	 * The command executor.
 	 */
-	val Executor = Command { pancake, args, toggles, flags ->
+	val Executor = Command { pancake, args, flags ->
 		TODO()
 	}
 
