@@ -1,6 +1,7 @@
 package net.tassia.pancake.plugin.core
 
 import net.tassia.event.Event
+import net.tassia.event.EventManager
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInfo
@@ -24,10 +25,6 @@ class CorePlugin(override val pancake: Pancake) : Plugin(pancake) {
 
 	override val info: PluginInfo = Info
 
-	override val events: Set<KClass<out Event>> = setOf(
-		IncomingMailEvent::class, MailRoutedEvent::class, MailRouteEvent::class
-	)
-
 
 
 	override fun onEnable() {
@@ -50,7 +47,16 @@ class CorePlugin(override val pancake: Pancake) : Plugin(pancake) {
 		/**
 		 * The version information for the core plugin.
 		 */
-		val Version = Pancake.VERSION
+		private val Version = Pancake.VERSION
+
+		/**
+		 * Registers all events for this plugin.
+		 */
+		private val RegisterEvents = { events: EventManager ->
+			events.registerEvent<IncomingMailEvent>()
+			events.registerEvent<MailRoutedEvent>()
+			events.registerEvent<MailRouteEvent>()
+		}
 
 		/**
 		 * The plugin information for the core plugin.
@@ -61,7 +67,8 @@ class CorePlugin(override val pancake: Pancake) : Plugin(pancake) {
 			description = "Core systems for Pancake.",
 			authors = setOf("Tassilo"),
 			version = Version,
-			constructor = ::CorePlugin
+			constructor = ::CorePlugin,
+			events = RegisterEvents,
 		)
 
 	}
