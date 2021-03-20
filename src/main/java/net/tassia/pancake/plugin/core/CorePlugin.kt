@@ -1,6 +1,5 @@
 package net.tassia.pancake.plugin.core
 
-import net.tassia.event.Event
 import net.tassia.event.EventManager
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.plugin.Plugin
@@ -11,7 +10,6 @@ import net.tassia.pancake.plugin.core.event.mail.MailRoutedEvent
 import net.tassia.pancake.plugin.core.listener.mail.CoreIncomingMailListener
 import net.tassia.pancake.plugin.core.listener.mail.CoreMailRouteListener
 import net.tassia.pancake.plugin.core.listener.mail.CoreMailRoutedListener
-import kotlin.reflect.KClass
 
 /**
  * The core plugin for Pancake. Adds the base functions.
