@@ -1,8 +1,6 @@
 package net.tassia.pancake.plugins.cli
 
 import net.tassia.pancake.Pancake
-import net.tassia.pancake.Version
-import net.tassia.pancake.VersionType
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInfo
 import net.tassia.pancake.plugins.cli.event.CliEvent
@@ -96,7 +94,7 @@ class PancakeCLI(override val pancake: Pancake) : Plugin(pancake) {
 		/**
 		 * The version information for the CLI plugin.
 		 */
-		val Version = Version(1, 0, 0, 1, "dbd3766fc98765487e213418f5c600e027c8957a", branch = "main", type = VersionType.RELEASE)
+		val Version = Pancake.VERSION
 
 		/**
 		 * The plugin information for the CLI plugin.
