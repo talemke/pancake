@@ -6,6 +6,9 @@ import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInfo
 import net.tassia.pancake.plugin.cli.command.Command
 import net.tassia.pancake.plugin.cli.command.CommandInfo
+import net.tassia.pancake.plugin.cli.command.basic.HelpCommand
+import net.tassia.pancake.plugin.cli.command.basic.PluginsCommand
+import net.tassia.pancake.plugin.cli.command.basic.QuitCommand
 import net.tassia.pancake.plugin.cli.event.CliEvent
 import net.tassia.pancake.plugin.cli.event.CliRegisterCommandsEvent
 
@@ -49,7 +52,12 @@ class CliPlugin(override val pancake: Pancake) : Plugin(pancake) {
 	}
 
 	override fun onEnable() {
-		// Register commands
+		// Register default commands
+		add(HelpCommand.Info, HelpCommand.Executor)
+		add(PluginsCommand.Info, PluginsCommand.Executor)
+		add(QuitCommand.Info, QuitCommand.Executor)
+
+		// Register external commands
 		pancake.events.callEvent(CliRegisterCommandsEvent(this, pancake))
 
 		// Start thread
