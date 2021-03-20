@@ -1,4 +1,4 @@
-package net.tassia.pancake.io
+package net.tassia.pancake.util
 
 import java.io.File
 
