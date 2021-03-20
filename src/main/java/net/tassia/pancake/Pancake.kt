@@ -3,7 +3,7 @@ package net.tassia.pancake
 import net.tassia.event.EventManager
 import net.tassia.pancake.event.MailEvent
 import net.tassia.pancake.event.PancakeEvent
-import net.tassia.pancake.io.PancakeConfig
+import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.logging.Logger
 import net.tassia.pancake.plugin.PluginManager
 import net.tassia.pancake.util.version.Version

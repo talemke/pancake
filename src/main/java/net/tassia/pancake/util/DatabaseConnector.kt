@@ -1,7 +1,7 @@
 package net.tassia.pancake.util
 
-import net.tassia.pancake.io.DatabaseDriver
-import net.tassia.pancake.io.PancakeConfig
+import net.tassia.pancake.config.DatabaseDriver
+import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.logging.Logger
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.name
