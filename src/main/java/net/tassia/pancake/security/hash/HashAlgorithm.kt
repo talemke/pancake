@@ -17,7 +17,7 @@ enum class HashAlgorithm(val id: String, val constructor: () -> HashFunction) {
 	/**
 	 * The SHA-512 algorithm.
 	 *
-	 * @see net.tassia.pancake.security.SHA512
+	 * @see net.tassia.pancake.security.hash.SHA512
 	 */
 	SHA512("6", ::SHA512);
 
