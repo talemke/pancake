@@ -80,10 +80,10 @@ class CommandListener(
 
 	private fun awaitCommand(): String {
 		// Print new line (pretty)
-		// CLI.print()
+		CLI.print()
 
 		// Print shell information
-		// CLI.print("Pancake> ", false)
+		CLI.print("Pancake> ", false)
 
 		// Read the next command
 		val command = scanner.nextLine()
