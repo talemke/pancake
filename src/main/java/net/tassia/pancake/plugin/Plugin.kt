@@ -1,8 +1,8 @@
 package net.tassia.pancake.plugin
 
-import net.tassia.event.Event
 import net.tassia.pancake.Pancake
-import kotlin.reflect.KClass
+import net.tassia.pancake.logging.Level
+import net.tassia.pancake.logging.Logger
 
 /**
  * The super-class for all plugins.
@@ -59,5 +59,25 @@ abstract class Plugin(open val pancake: Pancake) {
 	 * Whether this plugin is currently installed.
 	 */
 	fun isInstalled(): Boolean = pancake.plugins.isPluginInstalled(info)
+
+
+
+	fun log(level: Level, message: String? = null, error: Throwable? = null) =
+		Logger.log(this, level, message, error)
+
+	fun info(message: String? = null, error: Throwable? = null) =
+		Logger.info(message, error, this)
+
+	fun debug(message: String? = null, error: Throwable? = null) =
+		Logger.debug(message, error, this)
+
+	fun warn(message: String? = null, error: Throwable? = null) =
+		Logger.warn(message, error, this)
+
+	fun error(message: String? = null, error: Throwable? = null) =
+		Logger.error(message, error, this)
+
+	fun severe(message: String? = null, error: Throwable? = null) =
+		Logger.severe(message, error, this)
 
 }
