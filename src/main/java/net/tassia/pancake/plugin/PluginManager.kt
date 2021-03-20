@@ -69,7 +69,7 @@ class PluginManager(val pancake: Pancake) {
 
 	private fun loadPlugin(plugin: Plugin) {
 		plugin.info.also {
-			Logger.info("- Loading ${it.name}, version ${it.version.toDisplayString()}")
+			Logger.info("- Loading plugin '${it.name}'...")
 		}
 		plugin.info.events(pancake.events)
 		plugin.onLoad()
@@ -84,7 +84,7 @@ class PluginManager(val pancake: Pancake) {
 	}
 
 	private fun enablePlugin(plugin: Plugin) {
-		Logger.info("- Enabling ${plugin.info.name}")
+		Logger.info("- Enabling plugin '${plugin.info.name}'...")
 		plugin.onEnable()
 		enabled.add(plugin.info)
 	}
@@ -99,7 +99,7 @@ class PluginManager(val pancake: Pancake) {
 	}
 
 	private fun disablePlugin(plugin: Plugin) {
-		Logger.info("- Disabling ${plugin.info.name}")
+		Logger.info("- Disabling plugin '${plugin.info.name}'...")
 		plugin.onDisable()
 		enabled.remove(plugin.info)
 	}
