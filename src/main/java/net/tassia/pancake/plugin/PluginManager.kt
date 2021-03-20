@@ -1,6 +1,7 @@
 package net.tassia.pancake.plugin
 
 import net.tassia.pancake.Pancake
+import net.tassia.pancake.plugin.cli.CliPlugin
 import net.tassia.pancake.plugin.core.CorePlugin
 
 /**
@@ -48,14 +49,29 @@ class PluginManager(val pancake: Pancake) {
 
 		// TODO
 
+		registerPlugin(CliPlugin.Info)
 		registerPlugin(CorePlugin.Info)
-		registerPlugin(PancakeCLI.Info)
 
 		pancake.logger.info("Loaded $count plugins.")
 	}
 
 	private fun registerPlugin(info: PluginInfo) {
 		plugins[info] = info.constructor(pancake)
+	}
+
+
+
+	fun loadPlugins() {
+		pancake.logger.info("Loading plugins...")
+		plugins.values.forEach { loadPlugin(it) }
+	}
+
+	fun loadPlugin(plugin: Plugin) {
+		plugin.info.also {
+			pancake.logger.info("- Loading ${it.name}, version ${it.version.toDisplayString()}")
+		}
+		plugin.info.events(pancake.events)
+		plugin.onLoad()
 	}
 
 
@@ -67,10 +83,7 @@ class PluginManager(val pancake: Pancake) {
 	}
 
 	private fun enablePlugin(plugin: Plugin) {
-		plugin.info.also {
-			pancake.logger.info("- Enabling ${it.name}, version ${it.version.toDisplayString()}")
-		}
-		plugin.events.forEach { pancake.events.registerEvent(it) }
+		pancake.logger.info("- Enabling ${plugin.info.name}")
 		plugin.onEnable()
 		enabled.add(plugin.info)
 	}
@@ -81,7 +94,7 @@ class PluginManager(val pancake: Pancake) {
 		pancake.logger.info("Disabling plugins...")
 		val count = enabled.size
 		plugins.values.forEach { disablePlugin(it) }
-		pancake.logger.info("Disabled $count plugins.")
+		pancake.logger.info("Disabled all $count plugins.")
 	}
 
 	private fun disablePlugin(plugin: Plugin) {

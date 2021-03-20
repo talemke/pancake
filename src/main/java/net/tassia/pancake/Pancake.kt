@@ -49,8 +49,11 @@ class Pancake(val config: PancakeConfig) {
 		events.registerEvent<PancakeEvent>()
 		events.registerEvent<MailEvent>()
 
-		// Load plugins
+		// Locate plugins
 		plugins.locatePlugins()
+
+		// Load plugins
+		plugins.loadPlugins()
 
 		// Enable plugins
 		plugins.enablePlugins()
