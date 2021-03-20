@@ -15,4 +15,14 @@ fun interface LogPublisher {
 	 */
 	fun publish(record: LogRecord)
 
+	/**
+	 * Called when the publisher should be explicitly flushed.
+	 */
+	fun flush() = Unit
+
+	/**
+	 * Called when the publisher should be closed.
+	 */
+	fun close() = Unit
+
 }
