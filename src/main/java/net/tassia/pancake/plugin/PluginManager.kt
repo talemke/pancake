@@ -1,6 +1,7 @@
 package net.tassia.pancake.plugin
 
 import net.tassia.pancake.Pancake
+import net.tassia.pancake.plugin.core.CorePlugin
 import net.tassia.pancake.plugins.cli.PancakeCLI
 
 /**
@@ -48,6 +49,7 @@ class PluginManager(val pancake: Pancake) {
 
 		// TODO
 
+		registerPlugin(CorePlugin.Info)
 		registerPlugin(PancakeCLI.Info)
 
 		pancake.logger.info("Loaded $count plugins.")
