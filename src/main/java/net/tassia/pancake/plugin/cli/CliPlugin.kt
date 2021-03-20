@@ -2,6 +2,7 @@ package net.tassia.pancake.plugin.cli
 
 import net.tassia.event.EventManager
 import net.tassia.pancake.Pancake
+import net.tassia.pancake.event.PancakePostInitEvent
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInfo
 import net.tassia.pancake.plugin.cli.command.Command
@@ -60,9 +61,11 @@ class CliPlugin(override val pancake: Pancake) : Plugin(pancake) {
 		// Register external commands
 		pancake.events.callEvent(CliRegisterCommandsEvent(this, pancake))
 
-		// Start thread
-		if (!thread.isAlive) {
-			thread.start()
+		// Start thread after Pancake
+		pancake.events.registerListener { _: PancakePostInitEvent ->
+			if (!thread.isAlive) {
+				thread.start()
+			}
 		}
 	}
 
