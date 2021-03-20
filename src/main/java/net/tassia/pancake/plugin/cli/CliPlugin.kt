@@ -8,9 +8,6 @@ import net.tassia.pancake.plugin.cli.command.Command
 import net.tassia.pancake.plugin.cli.command.CommandInfo
 import net.tassia.pancake.plugin.cli.event.CliEvent
 import net.tassia.pancake.plugin.cli.event.CliRegisterCommandsEvent
-import net.tassia.pancake.plugin.core.listener.mail.CoreIncomingMailListener
-import net.tassia.pancake.plugin.core.listener.mail.CoreMailRouteListener
-import net.tassia.pancake.plugin.core.listener.mail.CoreMailRoutedListener
 
 /**
  * The base class for interacting with Pancake's command-line interface.
@@ -47,22 +44,19 @@ class CliPlugin(override val pancake: Pancake) : Plugin(pancake) {
 
 
 
-	override fun onEnable() {
-		// Register listeners
-		pancake.events.registerListener(CoreIncomingMailListener)
-		pancake.events.registerListener(CoreMailRoutedListener)
-		pancake.events.registerListener(CoreMailRouteListener)
-
-		// Register commands
+	override fun onLoad() {
 		// TODO
+	}
+
+	override fun onEnable() {
+		// Register commands
+		pancake.events.callEvent(CliRegisterCommandsEvent(this, pancake))
 
 		// Start thread
 		if (!thread.isAlive) {
 			thread.start()
 		}
 	}
-
-
 
 	override fun onDisable() {
 		// Stop thread
