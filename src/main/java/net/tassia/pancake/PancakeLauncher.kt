@@ -2,7 +2,7 @@ package net.tassia.pancake
 
 import net.tassia.pancake.util.config.ConfigIO
 import net.tassia.pancake.util.config.driver.ConfigIniDriver
-import net.tassia.pancake.io.DatabaseConnector
+import net.tassia.pancake.util.DatabaseConnector
 import net.tassia.pancake.io.PancakeConfig
 import net.tassia.pancake.io.PancakeIO
 import java.io.File
