@@ -20,8 +20,8 @@ class PrintStreamPublisher(
 
 ) : LogPublisher {
 
-	override fun publish(record: LogRecord) {
-		stream.println(formatter.format(record))
-	}
+	override fun publish(record: LogRecord) = stream.println(formatter.format(record))
+	override fun flush() = stream.flush()
+	override fun close() = stream.close()
 
 }
