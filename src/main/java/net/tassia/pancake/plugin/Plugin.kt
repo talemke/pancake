@@ -19,12 +19,12 @@ abstract class Plugin(open val pancake: Pancake) {
 	 */
 	abstract val info: PluginInfo
 
+
+
 	/**
-	 * All events this plugin provides.
+	 * Invoked when the plugin should be loaded.
 	 */
-	open val events: Set<KClass<out Event>> = setOf()
-
-
+	open fun onLoad() = Unit
 
 	/**
 	 * Invoked when the plugin should be enabled.
