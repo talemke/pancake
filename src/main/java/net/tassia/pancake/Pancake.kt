@@ -1,7 +1,6 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
-import net.tassia.pancake.event.generic.MailEvent
 import net.tassia.pancake.event.PancakeEvent
 import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.event.PancakePostInitEvent
@@ -39,7 +38,7 @@ class Pancake(val config: PancakeConfig) {
 
 		// Register core events
 		events.registerEvent<PancakeEvent>()
-		events.registerEvent<MailEvent>()
+		events.registerEvent<PancakePostInitEvent>()
 
 		// Locate plugins
 		plugins.locatePlugins()
