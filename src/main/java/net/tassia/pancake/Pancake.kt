@@ -4,11 +4,10 @@ import net.tassia.event.EventManager
 import net.tassia.pancake.event.MailEvent
 import net.tassia.pancake.event.PancakeEvent
 import net.tassia.pancake.io.PancakeConfig
-import net.tassia.pancake.io.PrintStreamLoggingHandler
+import net.tassia.pancake.logging.Logger
 import net.tassia.pancake.plugin.PluginManager
 import net.tassia.pancake.util.version.Version
 import net.tassia.pancake.util.version.VersionType
-import java.util.logging.Logger
 import kotlin.system.exitProcess
 
 /**
@@ -27,11 +26,6 @@ class Pancake(val config: PancakeConfig) {
 	val events = EventManager.newDefault()
 
 	/**
-	 * The logger for Pancake.
-	 */
-	val logger: Logger = Logger.getLogger("Pancake")
-
-	/**
 	 * The [PluginManager] for Pancake.
 	 */
 	val plugins = PluginManager(this)
@@ -40,10 +34,7 @@ class Pancake(val config: PancakeConfig) {
 
 	init {
 		// Setup logger
-		logger.useParentHandlers = false
-		logger.addHandler(PrintStreamLoggingHandler(System.out))
-		logger.level = config.loggingLevel
-		logger.info("Initializing Pancake...")
+		Logger.info("Initializing Pancake...")
 
 		// Register core events
 		events.registerEvent<PancakeEvent>()
@@ -59,7 +50,7 @@ class Pancake(val config: PancakeConfig) {
 		plugins.enablePlugins()
 
 		// Done!
-		logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
+		Logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
 	}
 
 
