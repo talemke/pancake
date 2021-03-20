@@ -42,4 +42,4 @@ data class MailRouteEvent(
 
 	override var isCancelled: Boolean = false
 
-) : MailEvent(mail, pancake), Cancellable
+) : PancakeEvent(pancake), MailEvent, Cancellable
