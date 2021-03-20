@@ -4,6 +4,7 @@ import net.tassia.event.EventManager
 import net.tassia.pancake.event.MailEvent
 import net.tassia.pancake.event.PancakeEvent
 import net.tassia.pancake.config.PancakeConfig
+import net.tassia.pancake.event.PancakePostInitEvent
 import net.tassia.pancake.logging.Logger
 import net.tassia.pancake.plugin.PluginManager
 import net.tassia.pancake.util.version.Version
@@ -51,6 +52,9 @@ class Pancake(val config: PancakeConfig) {
 
 		// Done!
 		Logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
+
+		// Call PostInit event
+		events.callEvent(PancakePostInitEvent(this))
 	}
 
 
