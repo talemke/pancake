@@ -1,6 +1,7 @@
 package net.tassia.pancake.plugin
 
 import net.tassia.pancake.Pancake
+import net.tassia.pancake.logging.Logger
 import net.tassia.pancake.plugin.cli.CliPlugin
 import net.tassia.pancake.plugin.core.CorePlugin
 
@@ -44,7 +45,7 @@ class PluginManager(val pancake: Pancake) {
 
 
 	fun locatePlugins() {
-		pancake.logger.info("Loading plugins...")
+		Logger.info("Loading plugins...")
 		var count = 0
 
 		// TODO
@@ -52,7 +53,7 @@ class PluginManager(val pancake: Pancake) {
 		registerPlugin(CliPlugin.Info)
 		registerPlugin(CorePlugin.Info)
 
-		pancake.logger.info("Loaded $count plugins.")
+		Logger.info("Loaded $count plugins.")
 	}
 
 	private fun registerPlugin(info: PluginInfo) {
@@ -62,13 +63,13 @@ class PluginManager(val pancake: Pancake) {
 
 
 	fun loadPlugins() {
-		pancake.logger.info("Loading plugins...")
+		Logger.info("Loading plugins...")
 		plugins.values.forEach { loadPlugin(it) }
 	}
 
 	fun loadPlugin(plugin: Plugin) {
 		plugin.info.also {
-			pancake.logger.info("- Loading ${it.name}, version ${it.version.toDisplayString()}")
+			Logger.info("- Loading ${it.name}, version ${it.version.toDisplayString()}")
 		}
 		plugin.info.events(pancake.events)
 		plugin.onLoad()
@@ -77,13 +78,13 @@ class PluginManager(val pancake: Pancake) {
 
 
 	fun enablePlugins() {
-		pancake.logger.info("Enabling plugins...")
+		Logger.info("Enabling plugins...")
 		plugins.values.forEach { enablePlugin(it) }
-		pancake.logger.info("Enabled ${enabled.size} plugins.")
+		Logger.info("Enabled ${enabled.size} plugins.")
 	}
 
 	private fun enablePlugin(plugin: Plugin) {
-		pancake.logger.info("- Enabling ${plugin.info.name}")
+		Logger.info("- Enabling ${plugin.info.name}")
 		plugin.onEnable()
 		enabled.add(plugin.info)
 	}
@@ -91,14 +92,14 @@ class PluginManager(val pancake: Pancake) {
 
 
 	fun disablePlugins() {
-		pancake.logger.info("Disabling plugins...")
+		Logger.info("Disabling plugins...")
 		val count = enabled.size
 		plugins.values.forEach { disablePlugin(it) }
-		pancake.logger.info("Disabled all $count plugins.")
+		Logger.info("Disabled all $count plugins.")
 	}
 
 	private fun disablePlugin(plugin: Plugin) {
-		pancake.logger.info("- Disabling ${plugin.info.name}")
+		Logger.info("- Disabling ${plugin.info.name}")
 		plugin.onDisable()
 		enabled.remove(plugin.info)
 	}
