@@ -3,6 +3,7 @@ package net.tassia.pancake.plugin.core.listener.mail
 import net.tassia.event.EventListener
 import net.tassia.pancake.entity.route.Route
 import net.tassia.pancake.entity.route.Routes
+import net.tassia.pancake.plugin.core.CorePlugin
 import net.tassia.pancake.plugin.core.event.mail.MailRouteEvent
 
 /**
@@ -11,7 +12,7 @@ import net.tassia.pancake.plugin.core.event.mail.MailRouteEvent
  * @since Pancake 1.0
  * @author Tassilo
  */
-object CoreMailRouteListener : EventListener<MailRouteEvent> {
+class CoreMailRouteListener(private val core: CorePlugin) : EventListener<MailRouteEvent> {
 
 	override fun onEvent(event: MailRouteEvent) {
 		// 1. Check EQUAL routes

@@ -33,9 +33,9 @@ class CorePlugin(override val pancake: Pancake) : Plugin(pancake) {
 
 	override fun onEnable() {
 		// Register listeners
-		pancake.events.registerListener(CoreIncomingMailListener)
-		pancake.events.registerListener(CoreMailRoutedListener)
-		pancake.events.registerListener(CoreMailRouteListener)
+		pancake.events.registerListener(CoreIncomingMailListener(this))
+		pancake.events.registerListener(CoreMailRoutedListener(this))
+		pancake.events.registerListener(CoreMailRouteListener(this))
 	}
 
 	override fun onDisable() {

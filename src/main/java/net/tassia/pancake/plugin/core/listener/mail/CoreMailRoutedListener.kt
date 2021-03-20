@@ -1,6 +1,7 @@
 package net.tassia.pancake.plugin.core.listener.mail
 
 import net.tassia.event.EventListener
+import net.tassia.pancake.plugin.core.CorePlugin
 import net.tassia.pancake.plugin.core.event.mail.MailRoutedEvent
 
 /**
@@ -9,7 +10,7 @@ import net.tassia.pancake.plugin.core.event.mail.MailRoutedEvent
  * @since Pancake 1.0
  * @author Tassilo
  */
-object CoreMailRoutedListener : EventListener<MailRoutedEvent> {
+class CoreMailRoutedListener(private val core: CorePlugin) : EventListener<MailRoutedEvent> {
 
 	override fun onEvent(event: MailRoutedEvent) {
 		// Get the folder
