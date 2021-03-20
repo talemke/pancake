@@ -5,11 +5,10 @@ import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import net.tassia.pancake.Pancake
-import net.tassia.pancake.http.RouteRegistrar
-import net.tassia.pancake.http.event.HttpRegisterRoutesEvent
-import net.tassia.pancake.http.feature.Logging
-import net.tassia.pancake.http.feature.ResponseHeaders
-import net.tassia.pancake.http.route.v1.RegisterRoutesV1
+import net.tassia.pancake.plugins.http.event.HttpRegisterRoutesEvent
+import net.tassia.pancake.plugins.http.feature.Logging
+import net.tassia.pancake.plugins.http.feature.ResponseHeaders
+import net.tassia.pancake.plugins.http.v1.RegisterRoutesV1
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInfo
 
