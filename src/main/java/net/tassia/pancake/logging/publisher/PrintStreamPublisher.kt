@@ -13,10 +13,10 @@ import java.io.PrintStream
  * @since Pancake 1.0
  * @author Tassilo
  */
-class PrintStreamPublisher(
+open class PrintStreamPublisher(
 
-	private val stream: PrintStream,
-	private val formatter: LogFormatter,
+	open val stream: PrintStream,
+	open val formatter: LogFormatter,
 
 ) : LogPublisher {
 
