@@ -1,4 +1,4 @@
-package net.tassia.pancake
+package net.tassia.pancake.util
 
 /**
  * Allows to encode/decode byte arrays into Base16 (hexadecimal).
