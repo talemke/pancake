@@ -4,6 +4,9 @@ import net.tassia.pancake.util.config.ConfigIO
 import net.tassia.pancake.util.config.driver.ConfigIniDriver
 import net.tassia.pancake.util.DatabaseConnector
 import net.tassia.pancake.io.PancakeConfig
+import net.tassia.pancake.logging.Logger
+import net.tassia.pancake.logging.formatter.DefaultFormatter
+import net.tassia.pancake.logging.publisher.PrintStreamPublisher
 import net.tassia.pancake.util.PancakeIO
 import java.io.File
 
@@ -14,8 +17,6 @@ import java.io.File
  * @author Tassilo
  */
 object PancakeLauncher {
-
-	const val VERSION: String = "1.0.0-PRE-1"
 
 	/**
 	 * Launches a new [Pancake] instance.
@@ -39,7 +40,10 @@ object PancakeLauncher {
 		}
 
 		// Prepare logger
-		// TODO
+		Logger.publishers.add(PrintStreamPublisher(
+			stream = System.out,
+			formatter = DefaultFormatter,
+		))
 
 		// Connect to database
 		DatabaseConnector.connect(cfg)
