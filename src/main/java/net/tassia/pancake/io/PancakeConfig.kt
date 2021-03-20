@@ -1,7 +1,7 @@
 package net.tassia.pancake.io
 
-import net.tassia.pancake.config.ConfigDescription
-import net.tassia.pancake.config.ConfigEntry
+import net.tassia.pancake.util.config.ConfigDescription
+import net.tassia.pancake.util.config.ConfigEntry
 import java.util.logging.Level
 
 /**
