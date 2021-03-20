@@ -1,4 +1,4 @@
-package net.tassia.pancake.logging.publisher
+package net.tassia.pancake.logging.formatter
 
 import net.tassia.pancake.logging.LogRecord
 
