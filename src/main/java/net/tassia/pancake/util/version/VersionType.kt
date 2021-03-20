@@ -1,4 +1,4 @@
-package net.tassia.pancake
+package net.tassia.pancake.util.version
 
 /**
  * Defines what type a [Version] is.

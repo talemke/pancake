@@ -1,5 +1,7 @@
 package net.tassia.pancake
 
+import net.tassia.pancake.util.version.Version
+import net.tassia.pancake.util.version.VersionType
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals

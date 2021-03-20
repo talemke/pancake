@@ -1,7 +1,7 @@
 package net.tassia.pancake.plugin
 
 import net.tassia.pancake.Pancake
-import net.tassia.pancake.Version
+import net.tassia.pancake.util.version.Version
 
 /**
  * Holds information about a specific plugin.
@@ -47,4 +47,4 @@ data class PluginInfo(
 	 */
 	val constructor: (Pancake) -> Plugin,
 
-)
+	)
