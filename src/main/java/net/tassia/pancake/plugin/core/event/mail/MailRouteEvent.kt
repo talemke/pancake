@@ -6,7 +6,7 @@ import net.tassia.pancake.entity.account.Account
 import net.tassia.pancake.entity.folder.Folder
 import net.tassia.pancake.entity.mail.Mail
 import net.tassia.pancake.entity.route.Route
-import net.tassia.pancake.event.MailEvent
+import net.tassia.pancake.event.generic.MailEvent
 import net.tassia.pancake.event.PancakeEvent
 
 /**

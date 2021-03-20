@@ -1,7 +1,7 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
-import net.tassia.pancake.event.MailEvent
+import net.tassia.pancake.event.generic.MailEvent
 import net.tassia.pancake.event.PancakeEvent
 import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.event.PancakePostInitEvent

@@ -1,9 +1,9 @@
-package net.tassia.pancake.event
+package net.tassia.pancake.event.generic
 
 import net.tassia.pancake.entity.mail.Mail
 
 /**
- * All mail related events should implement this.
+ * Declares that a given event involves a [Mail].
  *
  * @since Pancake 1.0
  * @author Tassilo

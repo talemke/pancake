@@ -2,7 +2,7 @@ package net.tassia.pancake.plugin.core.event.mail
 
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.entity.mail.Mail
-import net.tassia.pancake.event.MailEvent
+import net.tassia.pancake.event.generic.MailEvent
 import net.tassia.pancake.event.PancakeEvent
 
 /**
