@@ -36,6 +36,18 @@ object Logger {
 
 
 	/**
+	 * Explicitly flushes all registered [LogPublisher]s.
+	 */
+	fun flush() = publishers.forEach(LogPublisher::flush)
+
+	/**
+	 * Closes all registered [LogPublisher]s.
+	 */
+	fun close() = publishers.forEach(LogPublisher::close)
+
+
+
+	/**
 	 * Logs a message on the [Level.INFO] level.
 	 *
 	 * @param message the message, can be `null`
