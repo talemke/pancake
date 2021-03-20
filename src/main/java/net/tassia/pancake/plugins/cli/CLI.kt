@@ -1,5 +1,7 @@
 package net.tassia.pancake.plugins.cli
 
+import net.tassia.pancake.util.ANSI
+import net.tassia.pancake.util.Icon
 import java.util.*
 
 /**

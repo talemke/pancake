@@ -1,4 +1,4 @@
-package net.tassia.pancake.plugins.cli
+package net.tassia.pancake.util
 
 /**
  * Contains some nice ANSI color codes, allowing for nicer console outputs.

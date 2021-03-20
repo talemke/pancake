@@ -1,4 +1,4 @@
-package net.tassia.pancake.plugins.cli
+package net.tassia.pancake.util
 
 /**
  * Contains some neat little Unicode icons, allowing for nicer console outputs.
