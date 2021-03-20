@@ -42,7 +42,7 @@ object PancakeLauncher {
 		// Connect to database
 		when (cfg.databaseDriver) {
 			DatabaseDriver.SQLITE -> {
-				Database.connect("jdbc:sqlite:./data.db", "org.sqlite.JDBC")
+				Database.connect("jdbc:sqlite:./data/storage.db", "org.sqlite.JDBC")
 			}
 			DatabaseDriver.MYSQL -> {
 				Database.connect("jdbc:mysql://${cfg.mysqlHostname}:${cfg.mysqlPort}/${cfg.mysqlDatabase}",
