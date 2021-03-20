@@ -1,4 +1,4 @@
-package net.tassia.pancake.config
+package net.tassia.pancake.util.config
 
 import java.io.Reader
 import java.io.Writer

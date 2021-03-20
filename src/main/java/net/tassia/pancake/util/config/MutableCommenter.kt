@@ -1,4 +1,4 @@
-package net.tassia.pancake.config
+package net.tassia.pancake.util.config
 
 /**
  * A mutable [ConfigCommenter], allows for easily managing commenting.

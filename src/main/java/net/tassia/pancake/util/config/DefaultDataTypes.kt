@@ -1,4 +1,4 @@
-package net.tassia.pancake.config
+package net.tassia.pancake.util.config
 
 import java.util.*
 import java.util.logging.Level

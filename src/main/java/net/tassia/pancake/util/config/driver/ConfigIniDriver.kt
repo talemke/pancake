@@ -1,8 +1,8 @@
-package net.tassia.pancake.config.driver
+package net.tassia.pancake.util.config.driver
 
-import net.tassia.pancake.config.ConfigCommenter
-import net.tassia.pancake.config.ConfigDriver
-import net.tassia.pancake.config.ConfigIO
+import net.tassia.pancake.util.config.ConfigCommenter
+import net.tassia.pancake.util.config.ConfigDriver
+import net.tassia.pancake.util.config.ConfigIO
 import java.io.Reader
 import java.io.Writer
 import java.util.*

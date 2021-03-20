@@ -1,4 +1,4 @@
-package net.tassia.pancake.config
+package net.tassia.pancake.util.config
 
 /**
  * This class is used to determine how a config file should be commented.

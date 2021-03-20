@@ -1,12 +1,10 @@
 package net.tassia.pancake
 
-import net.tassia.pancake.config.ConfigIO
-import net.tassia.pancake.config.driver.ConfigIniDriver
+import net.tassia.pancake.util.config.ConfigIO
+import net.tassia.pancake.util.config.driver.ConfigIniDriver
 import net.tassia.pancake.io.DatabaseConnector
-import net.tassia.pancake.io.DatabaseDriver
 import net.tassia.pancake.io.PancakeConfig
 import net.tassia.pancake.io.PancakeIO
-import org.jetbrains.exposed.sql.Database
 import java.io.File
 
 /**
