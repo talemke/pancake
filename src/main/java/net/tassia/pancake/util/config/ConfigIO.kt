@@ -20,7 +20,7 @@ object ConfigIO {
 	 * A set containing all [ConfigDataType]s. The set is mutable to allow for overriding behavior
 	 * on certain types or adding your own ones.
 	 */
-	val dataTypes: MutableSet<ConfigDataType<*>> = mutableSetOf(
+	private val dataTypes: MutableSet<ConfigDataType<*>> = mutableSetOf(
 		BooleanDataType, IntDataType, LongDataType, FloatDataType, DoubleDataType,
 		StringDataType, UUIDDataType, LoggingLevelDataType
 	)
@@ -59,7 +59,7 @@ object ConfigIO {
 	 * @param driver the driver
 	 * @param commenter the commenter
 	 */
-	fun save(writer: Writer, config: Any, driver: ConfigDriver, commenter: ConfigCommenter?) {
+	private fun save(writer: Writer, config: Any, driver: ConfigDriver, commenter: ConfigCommenter?) {
 		// Build map
 		val comments = MutableCommenter()
 		val map = mutableMapOf<String, String>()
@@ -121,7 +121,7 @@ object ConfigIO {
 	 * @param driver the driver
 	 * @return the config
 	 */
-	fun <T : Any> load(reader: Reader, config: T, driver: ConfigDriver): T {
+	private fun <T : Any> load(reader: Reader, config: T, driver: ConfigDriver): T {
 		// Load actual config
 		val map = driver.read(reader)
 
