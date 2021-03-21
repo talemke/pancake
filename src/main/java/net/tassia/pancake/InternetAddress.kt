@@ -22,4 +22,23 @@ data class InternetAddress(
 
 	override fun toString(): String = "$username@$hostname"
 
+
+
+	companion object {
+
+		/**
+		 * Parses the given string into an [InternetAddress].
+		 *
+		 * @param str the string to parse
+		 * @return the parsed address, or `null` on failure
+		 */
+		fun parse(str: String): InternetAddress? {
+			if (!str.contains('@')) return null
+			val username = str.split('@', limit = 2)[0]
+			val hostname = str.substring(username.length + 1)
+			return InternetAddress(username, hostname)
+		}
+
+	}
+
 }
