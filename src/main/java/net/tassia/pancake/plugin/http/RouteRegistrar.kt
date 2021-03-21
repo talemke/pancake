@@ -1,4 +1,4 @@
-package net.tassia.pancake.plugins.http
+package net.tassia.pancake.plugin.http
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
@@ -10,14 +10,12 @@ import io.ktor.routing.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.tassia.pancake.JSON
-import net.tassia.pancake.Pancake
 import net.tassia.pancake.entity.group.Groups
 import net.tassia.pancake.entity.session.Sessions
-import net.tassia.pancake.plugins.http.data.ExceptionResponse
-import net.tassia.pancake.plugins.http.data.StatusResponse
+import net.tassia.pancake.plugin.http.data.ExceptionResponse
+import net.tassia.pancake.plugin.http.data.StatusResponse
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.nio.charset.StandardCharsets
-import java.util.logging.Level
 import kotlin.reflect.KClass
 
 /**
@@ -26,7 +24,7 @@ import kotlin.reflect.KClass
  * @since Pancake 1.0
  * @author Tassilo
  */
-class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
+class RouteRegistrar(private val route: Routing, private val http: PancakeHttp) {
 
 	/**
 	 * Determines whether the JSON response should be pretty-printed or not.
@@ -95,7 +93,7 @@ class RouteRegistrar(private val route: Routing, private val pancake: Pancake) {
 	 * @param error the error
 	 */
 	private suspend fun reportError(call: ApplicationCall, error: Throwable) {
-		pancake.logger.log(Level.WARNING, "Error processing HTTP request.", error)
+		http.warn("Error processing HTTP request.", error)
 		call.response.status(HttpStatusCode.InternalServerError)
 		sendJsonResponse(ExceptionResponse(error), call)
 	}

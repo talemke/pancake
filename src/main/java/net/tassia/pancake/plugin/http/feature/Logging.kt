@@ -1,10 +1,10 @@
-package net.tassia.pancake.plugins.http.feature
+package net.tassia.pancake.plugin.http.feature
 
 import io.ktor.application.*
 import io.ktor.request.*
 import io.ktor.util.*
 import io.ktor.util.pipeline.*
-import java.util.logging.Logger
+import net.tassia.pancake.plugin.http.PancakeHttp
 
 /**
  * This feature logs HTTP requests to the given logger.
@@ -12,7 +12,7 @@ import java.util.logging.Logger
  * @since Pancake 1.0
  * @author Tassilo
  */
-class Logging(private val logger: Logger) {
+class Logging(private val http: PancakeHttp) {
 
 	/**
 	 * Log the HTTP transaction.
@@ -24,9 +24,9 @@ class Logging(private val logger: Logger) {
 		val url = self.context.request.uri
 		val code = self.context.response.status()?.value
 		if (code == null || code >= 500) {
-			logger.warning("HTTP | $method $url - $code")
+			http.warn("$method $url - $code")
 		} else {
-			logger.fine("HTTP | $method $url - $code")
+			http.debug("$method $url - $code")
 		}
 	}
 
@@ -40,7 +40,7 @@ class Logging(private val logger: Logger) {
 		/**
 		 * The logger to use. This must be set to a non-null value.
 		 */
-		var logger: Logger? = null
+		var http: PancakeHttp? = null
 
 	)
 
@@ -55,10 +55,10 @@ class Logging(private val logger: Logger) {
 			val config = Configuration().apply(configure)
 
 			// Verify configuration
-			val logger = config.logger ?: throw IllegalStateException("Logger cannot be null.")
+			val http = config.http ?: throw IllegalStateException("Logger cannot be null.")
 
 			// Create feature and pipeline interception
-			val feature = Logging(logger)
+			val feature = Logging(http)
 			pipeline.intercept(ApplicationCallPipeline.Fallback) { feature.logTransaction(this) }
 			return feature
 		}

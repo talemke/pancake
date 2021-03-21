@@ -1,7 +1,7 @@
-package net.tassia.pancake.plugins.http.v1
+package net.tassia.pancake.plugin.http.v1
 
-import net.tassia.pancake.plugins.http.RouteRegistrar
-import net.tassia.pancake.plugins.http.data.v1.PingResponse
+import net.tassia.pancake.plugin.http.RouteRegistrar
+import net.tassia.pancake.plugin.http.data.v1.PingResponse
 
 /**
  * Registers all generic routes of the Version 1 API.

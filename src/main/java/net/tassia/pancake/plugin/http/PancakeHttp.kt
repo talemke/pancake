@@ -1,16 +1,17 @@
-package net.tassia.pancake.plugins.http
+package net.tassia.pancake.plugin.http
 
 import io.ktor.application.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import net.tassia.event.EventManager
 import net.tassia.pancake.Pancake
-import net.tassia.pancake.plugins.http.event.HttpRegisterRoutesEvent
-import net.tassia.pancake.plugins.http.feature.Logging
-import net.tassia.pancake.plugins.http.feature.ResponseHeaders
-import net.tassia.pancake.plugins.http.v1.RegisterRoutesV1
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInfo
+import net.tassia.pancake.plugin.http.event.HttpRegisterRoutesEvent
+import net.tassia.pancake.plugin.http.feature.Logging
+import net.tassia.pancake.plugin.http.feature.ResponseHeaders
+import net.tassia.pancake.plugin.http.v1.RegisterRoutesV1
 
 /**
  * The base class for the HTTP sub-system of Pancake.
@@ -24,8 +25,6 @@ class PancakeHttp(override val pancake: Pancake) : Plugin(pancake) {
 
 	override val info: PluginInfo = Info
 
-	override val events = setOf(HttpRegisterRoutesEvent::class)
-
 	/**
 	 * The underlying HTTP engine.
 	 */
@@ -36,34 +35,34 @@ class PancakeHttp(override val pancake: Pancake) : Plugin(pancake) {
 	override fun onEnable() {
 		pancake.events.registerEvent(HttpRegisterRoutesEvent::class)
 
-		pancake.logger.info("HTTP | Initializing Netty Server Engine...")
+		info("Initializing Netty Server Engine...")
 		engine = embeddedServer(Netty, host = pancake.config.httpHostname, port = pancake.config.httpPort) {
 
-			pancake.logger.info("HTTP | Installing Features... ")
+			info("Installing Features... ")
 
-			pancake.logger.fine("HTTP | - CORS Headers")
+			debug("- CORS Headers")
 			// TODO
 
-			pancake.logger.fine("HTTP | - Response Headers")
+			debug("- Response Headers")
 			install(ResponseHeaders)
 
-			pancake.logger.fine("HTTP | - Logging")
+			debug("- Logging")
 			install(Logging) {
-				logger = pancake.logger
+				http = this@PancakeHttp
 			}
 
-			pancake.logger.fine("HTTP | - Routing")
+			debug("- Routing")
 			install(Routing)
 
-			pancake.logger.info("HTTP | Register Routes...")
+			debug("Register Routes...")
 			pancake.events.registerListener(HttpRegisterRoutesEvent::class, RegisterRoutesV1)
 			routing {
-				pancake.events.callEvent(HttpRegisterRoutesEvent(pancake, RouteRegistrar(this, pancake)))
+				pancake.events.callEvent(HttpRegisterRoutesEvent(pancake, RouteRegistrar(this, this@PancakeHttp)))
 			}
 
 		}
 
-		pancake.logger.info("HTTP | Starting Server...")
+		info("Starting Server...")
 		engine?.start(wait = false)
 	}
 
@@ -77,7 +76,7 @@ class PancakeHttp(override val pancake: Pancake) : Plugin(pancake) {
 	 * @param gracePeriodMillis the maximum amount of time for activity to cool down
 	 * @param timeoutMillis the maximum amount of time to wait until server stops gracefully
 	 */
-	fun stop(gracePeriodMillis: Long = 5000, timeoutMillis: Long = 5000) {
+	private fun stop(gracePeriodMillis: Long = 5000, timeoutMillis: Long = 5000) {
 		engine?.stop(gracePeriodMillis, timeoutMillis)
 	}
 
@@ -88,7 +87,14 @@ class PancakeHttp(override val pancake: Pancake) : Plugin(pancake) {
 		/**
 		 * The version information for the HTTP plugin.
 		 */
-		val Version = Pancake.VERSION
+		private val Version = Pancake.VERSION
+
+		/**
+		 * Registers all events for this plugin.
+		 */
+		private val RegisterEvents = { events: EventManager ->
+			events.registerEvent<HttpRegisterRoutesEvent>()
+		}
 
 		/**
 		 * The plugin information for the CLI plugin.
@@ -99,7 +105,8 @@ class PancakeHttp(override val pancake: Pancake) : Plugin(pancake) {
 			description = "The HTTP server implementation. Adds the Rest API functionality.",
 			authors = setOf("Tassilo"),
 			version = Version,
-			constructor = ::PancakeHttp
+			constructor = ::PancakeHttp,
+			events = RegisterEvents,
 		)
 
 	}

@@ -1,8 +1,8 @@
-package net.tassia.pancake.plugins.http
+package net.tassia.pancake.plugin.http
 
 import io.ktor.application.*
 import io.ktor.http.*
-import net.tassia.pancake.plugins.http.data.StatusResponse
+import net.tassia.pancake.plugin.http.data.StatusResponse
 
 /**
  * Represents a simple HTTP transaction.

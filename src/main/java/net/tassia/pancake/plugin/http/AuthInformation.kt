@@ -1,4 +1,4 @@
-package net.tassia.pancake.plugins.http
+package net.tassia.pancake.plugin.http
 
 import net.tassia.pancake.entity.account.Account
 import net.tassia.pancake.entity.group.Group

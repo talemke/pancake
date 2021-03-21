@@ -1,4 +1,4 @@
-package net.tassia.pancake.plugins.http.data.v1
+package net.tassia.pancake.plugin.http.data.v1
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import net.tassia.pancake.Pancake

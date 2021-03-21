@@ -1,7 +1,7 @@
-package net.tassia.pancake.plugins.http.v1
+package net.tassia.pancake.plugin.http.v1
 
 import net.tassia.event.EventListener
-import net.tassia.pancake.plugins.http.event.HttpRegisterRoutesEvent
+import net.tassia.pancake.plugin.http.event.HttpRegisterRoutesEvent
 
 /**
  * Registers all routes of the Version 1 API. This function acts as an
