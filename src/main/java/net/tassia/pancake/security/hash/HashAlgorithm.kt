@@ -8,7 +8,12 @@ package net.tassia.pancake.security.hash
  */
 enum class HashAlgorithm(val id: String, val constructor: () -> HashFunction) {
 
-	// MD5("1"), TODO
+	/**
+	 * The MessageDigest 5 algorithm.
+	 *
+	 * @see net.tassia.pancake.security.hash.MD5
+	 */
+	MD5("1", ::MD5),
 
 	// BLOWFISH("2y"), TODO
 
