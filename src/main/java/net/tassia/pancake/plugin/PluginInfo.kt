@@ -1,7 +1,8 @@
 package net.tassia.pancake.plugin
 
+import net.tassia.event.EventManager
 import net.tassia.pancake.Pancake
-import net.tassia.pancake.Version
+import net.tassia.pancake.util.version.Version
 
 /**
  * Holds information about a specific plugin.
@@ -46,5 +47,15 @@ data class PluginInfo(
 	 * The constructor for this plugin.
 	 */
 	val constructor: (Pancake) -> Plugin,
+
+	/**
+	 * A set of dependencies this plugins has.
+	 */
+	val dependencies: Set<String> = setOf(),
+
+	/**
+	 * Called to register events for this plugin.
+	 */
+	val events: (EventManager) -> Unit = { },
 
 )

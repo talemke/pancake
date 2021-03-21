@@ -1,0 +1,22 @@
+package net.tassia.pancake.security.hash
+
+import java.security.MessageDigest
+
+/**
+ * Implementation of the SHA-256 hash algorithm. Uses Java's [MessageDigest] API under the hood.
+ *
+ * @since Pancake 1.0
+ * @author Tassilo
+ */
+class SHA256 : HashFunction {
+
+	private val digest = MessageDigest.getInstance("SHA-256")
+
+	override fun hash(input: ByteArray, salt: ByteArray): ByteArray {
+		digest.reset()
+		digest.update(salt)
+		digest.update(input)
+		return digest.digest()
+	}
+
+}

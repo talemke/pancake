@@ -1,6 +1,7 @@
 package net.tassia.pancake.security
 
-import net.tassia.pancake.Base16
+import net.tassia.pancake.security.hash.HashAlgorithm
+import net.tassia.pancake.util.Base16
 import java.nio.charset.StandardCharsets
 import java.security.SecureRandom
 import java.util.regex.Pattern
