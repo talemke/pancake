@@ -12,7 +12,12 @@ enum class HashAlgorithm(val id: String, val constructor: () -> HashFunction) {
 
 	// BLOWFISH("2y"), TODO
 
-	// SHA256("5"), TODO
+	/**
+	 * The SHA-256 algorithm.
+	 *
+	 * @see net.tassia.pancake.security.hash.SHA256
+	 */
+	SHA256("5", ::SHA256),
 
 	/**
 	 * The SHA-512 algorithm.
