@@ -5,6 +5,7 @@ import net.tassia.pancake.util.config.driver.ConfigIniDriver
 import net.tassia.pancake.util.DatabaseConnector
 import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.logging.Logger
+import net.tassia.pancake.logging.formatter.DefaultAnsiFormatter
 import net.tassia.pancake.logging.formatter.DefaultFormatter
 import net.tassia.pancake.logging.publisher.FilePublisher
 import net.tassia.pancake.logging.publisher.PrintStreamPublisher
@@ -45,7 +46,7 @@ object PancakeLauncher {
 		// Add console output publisher to logger
 		Logger.publishers.add(PrintStreamPublisher(
 			stream = System.out,
-			formatter = DefaultFormatter,
+			formatter = DefaultAnsiFormatter,
 		))
 
 		// Add file publisher to logger
