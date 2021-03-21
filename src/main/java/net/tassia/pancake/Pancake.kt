@@ -1,16 +1,13 @@
 package net.tassia.pancake
 
 import net.tassia.event.EventManager
-import net.tassia.pancake.event.IncomingMailEvent
-import net.tassia.pancake.event.MailRouteEvent
-import net.tassia.pancake.event.MailRoutedEvent
-import net.tassia.pancake.io.PancakeConfig
-import net.tassia.pancake.io.PrintStreamLoggingHandler
-import net.tassia.pancake.listener.CoreIncomingMailListener
-import net.tassia.pancake.listener.CoreMailRouteListener
-import net.tassia.pancake.listener.CoreMailRoutedListener
+import net.tassia.pancake.event.PancakeEvent
+import net.tassia.pancake.config.PancakeConfig
+import net.tassia.pancake.event.PancakePostInitEvent
+import net.tassia.pancake.logging.Logger
 import net.tassia.pancake.plugin.PluginManager
-import java.util.logging.Logger
+import net.tassia.pancake.util.version.Version
+import net.tassia.pancake.util.version.VersionType
 import kotlin.system.exitProcess
 
 /**
@@ -29,11 +26,6 @@ class Pancake(val config: PancakeConfig) {
 	val events = EventManager.newDefault()
 
 	/**
-	 * The logger for Pancake.
-	 */
-	val logger: Logger = Logger.getLogger("Pancake")
-
-	/**
 	 * The [PluginManager] for Pancake.
 	 */
 	val plugins = PluginManager(this)
@@ -41,30 +33,27 @@ class Pancake(val config: PancakeConfig) {
 
 
 	init {
-		// Setup logger
-		logger.useParentHandlers = false
-		logger.addHandler(PrintStreamLoggingHandler(System.out))
-		logger.level = config.loggingLevel
-		logger.info("Initializing Pancake...")
+		// Initialize
+		Logger.info("Initializing Pancake...")
 
 		// Register core events
-		events.registerEvent<IncomingMailEvent>()
-		events.registerEvent<MailRoutedEvent>()
-		events.registerEvent<MailRouteEvent>()
+		events.registerEvent<PancakeEvent>()
+		events.registerEvent<PancakePostInitEvent>()
 
-		// Register core event listeners
-		events.registerListener(CoreIncomingMailListener)
-		events.registerListener(CoreMailRoutedListener)
-		events.registerListener(CoreMailRouteListener)
+		// Locate plugins
+		plugins.locatePlugins()
 
 		// Load plugins
-		plugins.locatePlugins()
+		plugins.loadPlugins()
 
 		// Enable plugins
 		plugins.enablePlugins()
 
 		// Done!
-		logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
+		Logger.info("Done! Running Pancake/${VERSION.toDisplayString()}")
+
+		// Call PostInit event
+		events.callEvent(PancakePostInitEvent(this))
 	}
 
 
@@ -77,6 +66,10 @@ class Pancake(val config: PancakeConfig) {
 	fun exit(status: Int) {
 		// Disable plugins
 		plugins.disablePlugins()
+
+		// Flush and close logger
+		Logger.flush()
+		Logger.close()
 
 		// Exit the running process
 		exitProcess(status)

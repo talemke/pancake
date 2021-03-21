@@ -12,4 +12,8 @@ import net.tassia.pancake.Pancake
  * @since Pancake 1.0
  * @author Tassilo
  */
-open class PancakeEvent(open val pancake: Pancake) : Event()
+open class PancakeEvent(
+
+	open val pancake: Pancake,
+
+) : Event()

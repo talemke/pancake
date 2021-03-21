@@ -16,7 +16,5 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: "Build"
-        run: "mvn --batch-mode package"
-      - name: "Test"
-        run: "mvn --batch-mode test"
+      - name: "Compile & Test"
+        run: "mvn --batch-mode compile test"

@@ -1,12 +1,18 @@
 package net.tassia.pancake
 
-import net.tassia.pancake.config.ConfigIO
-import net.tassia.pancake.config.driver.ConfigIniDriver
-import net.tassia.pancake.io.DatabaseDriver
-import net.tassia.pancake.io.PancakeConfig
-import net.tassia.pancake.io.PancakeIO
-import org.jetbrains.exposed.sql.Database
+import net.tassia.pancake.util.config.ConfigIO
+import net.tassia.pancake.util.config.driver.ConfigIniDriver
+import net.tassia.pancake.util.DatabaseConnector
+import net.tassia.pancake.config.PancakeConfig
+import net.tassia.pancake.logging.Logger
+import net.tassia.pancake.logging.formatter.DefaultAnsiFormatter
+import net.tassia.pancake.logging.formatter.DefaultFormatter
+import net.tassia.pancake.logging.publisher.FilePublisher
+import net.tassia.pancake.logging.publisher.PrintStreamPublisher
+import net.tassia.pancake.util.PancakeIO
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * This object is used to launch a new [Pancake] instance.
@@ -15,8 +21,6 @@ import java.io.File
  * @author Tassilo
  */
 object PancakeLauncher {
-
-	const val VERSION: String = "1.0.0-PRE-1"
 
 	/**
 	 * Launches a new [Pancake] instance.
@@ -39,19 +43,36 @@ object PancakeLauncher {
 			return@let config
 		}
 
+		// Add console output publisher to logger
+		Logger.publishers.add(PrintStreamPublisher(
+			stream = System.out,
+			formatter = DefaultAnsiFormatter,
+		))
+
+		// Add file publisher to logger
+		Logger.publishers.add(FilePublisher(
+			file = getLogFile(),
+			formatter = DefaultFormatter,
+		))
+
 		// Connect to database
-		when (cfg.databaseDriver) {
-			DatabaseDriver.SQLITE -> {
-				Database.connect("jdbc:sqlite:./data.db", "org.sqlite.JDBC")
-			}
-			DatabaseDriver.MYSQL -> {
-				Database.connect("jdbc:mysql://${cfg.mysqlHostname}:${cfg.mysqlPort}/${cfg.mysqlDatabase}",
-					driver = "com.mysql.jdbc.Driver", user = cfg.mysqlUsername, password = cfg.mysqlPassword)
-			}
-		}
+		DatabaseConnector.connect(cfg)
 
 		// Launch
 		return Pancake(cfg)
+	}
+
+
+
+	/**
+	 * Generates a new log file for the current time.
+	 *
+	 * @return the generated log file
+	 */
+	private fun getLogFile(): File {
+		val sdf = SimpleDateFormat("yyyy-MM-dd-'at'-HH-mm")
+		val date = sdf.format(Date())
+		return File("logs", "$date.txt")
 	}
 
 }

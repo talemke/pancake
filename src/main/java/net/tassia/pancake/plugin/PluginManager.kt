@@ -1,8 +1,10 @@
 package net.tassia.pancake.plugin
 
 import net.tassia.pancake.Pancake
-import net.tassia.pancake.plugins.cli.PancakeCLI
 import net.tassia.pancake.plugins.http.PancakeHttp
+import net.tassia.pancake.logging.Logger
+import net.tassia.pancake.plugin.cli.CliPlugin
+import net.tassia.pancake.plugin.core.CorePlugin
 
 /**
  * Used to manage plugins.
@@ -44,15 +46,16 @@ class PluginManager(val pancake: Pancake) {
 
 
 	fun locatePlugins() {
-		pancake.logger.info("Loading plugins...")
+		Logger.info("Loading plugins...")
 		var count = 0
 
 		// TODO
 
-		registerPlugin(PancakeCLI.Info)
+		registerPlugin(CliPlugin.Info)
+		registerPlugin(CorePlugin.Info)
 		registerPlugin(PancakeHttp.Info)
 
-		pancake.logger.info("Loaded $count plugins.")
+		Logger.info("Loaded $count plugins.")
 	}
 
 	private fun registerPlugin(info: PluginInfo) {
@@ -61,17 +64,29 @@ class PluginManager(val pancake: Pancake) {
 
 
 
+	fun loadPlugins() {
+		Logger.info("Loading plugins...")
+		plugins.values.forEach { loadPlugin(it) }
+	}
+
+	private fun loadPlugin(plugin: Plugin) {
+		plugin.info.also {
+			Logger.info("- Loading plugin '${it.name}'...")
+		}
+		plugin.info.events(pancake.events)
+		plugin.onLoad()
+	}
+
+
+
 	fun enablePlugins() {
-		pancake.logger.info("Enabling plugins...")
+		Logger.info("Enabling plugins...")
 		plugins.values.forEach { enablePlugin(it) }
-		pancake.logger.info("Enabled ${enabled.size} plugins.")
+		Logger.info("Enabled ${enabled.size} plugins.")
 	}
 
 	private fun enablePlugin(plugin: Plugin) {
-		plugin.info.also {
-			pancake.logger.info("- Enabling ${it.name}, version ${it.version.toDisplayString()}")
-		}
-		plugin.events.forEach { pancake.events.registerEvent(it) }
+		Logger.info("- Enabling plugin '${plugin.info.name}'...")
 		plugin.onEnable()
 		enabled.add(plugin.info)
 	}
@@ -79,14 +94,14 @@ class PluginManager(val pancake: Pancake) {
 
 
 	fun disablePlugins() {
-		pancake.logger.info("Disabling plugins...")
+		Logger.info("Disabling plugins...")
 		val count = enabled.size
 		plugins.values.forEach { disablePlugin(it) }
-		pancake.logger.info("Disabled $count plugins.")
+		Logger.info("Disabled all $count plugins.")
 	}
 
 	private fun disablePlugin(plugin: Plugin) {
-		pancake.logger.info("- Disabling ${plugin.info.name}")
+		Logger.info("- Disabling plugin '${plugin.info.name}'...")
 		plugin.onDisable()
 		enabled.remove(plugin.info)
 	}
