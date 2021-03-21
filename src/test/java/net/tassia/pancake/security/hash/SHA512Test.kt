@@ -1,7 +1,6 @@
 package net.tassia.pancake.security.hash
 
 import net.tassia.pancake.ITERATIONS
-import java.util.*
 import kotlin.random.Random
 import kotlin.test.Test
 
