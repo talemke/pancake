@@ -15,12 +15,12 @@ object Readers {
 	/**
 	 * Reads all characters until the predicate returns `true`.
 	 *
-	 * @param predicate the predicate
 	 * @param builder the builder
+	 * @param predicate the predicate
 	 * @return the builder
 	 */
 	@Throws(EOFException::class)
-	fun Reader.readUntil(predicate: Predicate<Char>, builder: StringBuilder = StringBuilder()): StringBuilder {
+	fun Reader.readUntil(builder: StringBuilder = StringBuilder(), predicate: Predicate<Char>): StringBuilder {
 		while (true) {
 			val next = read()
 			if (next == -1) throw EOFException()
