@@ -1,5 +1,6 @@
 package net.tassia.pancake.entity.webhook
 
+import net.tassia.pancake.entity.account.AccountTable
 import org.jetbrains.exposed.dao.id.IdTable
 import java.util.*
 
@@ -17,5 +18,7 @@ object WebhookTable : IdTable<UUID>("pancake_webhook") {
 	val url = varchar("URL", 255).uniqueIndex()
 	val contentType = enumeration("ContentType", WebhookPayloadType::class)
 	val events = long("Events")
+
+	val account = reference("AccountID", AccountTable)
 
 }
