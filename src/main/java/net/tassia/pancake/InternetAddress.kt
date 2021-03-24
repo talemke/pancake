@@ -18,6 +18,11 @@ data class InternetAddress(
 	 */
 	val hostname: String,
 
+	/**
+	 * The full name associated with this address.
+	 */
+	val fullName: String?,
+
 ) {
 
 	override fun toString(): String = "$username@$hostname"
@@ -36,7 +41,7 @@ data class InternetAddress(
 			if (!str.contains('@')) return null
 			val username = str.split('@', limit = 2)[0]
 			val hostname = str.substring(username.length + 1)
-			return InternetAddress(username, hostname)
+			return InternetAddress(username, hostname, null)
 		}
 
 	}

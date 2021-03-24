@@ -31,6 +31,12 @@ class CoreIncomingMailListener(private val core: CorePlugin) : EventListener<Inc
 		// Tell everyone that we routed this mail
 		core.info("Mail ${event.mail} received and routed for $address")
 		pan.events.callEvent(MailRoutedEvent(event.mail, pan, address, routeEvent.account, routeEvent.folder, routeEvent.route))
+
+		// Spam protection
+		// TODO
+
+		// Execute webhooks
+		// TODO
 	}
 
 }
