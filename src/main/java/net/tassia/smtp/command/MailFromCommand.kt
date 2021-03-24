@@ -2,6 +2,7 @@ package net.tassia.smtp.command
 
 import net.tassia.pancake.InternetAddress
 import net.tassia.smtp.SMTP
+import net.tassia.smtp.SMTP.toSMTPString
 import net.tassia.smtp.SmtpCommand
 import net.tassia.smtp.SmtpConnection
 
@@ -20,7 +21,7 @@ class MailFromCommand(private val sender: InternetAddress) : SmtpCommand() {
 	override val responses = setOf(250, 451, 452, 455, 503, 550, 552, 553, 555)
 
 	override fun write(connection: SmtpConnection) {
-		connection.writer.write("$COMMAND:\"$sender\"${SMTP.CRLF}")
+		connection.writer.write("$COMMAND:\"${sender.toSMTPString()}\"${SMTP.CRLF}")
 	}
 
 
