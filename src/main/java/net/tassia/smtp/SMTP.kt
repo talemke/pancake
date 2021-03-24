@@ -1,5 +1,7 @@
 package net.tassia.smtp
 
+import net.tassia.pancake.InternetAddress
+
 /**
  * The base class for the SMTP implementation.
  * Contains useful constants.
@@ -15,5 +17,11 @@ object SMTP {
 	 * `<CR><LF>`
 	 */
 	const val CRLF = "\r\n"
+
+
+
+	fun InternetAddress.toSMTPString(): String {
+		return "${this.hostname} <$this>".trim()
+	}
 
 }
