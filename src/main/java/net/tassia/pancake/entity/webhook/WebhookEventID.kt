@@ -6,7 +6,7 @@ package net.tassia.pancake.entity.webhook
  * @since Pancake 1.0
  * @author Tassilo
  */
-object WebhookEvent {
+object WebhookEventID {
 
 	/**
 	 * A new mail has been received.
