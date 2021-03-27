@@ -1,6 +1,10 @@
 package net.tassia.smtp
 
 import net.tassia.pancake.InternetAddress
+import net.tassia.pancake.MimeMessage
+import net.tassia.smtp.client.SmtpClient
+import java.net.InetSocketAddress
+import java.nio.channels.SocketChannel
 
 /**
  * The base class for the SMTP implementation.
@@ -27,6 +31,22 @@ object SMTP {
 	 */
 	fun InternetAddress.toSMTPString(): String {
 		return if (this.fullName != null) "${this.fullName} <$this>" else this.toString()
+	}
+
+
+
+	fun deliverAsync(message: MimeMessage, sender: InternetAddress, recipients: Set<InternetAddress>, hostname: String,
+				server: String, port: Int) {
+		require(recipients.isNotEmpty()) { "At least 1 recipient is required." }
+
+		val socket = SocketChannel.open()
+		socket.connect(InetSocketAddress(server, port))
+		socket.configureBlocking(false)
+
+		val client = SmtpClient(socket.socket())
+		client.hello(hostname)
+		client.send(message, sender, recipients)
+		client.quit()
 	}
 
 }
