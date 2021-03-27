@@ -1,5 +1,6 @@
-<h1 align="center">pancake</h1>
-<p align="center">Lightweight SMTP and POP3 server written in Kotlin. (INDEV)</p>
+<img src="https://cdn.tassia.net/github/assets/TASSIA710/pancake.png" align="center" alt="pancake">
+
+---
 
 <p align="center">
 	<img src="https://img.shields.io/github/license/TASSIA710/pancake?label=License">

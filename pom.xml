@@ -11,6 +11,7 @@
 		<maven.compiler.target>8</maven.compiler.target>
 		<kotlin.version>1.4.30</kotlin.version>
 		<dokka.version>1.4.20</dokka.version>
+		<ktor.version>1.5.2</ktor.version>
 	</properties>
 
 	<repositories>
@@ -42,13 +43,23 @@
 		</dependency>
 		<dependency>
 			<groupId>io.ktor</groupId>
+			<artifactId>ktor-client-core</artifactId>
+			<version>${ktor.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.ktor</groupId>
+			<artifactId>ktor-client-apache</artifactId>
+			<version>${ktor.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.ktor</groupId>
 			<artifactId>ktor-server-core</artifactId>
-			<version>1.5.1</version>
+			<version>${ktor.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.ktor</groupId>
 			<artifactId>ktor-server-netty</artifactId>
-			<version>1.5.1</version>
+			<version>${ktor.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jetbrains.exposed</groupId>
