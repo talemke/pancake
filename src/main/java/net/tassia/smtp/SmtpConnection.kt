@@ -48,7 +48,7 @@ interface SmtpConnection {
 	 * @throws IOException if an I/O error occurs
 	 */
 	@Throws(IOException::class)
-	fun writeCommand(command: SmtpCommand): List<SmtpResponse> {
+	fun writeCommand(command: SmtpCommand): SmtpResponse {
 		command.write(this)
 		return readResponse()
 	}
@@ -64,7 +64,22 @@ interface SmtpConnection {
 	 * @throws EOFException if the stream reaches the end
 	 */
 	@Throws(EOFException::class, IOException::class)
-	fun readResponse(): List<SmtpResponse> {
+	fun readResponse(): SmtpResponse {
+		// Read first line
+		val response = readResponseLine(null).let {
+			if (it.second) return it.first else return@let it.first
+		}
+
+		// Read other lines
+		while (true) {
+			val res = readResponseLine(response)
+			if (res.second) break
+		}
+		return response
+	}
+
+	@Throws(EOFException::class, IOException::class)
+	private fun readResponseLine(response: SmtpResponse?): Pair<SmtpResponse, Boolean> {
 		TODO()
 	}
 
