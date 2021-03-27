@@ -26,6 +26,15 @@ interface SmtpConnection {
 
 
 	/**
+	 * Closes the connection.
+	 *
+	 * @param safe whether to disconnect safely, i.e. send a QUIT command and await response
+	 */
+	fun disconnect(safe: Boolean)
+
+
+
+	/**
 	 * Reads a command from the reader.
 	 *
 	 * @return the command
