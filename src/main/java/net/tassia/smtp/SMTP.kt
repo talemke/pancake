@@ -20,8 +20,13 @@ object SMTP {
 
 
 
+	/**
+	 * Converts this internet address to an SMTP-valid string.
+	 *
+	 * @return SMTP string
+	 */
 	fun InternetAddress.toSMTPString(): String {
-		return "${this.hostname} <$this>".trim()
+		return "${this.fullName} <$this>".trim()
 	}
 
 }
