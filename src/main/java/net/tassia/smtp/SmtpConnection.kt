@@ -48,7 +48,7 @@ interface SmtpConnection {
 	 * @throws IOException if an I/O error occurs
 	 */
 	@Throws(IOException::class)
-	open fun writeCommand(command: SmtpCommand): List<SmtpResponse> {
+	fun writeCommand(command: SmtpCommand): List<SmtpResponse> {
 		command.write(this)
 		return readResponse()
 	}
