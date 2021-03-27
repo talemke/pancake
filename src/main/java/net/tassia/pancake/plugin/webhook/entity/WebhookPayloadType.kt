@@ -1,4 +1,4 @@
-package net.tassia.pancake.entity.webhook
+package net.tassia.pancake.plugin.webhook.entity
 
 /**
  * Defines the ContentType of a [Webhook].

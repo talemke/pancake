@@ -1,4 +1,4 @@
-package net.tassia.pancake.entity.webhook.event
+package net.tassia.pancake.plugin.webhook.entity.event
 
 /**
  * Utility object containing constants of webhook events.

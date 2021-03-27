@@ -1,4 +1,4 @@
-package net.tassia.pancake.entity.webhook
+package net.tassia.pancake.plugin.webhook.entity
 
 import net.tassia.pancake.entity.account.Account
 import org.jetbrains.exposed.dao.Entity
