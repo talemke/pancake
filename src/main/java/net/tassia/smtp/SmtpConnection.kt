@@ -4,7 +4,6 @@ import java.io.EOFException
 import java.io.IOException
 import java.io.Reader
 import java.io.Writer
-import java.nio.charset.Charset
 
 /**
  * An SMTP connection consists of a writer, a reader and a charset.
@@ -13,11 +12,6 @@ import java.nio.charset.Charset
  * @author Tassilo
  */
 interface SmtpConnection {
-
-	/**
-	 * The charset.
-	 */
-	val charset: Charset
 
 	/**
 	 * The writer.
@@ -43,6 +37,8 @@ interface SmtpConnection {
 	fun readCommand(): SmtpCommand? {
 		TODO()
 	}
+
+
 
 	/**
 	 * Writes a command to the writer.
@@ -72,6 +68,8 @@ interface SmtpConnection {
 		TODO()
 	}
 
+
+
 	/**
 	 * Writes a response to the writer.
 	 *
@@ -81,7 +79,23 @@ interface SmtpConnection {
 	 */
 	@Throws(IOException::class)
 	fun writeResponse(response: SmtpResponse) {
-		TODO()
+		if (response.information.isEmpty()) {
+			writeResponseLine(response.status, null, true)
+		} else {
+			response.information.forEachIndexed { index, value ->
+				writeResponseLine(response.status, value, index == response.information.size - 1)
+			}
+		}
+	}
+
+	@Throws(IOException::class)
+	private fun writeResponseLine(status: Int, information: String?, last: Boolean) {
+		if (last) {
+			if (information == null) writer.write(status.toString() + SMTP.CRLF)
+			else writer.write("$status $information${SMTP.CRLF}")
+		} else {
+			writer.write("$status-$information${SMTP.CRLF}")
+		}
 	}
 
 }
