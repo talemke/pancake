@@ -44,6 +44,16 @@ class SmtpClient(
 
 
 	/**
+	 * Sends a `HELO` command to the server with the given hostname.
+	 *
+	 * @param hostname the hostname to sign in as
+	 */
+	@Throws(IOException::class)
+	fun hello(hostname: String) {
+		writeCommand(HeloCommand(hostname))
+	}
+
+	/**
 	 * Sends a `NOOP` command to the server, effectively pinging it to keep the connection alive.
 	 */
 	@Throws(IOException::class)
