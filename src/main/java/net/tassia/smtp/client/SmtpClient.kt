@@ -44,6 +44,14 @@ class SmtpClient(
 
 
 	/**
+	 * Sends a `NOOP` command to the server, effectively pinging it to keep the connection alive.
+	 */
+	@Throws(IOException::class)
+	fun ping() {
+		writeCommand(NoOperationCommand())
+	}
+
+	/**
 	 * Sends a `RESET` command to the server.
 	 */
 	@Throws(IOException::class)
