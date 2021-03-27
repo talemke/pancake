@@ -14,7 +14,7 @@ import net.tassia.smtp.SmtpConnection
  * @since PancakeSMTP 1.0
  * @author Tassilo
  *
- * @see <a href="https://blog.mailtrap.io/smtp-commands-and-responses/#MAIL_FROM">MAIL_FROM Command</a>
+ * @see <a href="https://blog.mailtrap.io/smtp-commands-and-responses/#MAIL_FROM">MAIL FROM Command</a>
  */
 class MailFromCommand(private val sender: InternetAddress) : SmtpCommand() {
 
