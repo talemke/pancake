@@ -26,7 +26,7 @@ object SMTP {
 	 * @return SMTP string
 	 */
 	fun InternetAddress.toSMTPString(): String {
-		return "${this.fullName} <$this>".trim()
+		return if (this.fullName != null) "${this.fullName} <$this>" else this.toString()
 	}
 
 }
