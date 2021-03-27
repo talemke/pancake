@@ -16,6 +16,6 @@ data class SmtpResponse(
 	/**
 	 * Additional information sent with the response.
 	 */
-	val information: String?,
+	val information: List<String>,
 
 )
