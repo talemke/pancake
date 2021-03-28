@@ -44,6 +44,17 @@ class SmtpClient(
 
 
 	/**
+	 * Tries to secure this connection over TLS.
+	 *
+	 * **Note:** Although this makes the connection more secure against passive observation attacks,
+	 * this does not guarantee complete security.
+	 */
+	@Throws(IOException::class)
+	fun startTLS() {
+		writeCommand(StartTlsCommand())
+	}
+
+	/**
 	 * Sends a `HELO` command to the server with the given hostname.
 	 *
 	 * @param hostname the hostname to sign in as
