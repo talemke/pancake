@@ -7,10 +7,12 @@ import net.tassia.pancake.config.PancakeConfig
 import net.tassia.pancake.logging.Logger
 import net.tassia.pancake.logging.formatter.DefaultAnsiFormatter
 import net.tassia.pancake.logging.formatter.DefaultFormatter
+import net.tassia.pancake.logging.publisher.BinaryStreamPublisher
 import net.tassia.pancake.logging.publisher.FilePublisher
 import net.tassia.pancake.logging.publisher.PrintStreamPublisher
 import net.tassia.pancake.util.PancakeIO
 import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,17 +45,8 @@ object PancakeLauncher {
 			return@let config
 		}
 
-		// Add console output publisher to logger
-		Logger.publishers.add(PrintStreamPublisher(
-			stream = System.out,
-			formatter = DefaultAnsiFormatter,
-		))
-
-		// Add file publisher to logger
-		Logger.publishers.add(FilePublisher(
-			file = getLogFile(),
-			formatter = DefaultFormatter,
-		))
+		// Register log publishers
+		addLogPublishers()
 
 		// Connect to database
 		DatabaseConnector.connect(cfg)
@@ -65,14 +58,40 @@ object PancakeLauncher {
 
 
 	/**
+	 * Registers all required logging publishers.
+	 */
+	private fun addLogPublishers() {
+		val time = System.currentTimeMillis()
+
+		// Add console output publisher to logger
+		Logger.publishers.add(PrintStreamPublisher(
+			stream = System.out,
+			formatter = DefaultAnsiFormatter,
+		))
+
+		// Add file publisher to logger
+		Logger.publishers.add(FilePublisher(
+			file = getLogFile(time, "txt"),
+			formatter = DefaultFormatter,
+		))
+
+		// Add binary publisher
+		Logger.publishers.add(BinaryStreamPublisher(
+			stream = FileOutputStream(getLogFile(time, "bin"))
+		))
+	}
+
+
+
+	/**
 	 * Generates a new log file for the current time.
 	 *
 	 * @return the generated log file
 	 */
-	private fun getLogFile(): File {
+	private fun getLogFile(time: Long, suffix: String): File {
 		val sdf = SimpleDateFormat("yyyy-MM-dd-'at'-HH-mm")
-		val date = sdf.format(Date())
-		return File("logs", "$date.txt")
+		val date = sdf.format(Date(time))
+		return File("logs", "$date.$suffix")
 	}
 
 }
