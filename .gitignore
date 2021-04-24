@@ -1,12 +1,13 @@
-# Compiler Output
-target/
-
-# Runtime Output
-/config.ini
-/data/
-/logs/
-/plugins/
-
 # IntelliJ
 .idea/
 *.iml
+
+# Gradle
+.gradle/
+gradle/
+/gradlew
+/gradlew.bat
+
+# Build Output
+build/
+target/
