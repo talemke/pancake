@@ -1,9 +1,10 @@
 group = PancakeBuild.GROUP
 version = PancakeBuild.VERSION
 
+// apply<PancakePlugin>()
+
 plugins {
 	kotlin("jvm") version PancakeBuild.Version.Kotlin
-	// id("com.github.johnrengelman.shadow").version("6.1.0")
 	application
 }
 
@@ -25,16 +26,5 @@ kotlin {
 }
 
 application {
-	applicationName = "Pancake"
 	mainClass.set("net.tassia.pancake.bootstrap.EntrypointKt")
 }
-
-tasks.register("inferLicense", PancakeInferLicenseTask::class.java)
-tasks.register("inferVersion", PancakeInferVersionTask::class.java)
-
-tasks["processResources"].run {
-	finalizedBy("inferLicense")
-	finalizedBy("inferVersion")
-}
-
-tasks.register<PancakeBuildTask>("buildPancake")
