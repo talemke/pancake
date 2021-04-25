@@ -1,7 +1,7 @@
 group = PancakeBuild.GROUP
 version = PancakeBuild.VERSION
 
-// apply<PancakePlugin>()
+apply<PancakePlugin>()
 
 plugins {
 	kotlin("jvm") version PancakeBuild.Version.Kotlin
