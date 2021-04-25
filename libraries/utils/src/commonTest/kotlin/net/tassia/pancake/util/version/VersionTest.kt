@@ -22,9 +22,9 @@ class VersionTest {
 			minor = Random.nextInt(0, 127),
 			patch = Random.nextInt(0, 255),
 			build = Random.nextInt(0, 65535),
+			extension = null,
 			headFull = randomHead(),
 			branch = randomBranch(),
-			type = VersionType.values().random()
 		)
 	}
 
