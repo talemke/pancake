@@ -2,7 +2,7 @@ group = PancakeBuild.GROUP
 version = PancakeBuild.VERSION
 
 plugins {
-	kotlin("multiplatform") version "1.4.32"
+	kotlin("multiplatform") version PancakeBuild.Version.Kotlin
 }
 
 repositories {

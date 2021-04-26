@@ -27,6 +27,7 @@ open class PrepareTargetFolderTask : DefaultTask() {
 			// Create misc dirs
 			File(it, "data").mkdirs()
 			File(it, "data/security").mkdirs()
+			File(it, "data/security/checksum").mkdirs()
 			File(it, "logs").mkdirs()
 			File(it, "plugins").mkdirs()
 		}
