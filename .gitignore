@@ -2,12 +2,16 @@
 .idea/
 *.iml
 
+# Visual Studio
+.vscode/
+
 # Gradle
 .gradle/
-gradle/
+/gradle/
 /gradlew
 /gradlew.bat
+/gradle.properties
 
 # Build Output
-build/
-target/
+/build/
+/target/
