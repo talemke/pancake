@@ -1,0 +1,18 @@
+name: "Build"
+on: ["workflow_dispatch"]
+
+jobs:
+  build:
+    name: "Build"
+    runs-on: "ubuntu-latest"
+    container:
+      image: "gradle"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+      - name: "Start Gradle Daemon"
+        run: "gradle init"
+      - name: "Build Project"
+        run: "gradle assemble"
+      - name: "Test Project"
+        run: "gradle test"
