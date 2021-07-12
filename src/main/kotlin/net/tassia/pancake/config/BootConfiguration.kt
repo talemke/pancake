@@ -46,7 +46,7 @@ class BootConfiguration {
 		}
 	}
 
-	fun checkOverrides(args: Collection<String>) {
+	fun checkOverrides(args: Array<String>) {
 		for (prop in this::class.memberProperties) {
 			val name = prop.findAnnotation<PropertyName>() ?: continue
 			val override = args.find { it.startsWith("--${name.value}=") } ?: continue

@@ -2,7 +2,6 @@ package net.tassia.pancake.bootstrap;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.PancakeException;
-import net.tassia.pancake.config.BootConfiguration;
 import net.tassia.pancake.logging.Logging;
 
 /**
@@ -20,7 +19,7 @@ public final class Entrypoint {
 	 */
 	public static void main(String[] args) {
 		// Create loggers
-		// TODO
+		Logging.init(args);
 
 		// Start application
 		try {
@@ -50,12 +49,11 @@ public final class Entrypoint {
 	 */
 	public static void start(String[] args) {
 		// Initialize
-		BootConfiguration config = new BootConfiguration();
-		Pancake pancake = new Pancake(config);
+		Pancake pancake = new Pancake();
 
 		// Load
 		try {
-			pancake.load();
+			pancake.load(args);
 		} catch(Throwable ex) {
 			throw new PancakeException("An unexpected error occurred while loading Pancake.", ex);
 		}

@@ -22,21 +22,21 @@ dependencies {
 	implementation("org.xerial:sqlite-jdbc:3.30.1")
 	implementation("com.h2database:h2:1.4.199")
 
-	implementation("org.jetbrains.exposed", "exposed-core", exposedVersion)
-	implementation("org.jetbrains.exposed", "exposed-dao", exposedVersion)
-	implementation("org.jetbrains.exposed", "exposed-jdbc", exposedVersion)
+	api("org.jetbrains.exposed", "exposed-core", exposedVersion)
+	api("org.jetbrains.exposed", "exposed-dao", exposedVersion)
+	api("org.jetbrains.exposed", "exposed-jdbc", exposedVersion)
 
-	implementation("io.ktor", "ktor-server-core", ktorVersion)
-	implementation("io.ktor", "ktor-server-netty", ktorVersion)
-	implementation("io.ktor", "ktor-server-host-common", ktorVersion)
+	api("io.ktor", "ktor-server-core", ktorVersion)
+	api("io.ktor", "ktor-server-netty", ktorVersion)
+	api("io.ktor", "ktor-server-host-common", ktorVersion)
 
-	implementation("io.ktor", "ktor-client-core", ktorVersion)
-	implementation("io.ktor", "ktor-client-core-jvm", ktorVersion)
-	implementation("io.ktor", "ktor-client-apache", ktorVersion)
+	api("io.ktor", "ktor-client-core", ktorVersion)
+	api("io.ktor", "ktor-client-core-jvm", ktorVersion)
+	api("io.ktor", "ktor-client-apache", ktorVersion)
 
-	implementation("io.ktor", "ktor-auth", ktorVersion)
-	implementation("io.ktor", "ktor-jackson", ktorVersion)
-	implementation("io.ktor", "ktor-metrics", ktorVersion)
+	api("io.ktor", "ktor-auth", ktorVersion)
+	api("io.ktor", "ktor-jackson", ktorVersion)
+	api("io.ktor", "ktor-metrics", ktorVersion)
 
 	testImplementation(kotlin("test-junit"))
 }
@@ -66,5 +66,27 @@ publishing {
 				password = findProperty("PublishMavenPassword") as String
 			}
 		}
+	}
+}
+
+tasks.named("processResources") {
+	finalizedBy("injectVersionInformation")
+}
+
+tasks.create<Copy>("injectVersionInformation") {
+	from("src/main/resources/net/tassia/pancake/resources/internal/version.properties")
+	into("$buildDir/resources/main/net/tassia/pancake/resources/internal/")
+	filter { line -> line
+		.replace("%{version.major}", 0.toString())
+		.replace("%{version.minor}", 0.toString())
+		.replace("%{version.patch}", 1.toString())
+		.replace("%{version.build}", 1.toString())
+
+		.replace("%{version.timestamp}", System.currentTimeMillis().toString())
+		.replace("%{version.extension}", "SNAPSHOT")
+		.replace("%{version.snapshot}", true.toString())
+
+		.replace("%{version.git.head}", "d96f6609fb66c5550ed7b9027e565b5b40627a8c")
+		.replace("%{version.git.branch}", "main")
 	}
 }
