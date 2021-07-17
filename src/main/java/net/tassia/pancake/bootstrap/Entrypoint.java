@@ -2,6 +2,7 @@ package net.tassia.pancake.bootstrap;
 
 import net.tassia.pancake.Pancake;
 import net.tassia.pancake.PancakeException;
+import net.tassia.pancake.cli.CLI;
 import net.tassia.pancake.logging.Logging;
 
 /**
@@ -66,7 +67,7 @@ public final class Entrypoint {
 		}
 
 		// Run CLI
-		// TODO
+		runCLI();
 
 		// Shutdown
 		try {
@@ -77,6 +78,18 @@ public final class Entrypoint {
 
 		// Drop from global scope
 		Pancake.INSTANCE = null;
+	}
+
+
+
+
+
+	private static void runCLI() {
+		// Create CLI
+		CLI cli = new CLI(System.in, System.out);
+
+		// Start CLI
+		cli.run();
 	}
 
 

@@ -44,7 +44,7 @@ public final class CLI implements Runnable {
 		String cmd;
 		String[] args;
 		Command command;
-		Map<String, String> flags;
+		Map<String, String> flags = new HashMap<>();
 
 		// Main loop
 		while (this.running) {
@@ -59,10 +59,14 @@ public final class CLI implements Runnable {
 			}
 
 			// Extract arguments and flags
-			String[] rawArgs = line.split(" ", 2);
-			cmd = rawArgs[0];
-			args = rawArgs.length == 2 ? rawArgs[1].split(" ") : new String[0];
-			flags = new HashMap<>();
+			if (line.contains(" ")) {
+				int index = line.indexOf(' ');
+				cmd = line.substring(0, index);
+				args = line.substring(index + 1).split(" ");
+			} else {
+				cmd = line;
+				args = new String[0];
+			}
 
 			// Find command
 			command = register.get(cmd.toLowerCase());
