@@ -7,7 +7,7 @@ interface Account : Entity {
 	val accountID: UUID
 
 	var username: String
-	var password: String
+	var password: String?
 
 	var primaryGroupID: UUID
 
