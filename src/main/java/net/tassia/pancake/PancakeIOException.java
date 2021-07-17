@@ -3,6 +3,7 @@ package net.tassia.pancake;
 public class PancakeIOException extends PancakeException {
 
 	public PancakeIOException() {
+		super();
 	}
 
 	public PancakeIOException(String message) {
