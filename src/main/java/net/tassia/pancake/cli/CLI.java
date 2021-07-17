@@ -158,6 +158,11 @@ public final class CLI implements Runnable {
 		for (Command cmd : commands) {
 			register.put(cmd.name.toLowerCase(), cmd);
 		}
+		for (Command cmd : commands) {
+			for (String alias : cmd.aliases) {
+				register.putIfAbsent(alias.toLowerCase(), cmd);
+			}
+		}
 	}
 
 }

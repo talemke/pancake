@@ -1,6 +1,9 @@
 package net.tassia.pancake.cli;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A basic command.
@@ -16,6 +19,11 @@ public abstract class Command {
 	public final String name;
 
 	/**
+	 * The aliases of this command.
+	 */
+	public final Set<String> aliases;
+
+	/**
 	 * The underlying base CLI.
 	 */
 	protected final CLI cli;
@@ -25,12 +33,15 @@ public abstract class Command {
 	/**
 	 * Constructs a new {@link Command} with the given base CLI.
 	 *
-	 * @param name the command name
 	 * @param cli the underlying base CLI
+	 * @param name the command name
+	 * @param aliases the command aliases
 	 */
-	protected Command(String name, CLI cli) {
-		this.name = name;
+	protected Command(CLI cli, String name, String...aliases) {
 		this.cli = cli;
+		this.name = name;
+		this.aliases = new HashSet<>();
+		this.aliases.addAll(Arrays.asList(aliases));
 	}
 
 
