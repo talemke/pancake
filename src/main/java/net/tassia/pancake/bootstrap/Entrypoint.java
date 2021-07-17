@@ -74,6 +74,9 @@ public final class Entrypoint {
 		} catch(Throwable ex) {
 			throw new PancakeException("An unexpected error occurred while shutting down Pancake.", ex);
 		}
+
+		// Drop from global scope
+		Pancake.INSTANCE = null;
 	}
 
 
