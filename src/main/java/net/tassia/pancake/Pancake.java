@@ -3,6 +3,7 @@ package net.tassia.pancake;
 import net.tassia.event.EventManager;
 import net.tassia.event.impl.EventManagerImpl;
 import net.tassia.pancake.config.BootConfiguration;
+import net.tassia.pancake.database.DatabaseManager;
 import net.tassia.pancake.logging.Logging;
 
 import java.util.logging.Logger;
@@ -31,6 +32,11 @@ public final class Pancake {
 	public final BootConfiguration bootConfig;
 
 	/**
+	 * The database manager.
+	 */
+	public final DatabaseManager database;
+
+	/**
 	 * The event manager.
 	 */
 	public final EventManager events;
@@ -57,6 +63,7 @@ public final class Pancake {
 
 		// Assign fields
 		this.bootConfig = new BootConfiguration();
+		this.database = new DatabaseManager();
 		this.events = new EventManagerImpl();
 		this.logger = Logging.get(null);
 
@@ -90,11 +97,15 @@ public final class Pancake {
 		logger.fine("Loading plugins...");
 		// TODO
 
-		logger.fine("Loading HTTP server...");
-		// TODO
+		if (bootConfig.getHttpEnabled()) {
+			logger.fine("Loading HTTP server...");
+			// TODO
+		}
 
-		logger.fine("Loading SMTP server...");
-		// TODO
+		if (bootConfig.getSmtpEnabled()) {
+			logger.fine("Loading SMTP server...");
+			// TODO
+		}
 	}
 
 	/**
@@ -121,13 +132,20 @@ public final class Pancake {
 		logger.info("Starting...");
 
 		logger.fine("Connecting to database...");
-		// TODO
+		database.connect(bootConfig);
 
 		logger.fine("Preparing database...");
 		// TODO
 
-		logger.fine("Starting HTTP server...");
-		// TODO
+		if (bootConfig.getHttpEnabled()) {
+			logger.fine("Starting HTTP server...");
+			// TODO
+		}
+
+		if (bootConfig.getSmtpEnabled()) {
+			logger.fine("Starting SMTP server...");
+			// TODO
+		}
 
 		logger.fine("Enabling plugins...");
 		// TODO
@@ -148,11 +166,15 @@ public final class Pancake {
 		logger.fine("Disabling plugins...");
 		// TODO
 
-		logger.fine("Terminating HTTP server...");
-		// TODO
+		if (bootConfig.getHttpEnabled()) {
+			logger.fine("Terminating HTTP server...");
+			// TODO
+		}
 
-		logger.fine("Terminating SMTP server...");
-		// TODO
+		if (bootConfig.getSmtpEnabled()) {
+			logger.fine("Terminating SMTP server...");
+			// TODO
+		}
 
 		logger.info("Good bye!");
 	}
