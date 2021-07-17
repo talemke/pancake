@@ -130,6 +130,7 @@ public final class CLI implements Runnable {
 	 */
 	public void addCommand(Command cmd) {
 		commands.add(cmd);
+		rebuildRegister();
 	}
 
 	/**
@@ -139,6 +140,7 @@ public final class CLI implements Runnable {
 	 */
 	public void removeCommand(Command cmd) {
 		commands.remove(cmd);
+		rebuildRegister();
 	}
 
 	/**
@@ -148,6 +150,7 @@ public final class CLI implements Runnable {
 	 */
 	public void removeCommand(String name) {
 		commands.removeIf((cmd) -> cmd.name.equalsIgnoreCase(name));
+		rebuildRegister();
 	}
 
 	/**
