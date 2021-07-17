@@ -15,30 +15,51 @@ dependencies {
 	val exposedVersion = "0.30.1"
 	val ktorVersion = "1.6.0"
 
+	// Generic
 	api("net.tassia", "event-api", "1.0.1")
 
-	implementation("org.postgresql:postgresql:42.2.2")
-	implementation("mysql:mysql-connector-java:5.1.48")
-	implementation("org.xerial:sqlite-jdbc:3.30.1")
-	implementation("com.h2database:h2:1.4.199")
-
+	// Exposed
 	api("org.jetbrains.exposed", "exposed-core", exposedVersion)
 	api("org.jetbrains.exposed", "exposed-dao", exposedVersion)
 	api("org.jetbrains.exposed", "exposed-jdbc", exposedVersion)
 
+	// KTor
 	api("io.ktor", "ktor-server-core", ktorVersion)
 	api("io.ktor", "ktor-server-netty", ktorVersion)
 	api("io.ktor", "ktor-server-host-common", ktorVersion)
-
 	api("io.ktor", "ktor-client-core", ktorVersion)
 	api("io.ktor", "ktor-client-core-jvm", ktorVersion)
 	api("io.ktor", "ktor-client-apache", ktorVersion)
-
 	api("io.ktor", "ktor-auth", ktorVersion)
 	api("io.ktor", "ktor-jackson", ktorVersion)
 	api("io.ktor", "ktor-metrics", ktorVersion)
 
+	// Test libraries
 	testImplementation(kotlin("test-junit"))
+
+
+
+	// PostgreSQL
+	implementation("org.postgresql:postgresql:42.2.2")
+
+	// MySQL
+	// TODO
+
+	// MySQL (Hikari-Pooled)
+	implementation("mysql:mysql-connector-java:8.0.19")
+	implementation("com.zaxxer:HikariCP:3.4.2")
+
+	// Oracle
+	// TODO
+
+	// SQLite
+	implementation("org.xerial:sqlite-jdbc:3.30.1")
+
+	// H2
+	implementation("com.h2database:h2:1.4.199")
+
+	// SQl Server
+	implementation("com.microsoft.sqlserver:mssql-jdbc:6.4.0.jre7")
 }
 
 java {
