@@ -83,8 +83,8 @@ publishing {
 	repositories {
 		maven("https://nexus.tassia.net/repository/maven-releases/") {
 			credentials {
-				username = findProperty("PublishMavenUsername") as String
-				password = findProperty("PublishMavenPassword") as String
+				username = findProperty("PublishMavenUsername") as String?
+				password = findProperty("PublishMavenPassword") as String?
 			}
 		}
 	}
