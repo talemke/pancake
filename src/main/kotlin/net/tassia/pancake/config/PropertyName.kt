@@ -10,4 +10,4 @@ package net.tassia.pancake.config
  */
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.PROPERTY)
-annotation class PropertyName(val value: String)
+annotation class PropertyName(val section: String, val name: String)

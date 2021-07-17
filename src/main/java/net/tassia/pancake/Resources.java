@@ -16,6 +16,20 @@ public final class Resources {
 
 
 	/**
+	 * The configuration file.
+	 */
+	public static final String CONFIG = BASE + "/config/config.ini";
+
+
+
+	/**
+	 * The installation data file.
+	 */
+	public static final String INSTALLATION_DATA = BASE + "/data/installation.properties";
+
+
+
+	/**
 	 * The version information file.
 	 */
 	public static final String VERSION = BASE + "/internal/version.properties";
