@@ -132,7 +132,7 @@ public final class Pancake {
 		logger.fine("Enabling plugins...");
 		// TODO
 
-		logger.fine("Done! Running Pancake v" + Pancake.VERSION);
+		logger.info("Done! Running Pancake v" + Pancake.VERSION);
 	}
 
 
