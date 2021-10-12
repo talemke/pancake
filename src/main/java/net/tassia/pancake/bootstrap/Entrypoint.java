@@ -1,14 +1,9 @@
 package net.tassia.pancake.bootstrap;
 
-import net.tassia.pancake.Pancake;
-import net.tassia.pancake.PancakeException;
-import net.tassia.pancake.cli.CLI;
-import net.tassia.pancake.cli.commands.ExitCommand;
-import net.tassia.pancake.cli.commands.VersionCommand;
-import net.tassia.pancake.logging.Logging;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * The entrypoint class for the JVM.
+ * The JVM-entrypoint class of Pancake.
  *
  * @since Pancake 1.0
  * @author Tassilo
@@ -16,89 +11,64 @@ import net.tassia.pancake.logging.Logging;
 public final class Entrypoint {
 
 	/**
-	 * The entrypoint method for the JVM.
-	 *
-	 * @param args command-line arguments
+	 * The startup parameters.
 	 */
-	public static void main(String[] args) {
-		// Create loggers
-		Logging.init(args);
+	public static final StartupParameters PARAMETERS = new StartupParameters();
 
-		// Start application
-		try {
-			Entrypoint.start(args);
-		} catch (Throwable ex) {
-			// TODO
-			ex.printStackTrace();
-			System.exit(1);
-		}
-
-		// Close loggers
-		Logging.flushLoggers();
-		Logging.closeLoggers();
-
-		// Exit application
-		System.exit(0);
-	}
-
-
+	/**
+	 * The timestamp when Pancake has been started.
+	 */
+	public static final long STARTUP = System.currentTimeMillis();
 
 
 
 	/**
-	 * Starts the actual application.
+	 * The JVM-entrypoint method of Pancake.
 	 *
 	 * @param args command-line arguments
 	 */
-	public static void start(String[] args) {
-		// Initialize
-		Pancake pancake = new Pancake();
+	public static void main(@NotNull String[] args) {
 
-		// Load
+		// Populate startup parameters
+		PARAMETERS.fromArguments(args);
+
 		try {
-			pancake.load(args);
-		} catch(Throwable ex) {
-			throw new PancakeException("An unexpected error occurred while loading Pancake.", ex);
+
+			// Launch application
+			// TODO
+
+		} catch (Throwable ex) {
+			// Oop, we encountered an error during runtime.
+			exit(ex);
+			return;
 		}
 
-		// Start
-		try {
-			pancake.start();
-		} catch(Throwable ex) {
-			throw new PancakeException("An unexpected error occurred while starting Pancake.", ex);
-		}
+		// Done, without failure!
+		exit(ExitCode.STANDARD);
 
-		// Run CLI
-		runCLI();
-
-		// Shutdown
-		try {
-			pancake.stop();
-		} catch(Throwable ex) {
-			throw new PancakeException("An unexpected error occurred while shutting down Pancake.", ex);
-		}
-
-		// Drop from global scope
-		Pancake.INSTANCE = null;
 	}
 
-
-
-
-
-	private static void runCLI() {
-		// Create CLI
-		CLI cli = new CLI(System.in, System.out);
-
-		// Add commands
-		cli.addCommand(new ExitCommand(cli));
-		cli.addCommand(new VersionCommand(cli));
-
-		// Start CLI
-		cli.run();
+	/**
+	 * Exits the JVM with the given error.
+	 *
+	 * @param error the error
+	 */
+	private static void exit(@NotNull Throwable error) {
+		// TODO: Is known error?
+		exit(ExitCode.UNKNOWN_ERROR);
 	}
 
-
+	/**
+	 * Exits the JVM with the given status code.
+	 *
+	 * @param code the status code
+	 *
+	 * @see ExitCode
+	 */
+	private static void exit(int code) {
+		System.exit(code);
+		throw new AssertionError("System::exit did not halt the JVM.");
+	}
 
 
 
