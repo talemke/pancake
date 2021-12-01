@@ -2,7 +2,10 @@ rootProject.name = 'pancake'
 
 include 'application'
 
-include 'plugin'
+include 'plugin:plugin-auth-ldap'
+include 'plugin:plugin-server-http'
+include 'plugin:plugin-server-pop3'
+include 'plugin:plugin-server-smtp'
 
 include 'server:server-http'
 include 'server:server-pop3'

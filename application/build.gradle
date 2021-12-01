@@ -1,9 +1,19 @@
 dependencies {
 
-	implementation project(':')
+	api project(':')
 
-	implementation project(':server:server-http')
-	implementation project(':server:server-pop3')
-	implementation project(':server:server-smtp')
+	api project(':server:server-http')
+	api project(':server:server-pop3')
+	api project(':server:server-smtp')
+
+	implementation 'com.michael-bull.kotlin-coroutines-jdbc:kotlin-coroutines-jdbc:1.0.2'
+
+	// implementation 'org.jetbrains.exposed:exposed-core:0.36.1'
+	// implementation 'org.jetbrains.exposed:exposed-dao:0.36.1'
+	// implementation 'org.jetbrains.exposed:exposed-jdbc:0.36.1'
+
+	// implementation 'mysql:mysql-connector-java:8.0.25'
+	// implementation 'com.zaxxer:HikariCP:5.0.0'
+	// implementation 'org.xerial:sqlite-jdbc:3.36.0.2'
 
 }

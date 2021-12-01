@@ -1,0 +1,6 @@
+dependencies {
+
+	api project(':plugin')
+	api project(':server:server-smtp')
+
+}
