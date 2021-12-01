@@ -1,3 +1,3 @@
 package net.tassia.pancake.database
 
-abstract class Database
+abstract class Transaction
