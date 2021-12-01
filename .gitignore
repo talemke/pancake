@@ -13,8 +13,13 @@
 /gradle.properties
 
 # Build Output
-/build/
-/target/
+build/
+target/
+
+# Dependencies
+node_modules/
+yarn.lock
+package-lock.json
 
 # Test Runtime
 /runtime/
