@@ -1,1 +1,9 @@
 rootProject.name = 'pancake'
+
+include 'application'
+
+include 'plugin'
+
+include 'server:server-http'
+include 'server:server-pop3'
+include 'server:server-smtp'

@@ -1,0 +1,9 @@
+dependencies {
+
+	implementation project(':')
+
+	implementation project(':server:server-http')
+	implementation project(':server:server-pop3')
+	implementation project(':server:server-smtp')
+
+}
