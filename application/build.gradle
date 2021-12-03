@@ -2,10 +2,6 @@ dependencies {
 
 	api project(':')
 
-	api project(':server:server-http')
-	api project(':server:server-pop3')
-	api project(':server:server-smtp')
-
 	implementation 'com.michael-bull.kotlin-coroutines-jdbc:kotlin-coroutines-jdbc:1.0.2'
 
 	// implementation 'org.jetbrains.exposed:exposed-core:0.36.1'
