@@ -19,11 +19,17 @@ abstract class PluginManager {
 
 
 
+	abstract suspend fun loadPlugin(name: String)
+	abstract suspend fun loadPlugin(plugin: Plugin)
+
 	abstract suspend fun enablePlugin(name: String)
 	abstract suspend fun enablePlugin(plugin: Plugin)
 
 	abstract suspend fun disablePlugin(name: String)
 	abstract suspend fun disablePlugin(plugin: Plugin)
+
+	abstract fun isLoaded(name: String): Boolean
+	abstract fun isLoaded(plugin: Plugin): Boolean
 
 	abstract fun isEnabled(name: String): Boolean
 	abstract fun isEnabled(plugin: Plugin): Boolean

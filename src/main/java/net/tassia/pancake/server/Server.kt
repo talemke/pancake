@@ -3,7 +3,7 @@ package net.tassia.pancake.server
 /**
  * The super-class for all servers (e.g. HTTP, SMTP, etc.)
  *
- * @since Jet 1.0
+ * @since Pancake 1.0
  */
 abstract class Server {
 

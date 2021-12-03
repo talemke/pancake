@@ -3,14 +3,16 @@ package net.tassia.pancake
 import net.tassia.Version
 import net.tassia.decodeToVersion
 import net.tassia.ini.readIniDocument
-import net.tassia.pancake.logging.Logger
+import net.tassia.pancake.database.Database
 import net.tassia.pancake.plugin.PluginManager
 import net.tassia.pancake.scheduler.Scheduler
 import net.tassia.pancake.util.readResource
 import net.tassia.parser.StringParser
+import java.util.logging.Logger
 
 abstract class Pancake {
 
+	abstract val database: Database
 	abstract val logger: Logger
 	abstract val pluginManager: PluginManager
 	abstract val scheduler: Scheduler

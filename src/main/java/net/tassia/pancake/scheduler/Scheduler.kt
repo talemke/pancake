@@ -6,7 +6,7 @@ import net.tassia.pancake.plugin.Plugin
 /**
  * Used to start asynchronous and repeating tasks.
  *
- * @since Jet 1.0
+ * @since Pancake 1.0
  */
 abstract class Scheduler {
 

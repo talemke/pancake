@@ -5,9 +5,11 @@ import kotlinx.coroutines.Job
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.database.Transaction
 import net.tassia.pancake.event.Event
+import java.util.logging.Logger
 
 abstract class Plugin(val pancake: Pancake, val info: PluginInformation) {
 
+	abstract suspend fun onLoad()
 	abstract suspend fun onEnable()
 	abstract suspend fun onDisable()
 
@@ -15,6 +17,15 @@ abstract class Plugin(val pancake: Pancake, val info: PluginInformation) {
 	abstract suspend fun onDowngrade(transaction: Transaction, from: Int, to: Int)
 
 
+
+	val logger = Logger.getLogger("Pancake:Plugin:" + info.name).also {
+		it.parent = pancake.logger
+	}
+
+
+
+	val isLoaded: Boolean
+		get() = pancake.pluginManager.isLoaded(this)
 
 	val isEnabled: Boolean
 		get() = pancake.pluginManager.isEnabled(this)

@@ -3,7 +3,7 @@ package net.tassia.pancake.event
 /**
  * Declares an event to be cancellable.
  *
- * @since Jet 1.0
+ * @since Pancake 1.0
  */
 interface Cancellable {
 
