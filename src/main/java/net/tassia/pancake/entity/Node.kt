@@ -1,3 +1,9 @@
 package net.tassia.pancake.entity
 
-interface Node : DatabaseEntity<Node>
+import java.util.*
+
+interface Node : DatabaseEntity<Node> {
+
+	val nodeID: UUID
+
+}
