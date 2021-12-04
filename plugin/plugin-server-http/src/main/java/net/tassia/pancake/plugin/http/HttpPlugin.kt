@@ -1,32 +1,46 @@
 package net.tassia.pancake.plugin.http
 
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 import net.tassia.Version
 import net.tassia.pancake.Pancake
 import net.tassia.pancake.database.Transaction
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInformation
+import net.tassia.pancake.plugin.http.plugin.installContentNegotiation
+import net.tassia.pancake.plugin.http.plugin.installDefaultHeaders
+import net.tassia.pancake.plugin.http.plugin.installRouting
 import net.tassia.pancake.server.http.HttpServer
 
 class HttpPlugin(pancake: Pancake) : Plugin(pancake, HttpPlugin) {
 
-	private var server: HttpServer? = null
+	val config = HttpConfiguration()
+	var server: HttpServer? = null; private set
 
 
 
 	override suspend fun onLoad() {
-		TODO("Not yet implemented")
+		// Load configuration
+		config.loadConfig()
 	}
 
 	override suspend fun onEnable() {
-		server.also {
-			require(it != null)
+		// Create engine
+		val engine = embeddedServer(Netty, host = config.hostname, port = config.port) {
+			installRouting(this@HttpPlugin)
+			installContentNegotiation()
+			installDefaultHeaders()
+		}
+
+		// Create & start server
+		this.server = HttpServer(engine).also {
 			it.start()
 		}
 	}
 
 	override suspend fun onDisable() {
 		server?.stop()
-		server = null
+		this.server = null
 	}
 
 
