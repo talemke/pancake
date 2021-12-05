@@ -2,9 +2,8 @@ package net.tassia.pancake.entity
 
 import java.util.*
 
-interface Mail : DatabaseEntity<Mail> {
+interface MailTransaction : DatabaseEntity<MailTransaction> {
 
-	val mailID: UUID
 	val transactionID: UUID
 
 }
