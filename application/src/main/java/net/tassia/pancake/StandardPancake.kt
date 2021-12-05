@@ -38,6 +38,22 @@ class StandardPancake(override val logger: Logger, source: DataSource) : Pancake
 		waitForShutdown()
 	}
 
+	override fun shutdown() {
+		logger.info("Shutting down...")
+
+		// Disable plugins
+		// TODO
+
+		// Flush caches
+		// TODO
+
+		// Done!
+		logger.info("Good bye!")
+
+		// Release shutdown lock
+		shutdownCondition.signal()
+	}
+
 
 
 	private val shutdownLock = ReentrantLock()
