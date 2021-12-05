@@ -1,0 +1,24 @@
+:root {
+
+
+	--primary: #8739f9;
+	--secondary: #37b9f1;
+	--gray: #f2f5f5;
+
+	--text: #565360;
+	--label: #908e9b;
+	--disabled: #e1dfe9;
+
+	--sm1: 0.25rem;
+	--sm2: 0.5rem;
+	--sm3: 0.75rem;
+
+	--md1: 1rem;
+	--md2: 1.25rem;
+	--md3: 1.5rem;
+
+	--lg1: 2rem;
+	--lg2: 3rem;
+	--lg3: 4rem;
+
+}

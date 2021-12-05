@@ -1,10 +1,10 @@
-import App from './App.svelte';
+// Import the main application component
+import Application from "./Application.svelte";
 
-const app = new App({
+// Create the application component and render it to the documents body
+const app = new Application({
 	target: document.body,
-	props: {
-		name: 'world'
-	}
 });
 
+// Export
 export default app;
