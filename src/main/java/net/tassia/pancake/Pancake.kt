@@ -5,7 +5,7 @@ import net.tassia.config.ini.IniLoadProvider
 import net.tassia.pancake.database.Database
 import net.tassia.pancake.plugin.PluginManager
 import net.tassia.pancake.scheduler.Scheduler
-import net.tassia.pancake.util.readResource
+import net.tassia.readResource
 import net.tassia.toVersion
 import java.util.logging.Logger
 
@@ -21,8 +21,8 @@ abstract class Pancake {
 	companion object {
 
 		val VERSION: Version = readResource<Pancake>("/net/tassia/pancake/resources/pancake.ini").let {
-			val config = IniLoadProvider.load(it)
-			return@let config["Information.Version"] as? String ?: "N/A"
+			val config = IniLoadProvider.load(it.decodeToString())
+			return@let config["Information.Version"] ?: "N/A"
 		}.toVersion()
 
 	}
