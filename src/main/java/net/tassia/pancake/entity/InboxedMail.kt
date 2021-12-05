@@ -12,6 +12,6 @@ interface InboxedMail : DatabaseEntity<InboxedMail> {
 	val isMarked: Boolean
 	val isSpam: Boolean
 
-	val deletionDate: Long?
+	val deletionDate: Long
 
 }
