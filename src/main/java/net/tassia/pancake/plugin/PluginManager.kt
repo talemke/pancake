@@ -10,8 +10,11 @@ abstract class PluginManager {
 
 	abstract fun findPlugin(name: String): Plugin
 	abstract fun findPluginOrNull(name: String): Plugin?
+	abstract fun findPlugin(info: PluginInformation): Plugin
+	abstract fun findPluginOrNull(info: PluginInformation): Plugin?
 
 	abstract fun getLoadedPlugins(): Set<Plugin>
+	abstract fun getLoadOrder(): List<PluginInformation>
 
 
 
