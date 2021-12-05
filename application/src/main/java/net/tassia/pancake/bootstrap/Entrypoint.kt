@@ -1,9 +1,12 @@
 package net.tassia.pancake.bootstrap
 
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
 import net.tassia.Namespace
 import net.tassia.logging.formatter.AnsiFormatter
 import net.tassia.logging.handler.PrintStreamHandler
 import net.tassia.pancake.StandardPancake
+import org.sqlite.SQLiteDataSource
 import java.util.logging.Logger
 import javax.sql.DataSource
 import kotlin.system.exitProcess
@@ -59,6 +62,14 @@ object Entrypoint {
 
 
 
+	private fun findEnv(key: String): String {
+		return System.getenv(key) ?: throw IllegalStateException("Environment variable '$key' is not set.")
+	}
+
+
+
+
+
 	/**
 	 * Launches the application and blocks, until the application should (and has) shut down gracefully.
 	 */
@@ -82,7 +93,30 @@ object Entrypoint {
 	}
 
 	private fun createDataSource(): DataSource {
-		TODO()
+		val useSQLite = System.getenv("DB_USE_SQLITE")?.toBoolean() ?: false
+		return if (useSQLite) createSQLiteDataSource() else createMySQLDataSource()
+	}
+
+	private fun createSQLiteDataSource(): DataSource {
+		return SQLiteDataSource().also {
+			it.url = "jdbc:sqlite:./storage.db"
+		}
+	}
+
+	private fun createMySQLDataSource(): DataSource {
+		return HikariDataSource(HikariConfig().also {
+
+			val hostname = findEnv("DB_MYSQL_HOSTNAME")
+			val database = findEnv("DB_MYSQL_DATABASE")
+
+			it.jdbcUrl = "jdbc:mysql://$hostname/$database"
+			it.driverClassName = "com.mysql.cj.jdbc.Driver"
+			it.username = findEnv("DB_MYSQL_USERNAME")
+			it.password = findEnv("DB_MYSQL_PASSWORD")
+
+			it.maximumPoolSize = System.getenv("DB_POOL_SIZE")?.toInt() ?: 16
+
+		})
 	}
 
 }
