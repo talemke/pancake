@@ -1,5 +1,6 @@
 package net.tassia.pancake
 
+import kotlinx.coroutines.runBlocking
 import net.tassia.pancake.database.StandardDatabase
 import net.tassia.pancake.event.EventManager
 import net.tassia.pancake.plugin.StandardPluginManager
@@ -28,10 +29,16 @@ class StandardPancake(override val logger: Logger, source: DataSource) : Pancake
 		// TODO
 
 		// Load plugins
-		// TODO
+		runBlocking {
+			// TODO: use scheduler
+			pluginManager.loadPlugins()
+		}
 
 		// Enable plugins
-		// TODO
+		runBlocking {
+			// TODO: use scheduler
+			pluginManager.enablePlugins()
+		}
 
 		// Done!
 		logger.info("Done! Running Pancake v$VERSION")
@@ -42,7 +49,10 @@ class StandardPancake(override val logger: Logger, source: DataSource) : Pancake
 		logger.info("Shutting down...")
 
 		// Disable plugins
-		// TODO
+		runBlocking {
+			// TODO: use scheduler
+			pluginManager.disablePlugins()
+		}
 
 		// Flush caches
 		// TODO

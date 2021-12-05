@@ -11,8 +11,11 @@ import kotlin.reflect.KClass
 
 class StandardPluginManager(private val pancake: StandardPancake) : PluginManager() {
 
-	private var available: Set<PluginInformation> = emptySet()
-	private var loaded: Set<Plugin> = emptySet()
+	private var available: List<PluginInformation> = emptyList()
+	private var plugins: Set<Plugin> = emptySet()
+
+	private var isLoaded: Set<Plugin> = emptySet()
+	private var isEnabled: Set<Plugin> = emptySet()
 
 
 
@@ -21,7 +24,23 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 	}
 
 	override fun findPluginOrNull(name: String): Plugin? {
-		return loaded.find { it.info.name == name }
+		return plugins.find { it.info.name == name }
+	}
+
+	private fun findPluginByID(identifier: String): Plugin {
+		return findPluginByIDOrNull(identifier) ?: throw IllegalArgumentException("Plugin '$identifier' was not found.")
+	}
+
+	private fun findPluginByIDOrNull(identifier: String): Plugin? {
+		return plugins.find { it.info.identifier == identifier }
+	}
+
+	override fun findPlugin(info: PluginInformation): Plugin {
+		return findPluginOrNull(info) ?: throw IllegalArgumentException("Plugin '${info.name}' was not found.")
+	}
+
+	override fun findPluginOrNull(info: PluginInformation): Plugin? {
+		return plugins.find { it.info == info }
 	}
 
 
@@ -29,7 +48,11 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 
 
 	override fun getLoadedPlugins(): Set<Plugin> {
-		return loaded
+		return plugins.toSet()
+	}
+
+	override fun getLoadOrder(): List<PluginInformation> {
+		return available.toList()
 	}
 
 
@@ -45,8 +68,23 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 
 
 
+	internal suspend fun loadPlugins() {
+		for (info in getLoadOrder()) {
+			createAndLoadPlugin(info)
+		}
+	}
+
 	override suspend fun loadPlugin(name: String) {
 		loadPlugin(findPlugin(name))
+	}
+
+	private suspend fun createAndLoadPlugin(info: PluginInformation) {
+		// Create plugin
+		val plugin = info.constructor(pancake)
+		plugins = plugins + plugin
+
+		// Load plugin
+		loadPlugin(plugin)
 	}
 
 	override suspend fun loadPlugin(plugin: Plugin) {
@@ -56,11 +94,24 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 		// Log
 		plugin.logger.info("Loading ${plugin.info.displayName}...")
 
+		// Validate dependencies
+		for (dependency in plugin.info.dependencies) {
+			if (!findPluginByID(dependency).isLoaded) {
+				throw IllegalStateException("Required dependency '$dependency' is not loaded.")
+			}
+		}
+
 		// Load plugin
-		// TODO
+		isLoaded = isLoaded + plugin
 
 		// Call plugin
 		plugin.onLoad()
+	}
+
+	internal suspend fun enablePlugins() {
+		for (info in getLoadOrder()) {
+			enablePlugin(findPlugin(info))
+		}
 	}
 
 	override suspend fun enablePlugin(name: String) {
@@ -74,8 +125,15 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 		// Log
 		plugin.logger.info("Enabling ${plugin.info.displayName}...")
 
+		// Validate dependencies
+		for (dependency in plugin.info.dependencies) {
+			if (!findPluginByID(dependency).isEnabled) {
+				throw IllegalStateException("Required dependency '$dependency' is not enabled.")
+			}
+		}
+
 		// Enable plugin
-		// TODO
+		isEnabled = isEnabled + plugin
 
 		// Call plugin
 		plugin.onEnable()
@@ -84,6 +142,12 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 		plugin.info.apply {
 			val authors = authors.joinToString(", ")
 			plugin.logger.info("Done! Running $displayName, v$version by $authors.")
+		}
+	}
+
+	internal suspend fun disablePlugins() {
+		for (info in getLoadOrder().asReversed()) {
+			disablePlugin(findPlugin(info))
 		}
 	}
 
@@ -99,7 +163,8 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 		plugin.logger.info("Disabling ${plugin.info.displayName}...")
 
 		// Disable plugin
-		// TODO
+		isLoaded = isLoaded - plugin
+		isEnabled = isEnabled - plugin
 
 		// Call plugin
 		plugin.onDisable()
@@ -110,7 +175,7 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 	}
 
 	override fun isLoaded(plugin: Plugin): Boolean {
-		TODO("Not yet implemented")
+		return plugin in isLoaded
 	}
 
 	override fun isEnabled(name: String): Boolean {
@@ -118,7 +183,7 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 	}
 
 	override fun isEnabled(plugin: Plugin): Boolean {
-		TODO("Not yet implemented")
+		return plugin in isEnabled
 	}
 
 
