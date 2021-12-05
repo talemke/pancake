@@ -77,10 +77,17 @@ class HttpPlugin(pancake: Pancake) : Plugin(pancake, HttpPlugin) {
 		override val authors: Set<String> = setOf("Tassilo")
 		override val description: String = "Provides an HTTP server to handle API requests."
 		override val website: String = "https://github.com/TASSIA710/pancake"
+
+		override val dependencies: Set<String> = emptySet()
+		override val softDependencies: Set<String> = emptySet()
+
 		override val version: Version = Pancake.VERSION
 		override val installationVersion: Int = 1
+		override val apiVersion: Version = Pancake.VERSION
 
 		override val isGlobal: Boolean = false
+
+		override val constructor: (Pancake) -> Plugin = ::HttpPlugin
 
 	}
 
