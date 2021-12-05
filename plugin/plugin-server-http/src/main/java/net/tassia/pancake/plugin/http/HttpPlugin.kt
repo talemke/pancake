@@ -7,10 +7,10 @@ import net.tassia.pancake.Pancake
 import net.tassia.pancake.database.Transaction
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInformation
-import net.tassia.pancake.plugin.http.event.RegisterRoutesEvent
-import net.tassia.pancake.plugin.http.plugin.installContentNegotiation
-import net.tassia.pancake.plugin.http.plugin.installDefaultHeaders
-import net.tassia.pancake.plugin.http.plugin.installRouting
+import net.tassia.pancake.server.http.event.RegisterRoutesEvent
+import net.tassia.pancake.server.http.plugin.installContentNegotiation
+import net.tassia.pancake.server.http.plugin.installDefaultHeaders
+import net.tassia.pancake.server.http.plugin.installRouting
 import net.tassia.pancake.server.http.HttpServer
 import net.tassia.pancake.server.http.routing.Router
 
