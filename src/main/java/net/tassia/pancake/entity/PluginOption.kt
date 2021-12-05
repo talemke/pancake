@@ -1,14 +1,12 @@
 package net.tassia.pancake.entity
 
-import java.util.*
-
 interface PluginOption : DatabaseEntity<PluginOption> {
 
-	val pluginID: UUID
+	val pluginID: String
 	val option: String
 	val description: String?
-	val defaultValue: String?
-	val currentValue: String
+	val defaultValue: String
+	val currentValue: String?
 
 	val effectiveValue: String
 

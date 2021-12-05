@@ -18,6 +18,10 @@ abstract class Pancake {
 
 
 
+	abstract fun shutdown()
+
+
+
 	companion object {
 
 		val VERSION: Version = readResource<Pancake>("/net/tassia/pancake/resources/pancake.ini").let {

@@ -1,5 +1,7 @@
 package net.tassia.pancake.entity
 
+import net.tassia.pancake.database.Transaction
+
 /**
  * Represents a database entity, that can be reloaded and deleted.
  *
@@ -12,11 +14,11 @@ interface DatabaseEntity<E : DatabaseEntity<E>> {
 	 *
 	 * @return the entity
 	 */
-	suspend fun reload(): E
+	fun reload(transaction: Transaction): E
 
 	/**
 	 * Deletes this entity.
 	 */
-	suspend fun delete()
+	fun delete(transaction: Transaction)
 
 }

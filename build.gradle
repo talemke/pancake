@@ -2,6 +2,8 @@ plugins {
 	id 'org.jetbrains.kotlin.jvm' version '1.6.0' apply false
 }
 
+var pancakeVersion = "0.0.1.1-PRE.1"
+
 allprojects {
 
 	apply plugin: 'java'
@@ -46,7 +48,7 @@ allprojects {
 
 	processResources {
 		filter((line) -> {
-			line.replace("{%pancake-version%}", project.version.toString())
+			line.replace("{%pancake-version%}", pancakeVersion)
 		})
 	}
 
