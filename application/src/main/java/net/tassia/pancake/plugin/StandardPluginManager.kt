@@ -17,6 +17,11 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 	private var isLoaded: Set<Plugin> = emptySet()
 	private var isEnabled: Set<Plugin> = emptySet()
 
+	internal fun locatePlugin(info: PluginInformation) {
+		available = available + info
+		// TODO: SORT WITH DEPENDENCIES
+	}
+
 
 
 	override fun findPlugin(name: String): Plugin {
