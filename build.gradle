@@ -22,7 +22,7 @@ allprojects {
 		api 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
 		api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC'
 
-		api 'net.tassia.kommons:kommons:1.0.0-PRC.3'
+		api 'net.tassia.kommons:kommons:1.0.0-PRC.4'
 
 		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
 		testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
