@@ -3,7 +3,7 @@ package net.tassia.pancake.entity
 import net.tassia.pancake.database.Transaction
 import java.sql.ResultSet
 
-class PluginOptionResultSet(result: ResultSet) : PluginOption {
+internal class PluginOptionResultSet(result: ResultSet) : PluginOption {
 
 	override val pluginID: String = result.getString("PluginID")
 	override val option: String = result.getString("Option")

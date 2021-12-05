@@ -4,7 +4,7 @@ import net.tassia.pancake.database.Transaction
 import java.sql.ResultSet
 import java.util.*
 
-class AddressResultSet(result: ResultSet) : Address {
+internal class AddressResultSet(result: ResultSet) : Address {
 
 	override val address: String = result.getString("Address")
 	override val accountID: UUID = result.getUUID("AccountID")

@@ -4,7 +4,7 @@ import net.tassia.pancake.database.Transaction
 import java.sql.ResultSet
 import java.util.*
 
-class NodeResultSet(result: ResultSet) : Node {
+internal class NodeResultSet(result: ResultSet) : Node {
 
 	override val nodeID: UUID = result.getUUID("NodeID")
 

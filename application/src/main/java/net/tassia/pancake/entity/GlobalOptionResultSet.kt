@@ -3,7 +3,7 @@ package net.tassia.pancake.entity
 import net.tassia.pancake.database.Transaction
 import java.sql.ResultSet
 
-class GlobalOptionResultSet(result: ResultSet) : GlobalOption {
+internal class GlobalOptionResultSet(result: ResultSet) : GlobalOption {
 
 	override val option: String = result.getString("Option")
 	override val description: String? = result.getString("Description")

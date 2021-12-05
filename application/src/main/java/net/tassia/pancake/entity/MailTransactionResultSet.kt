@@ -4,7 +4,7 @@ import net.tassia.pancake.database.Transaction
 import java.sql.ResultSet
 import java.util.*
 
-class MailTransactionResultSet(result: ResultSet) : MailTransaction {
+internal class MailTransactionResultSet(result: ResultSet) : MailTransaction {
 
 	override val transactionID: UUID = result.getUUID("TransactionID")
 
