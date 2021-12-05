@@ -20,22 +20,22 @@ class Router {
 
 	@RouteDSL
 	fun get(plugin: Plugin, path: String, block: PipelineInterceptor<Unit, ApplicationCall>): Route {
-		return PrimitiveRoute(plugin, path, HttpMethod.Get, block)
+		return PrimitiveRoute(plugin, path, HttpMethod.Get, block).also(this::addRoute)
 	}
 
 	@RouteDSL
 	fun post(plugin: Plugin, path: String, block: PipelineInterceptor<Unit, ApplicationCall>): Route {
-		return PrimitiveRoute(plugin, path, HttpMethod.Post, block)
+		return PrimitiveRoute(plugin, path, HttpMethod.Post, block).also(this::addRoute)
 	}
 
 	@RouteDSL
 	fun put(plugin: Plugin, path: String, block: PipelineInterceptor<Unit, ApplicationCall>): Route {
-		return PrimitiveRoute(plugin, path, HttpMethod.Put, block)
+		return PrimitiveRoute(plugin, path, HttpMethod.Put, block).also(this::addRoute)
 	}
 
 	@RouteDSL
 	fun delete(plugin: Plugin, path: String, block: PipelineInterceptor<Unit, ApplicationCall>): Route {
-		return PrimitiveRoute(plugin, path, HttpMethod.Delete, block)
+		return PrimitiveRoute(plugin, path, HttpMethod.Delete, block).also(this::addRoute)
 	}
 
 }
