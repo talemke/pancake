@@ -7,6 +7,7 @@ import net.tassia.pancake.Pancake
 import net.tassia.pancake.database.Transaction
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInformation
+import net.tassia.pancake.plugin.http.routing.registerGenericRoutes
 import net.tassia.pancake.server.http.event.RegisterRoutesEvent
 import net.tassia.pancake.server.http.plugin.installContentNegotiation
 import net.tassia.pancake.server.http.plugin.installDefaultHeaders
@@ -24,6 +25,11 @@ class HttpPlugin(pancake: Pancake) : Plugin(pancake, HttpPlugin) {
 	override suspend fun onLoad() {
 		// Load configuration
 		config.loadConfig()
+
+		// Add listener
+		listenSync<RegisterRoutesEvent> {
+			it.router.registerGenericRoutes(this)
+		}
 	}
 
 	override suspend fun onEnable() {

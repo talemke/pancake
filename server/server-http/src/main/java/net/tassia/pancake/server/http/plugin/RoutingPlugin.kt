@@ -14,11 +14,7 @@ fun Application.installRouting(router: Router) {
 }
 
 private fun Routing.registerRoute(route: Route) {
-	route.apply {
-		route(path, method) {
-			handle {
-				call.onRoute()
-			}
-		}
+	route(route.path, route.method) {
+		handle(route.handle)
 	}
 }
