@@ -4,6 +4,7 @@ import kotlinx.coroutines.runBlocking
 import net.tassia.pancake.database.StandardDatabase
 import net.tassia.pancake.event.EventManager
 import net.tassia.pancake.plugin.StandardPluginManager
+import net.tassia.pancake.plugin.http.HttpPlugin
 import net.tassia.pancake.scheduler.StandardScheduler
 import java.util.concurrent.locks.ReentrantLock
 import java.util.logging.Logger
@@ -23,6 +24,7 @@ class StandardPancake(override val logger: Logger, source: DataSource) : Pancake
 		logger.info("Loading Pancake...")
 
 		// Locate plugins
+		pluginManager.locatePlugin(HttpPlugin)
 		// TODO
 
 		// Prepare file system

@@ -2,6 +2,8 @@ dependencies {
 
 	api project(':')
 
+	implementation project(':plugin:plugin-server-http')
+
 	implementation 'com.michael-bull.kotlin-coroutines-jdbc:kotlin-coroutines-jdbc:1.0.2'
 
 	implementation 'mysql:mysql-connector-java:8.0.25'
