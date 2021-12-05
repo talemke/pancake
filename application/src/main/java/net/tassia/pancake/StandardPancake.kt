@@ -17,7 +17,22 @@ class StandardPancake(override val logger: Logger, source: DataSource) : Pancake
 
 
 	fun launch() {
-		TODO()
+		logger.info("Loading Pancake...")
+
+		// Locate plugins
+		// TODO
+
+		// Prepare file system
+		// TODO
+
+		// Load plugins
+		// TODO
+
+		// Enable plugins
+		// TODO
+
+		// Done!
+		logger.info("Done! Running Pancake v$VERSION")
 	}
 
 }

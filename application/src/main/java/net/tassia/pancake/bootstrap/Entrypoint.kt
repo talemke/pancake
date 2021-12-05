@@ -1,6 +1,8 @@
 package net.tassia.pancake.bootstrap
 
 import net.tassia.Namespace
+import net.tassia.logging.formatter.AnsiFormatter
+import net.tassia.logging.handler.PrintStreamHandler
 import net.tassia.pancake.StandardPancake
 import java.util.logging.Logger
 import javax.sql.DataSource
@@ -73,7 +75,10 @@ object Entrypoint {
 	}
 
 	private fun createLogger(): Logger {
-		TODO()
+		return Logger.getLogger("Pancake").also {
+			it.useParentHandlers = false
+			it.addHandler(PrintStreamHandler(System.out, AnsiFormatter()))
+		}
 	}
 
 	private fun createDataSource(): DataSource {

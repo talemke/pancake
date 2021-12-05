@@ -53,7 +53,14 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 		// Already enabled?
 		if (isLoaded(plugin)) return
 
-		TODO("Not yet implemented")
+		// Log
+		plugin.logger.info("Loading ${plugin.info.displayName}...")
+
+		// Load plugin
+		// TODO
+
+		// Call plugin
+		plugin.onLoad()
 	}
 
 	override suspend fun enablePlugin(name: String) {
@@ -64,7 +71,20 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 		// Already enabled?
 		if (isEnabled(plugin)) return
 
-		TODO("Not yet implemented")
+		// Log
+		plugin.logger.info("Enabling ${plugin.info.displayName}...")
+
+		// Enable plugin
+		// TODO
+
+		// Call plugin
+		plugin.onEnable()
+
+		// Log
+		plugin.info.apply {
+			val authors = authors.joinToString(", ")
+			plugin.logger.info("Done! Running $displayName, v$version by $authors.")
+		}
 	}
 
 	override suspend fun disablePlugin(name: String) {
@@ -75,7 +95,14 @@ class StandardPluginManager(private val pancake: StandardPancake) : PluginManage
 		// Not enabled?
 		if (!isEnabled(plugin)) return
 
-		TODO("Not yet implemented")
+		// Log
+		plugin.logger.info("Disabling ${plugin.info.displayName}...")
+
+		// Disable plugin
+		// TODO
+
+		// Call plugin
+		plugin.onDisable()
 	}
 
 	override fun isLoaded(name: String): Boolean {
