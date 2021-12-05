@@ -7,10 +7,12 @@ import net.tassia.pancake.Pancake
 import net.tassia.pancake.database.Transaction
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInformation
+import net.tassia.pancake.plugin.http.event.RegisterRoutesEvent
 import net.tassia.pancake.plugin.http.plugin.installContentNegotiation
 import net.tassia.pancake.plugin.http.plugin.installDefaultHeaders
 import net.tassia.pancake.plugin.http.plugin.installRouting
 import net.tassia.pancake.server.http.HttpServer
+import net.tassia.pancake.server.http.routing.Router
 
 class HttpPlugin(pancake: Pancake) : Plugin(pancake, HttpPlugin) {
 
@@ -25,9 +27,13 @@ class HttpPlugin(pancake: Pancake) : Plugin(pancake, HttpPlugin) {
 	}
 
 	override suspend fun onEnable() {
+		// Load routes
+		val router = Router()
+		callEvent(RegisterRoutesEvent(router))
+
 		// Create engine
 		val engine = embeddedServer(Netty, host = config.hostname, port = config.port) {
-			installRouting(this@HttpPlugin)
+			installRouting(router)
 			installContentNegotiation()
 			installDefaultHeaders()
 		}
