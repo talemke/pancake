@@ -1,29 +1,61 @@
 <script lang="ts">
-	import LoadingSpinner from "../../components/LoadingSpinner.svelte";
-import { Format, Language } from "../../logic/Pancake";
+	import AuthContainer from "../../components/auth/AuthContainer.svelte";
+	import AuthScreen from "../../components/auth/AuthScreen.svelte";
+	import LoadingSpinner from "../../components/feedback/LoadingSpinner.svelte";
+	import Collapsable from "../../components/generic/Collapsable.svelte";
+	import Button from "../../components/input/Button.svelte";
+	import TextInput from "../../components/input/TextInput.svelte";
+	import { API, Format, HandleError, Language } from "../../logic/Pancake";
+
+	let showLoading: boolean = false;
+	let showForm: boolean = true;
+
+	let formUsername: string;
+	let formPassword: string;
+
+	function setLoading(loading: boolean) {
+		showLoading = loading;
+		showForm = !loading;
+	}
+
+	function handleLogin() {
+		// Set to loading
+		setLoading(true);
+
+		// Unset loading
+		API().AuthLogin(formUsername, formPassword)
+			.catch(HandleError)
+			.then(() => {
+				// TODO
+				setLoading(false);
+			});
+	}
 </script>
 
 <main>
-	<div class="full-screen center auth-screen">
-		<div class="auth-container">
+	<AuthScreen>
+		<AuthContainer>
 
-			<LoadingSpinner />
+			<Collapsable bind:show={showLoading}>
+				<LoadingSpinner />
+			</Collapsable>
 
-			<h1>{ Format(Language.auth_login_title) }</h1>
-			<hr/>
+			<Collapsable bind:show={showForm}>
+				<h1>{ Format(Language.auth_login_title) }</h1>
+				<hr/>
 
-			<div class="align-left">
+				<div class="align-left">
 
-				<h6 class="mt-4">{Format(Language.auth_login_username)}:</h6>
-				<input type="text" placeholder={Format(Language.auth_login_username)} class="form-control form-control-lg" />
+					<TextInput class="w-100" type="text" label={Format(Language.auth_login_username)} />
+					<TextInput class="w-100" type="password" label={Format(Language.auth_login_password)} />
 
-				<h6 class="mt-4">{Format(Language.auth_login_password)}:</h6>
-				<input type="password" placeholder={Format(Language.auth_login_password)} class="form-control form-control-lg" />
+					<Button class="w-100" on:click={handleLogin}>
+						{Format(Language.auth_login_button_login)}
+					</Button>
 
-				<button class="btn btn-lg btn-primary w-100 mt-5">{Format(Language.auth_login_button_login)}</button>
+				</div>
+			</Collapsable>
 
-			</div>
-
-		</div>
-	</div>
+		</AuthContainer>
+	</AuthScreen>
 </main>

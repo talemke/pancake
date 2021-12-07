@@ -1,5 +1,26 @@
 :root {
 
+	/* Generic */
+	--pancake-main-color: #008eff;
+	--pancake-main-hover-color: #007ee5;
+
+	/* Backgrounds */
+	--pancake-background: #ffffff;
+	--pancake-background-popup: #ffffff;
+	--pancake-background-sidebar: #f7f9fa;
+	--pancake-background-selected: #d4edff;
+	--pancake-background-hover: #ebf6ff;
+
+	/* Borders */
+	--pancake-border-color: #b8d1e5;
+	--pancake-border-hover-color: #80c6ff;
+
+	/* Text */
+	--pancake-text: #565360;
+	--pancake-text-danger: #c22731;
+	--pancake-label: #908e9b;
+	--pancake-disabled: #e1dfe9;
+	--pancake-dark-text: #ffffff;
 
 	--primary: #8739f9;
 	--secondary: #37b9f1;
@@ -20,5 +41,12 @@
 	--lg1: 2rem;
 	--lg2: 3rem;
 	--lg3: 4rem;
+
+	--border-light: 1px solid #dfe5eb;
+
+	--link-color: #8a8699;
+	--link-color-hover: var(--secondary);
+
+	--header-background: #19191c;
 
 }

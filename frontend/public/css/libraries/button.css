@@ -1,0 +1,57 @@
+.button {
+	position: relative;
+	display: inline-block;
+	box-sizing: border-box;
+	height: 24px;
+	margin: 0;
+	padding: 0 16px;
+	cursor: pointer;
+	transition: color 0.15s, background-color 0.15s, box-shadow 0.15s;
+	text-decoration: none;
+	border: 0;
+	border-radius: 3px;
+	outline: none;
+	font-size: 12px;
+	line-height: 24px;
+	background-color: var(--pancake-background);
+	box-shadow: inset 0 0 0 1px var(--pancake-border-color);
+}
+
+.button:hover, .button:active, .button.button-active {
+	box-shadow: inset 0 0 0 1px var(--pancake-border-hover-color);
+}
+
+.button:active, .button.button-active {
+	background-color: var(--pancake-background-selected);
+}
+
+
+
+.button-primary {
+	background-color: var(--pancake-main-color);
+	color: var(--pancake-dark-text);
+	box-shadow: inset 0 0 0 1px transparent;
+}
+
+.button-primary:hover, .button-primary:active, .button-primary.button-active {
+	background-color: var(--pancake-main-hover-color);
+}
+
+.button-primary:active, .button-primary.button-active {
+	background-color: #1a98ff;
+	box-shadow: inset 0 0 0 1px #0062b2;
+}
+
+
+
+.button-danger {
+	color: var(--pancake-text-danger);
+}
+
+.button-danger:hover, .button-danger:active, .button-danger.button-active {
+	box-shadow: inset 0 0 0 1px var(--pancake-text-danger);
+}
+
+.button-danger:active, .button-danger.button-active {
+	background-color: #ffe7e8;
+}
