@@ -8,6 +8,7 @@ internal class MailResultSet(result: ResultSet) : Mail {
 
 	override val mailID: UUID = result.getUUID("MailID")
 	override val transactionID: UUID = result.getUUID("TransactionID")
+	override val renderedHTML: String? = result.getString("RenderedHTML")
 
 	override fun reload(transaction: Transaction): Mail {
 		TODO("Not yet implemented")
