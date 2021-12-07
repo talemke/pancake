@@ -6,4 +6,6 @@ interface MailTransaction : DatabaseEntity<MailTransaction> {
 
 	val transactionID: UUID
 
+	val transaction: TransactionLog
+
 }
