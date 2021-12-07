@@ -7,6 +7,8 @@ interface GlobalOption : DatabaseEntity<GlobalOption> {
 	val defaultValue: String
 	val currentValue: String?
 
+	val isSystemOption: Boolean
+
 	val effectiveValue: String
 
 }
