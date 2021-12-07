@@ -8,6 +8,8 @@ interface PluginOption : DatabaseEntity<PluginOption> {
 	val defaultValue: String
 	val currentValue: String?
 
+	val isSystemOption: Boolean
+
 	val effectiveValue: String
 
 }

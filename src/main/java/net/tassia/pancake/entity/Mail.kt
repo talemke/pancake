@@ -7,4 +7,6 @@ interface Mail : DatabaseEntity<Mail> {
 	val mailID: UUID
 	val transactionID: UUID
 
+	val renderedHTML: String?
+
 }
