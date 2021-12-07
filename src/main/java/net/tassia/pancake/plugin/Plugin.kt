@@ -18,7 +18,7 @@ abstract class Plugin(val pancake: Pancake, val info: PluginInformation) {
 
 
 
-	val logger = Logger.getLogger("Pancake:Plugin:" + info.name).also {
+	val logger: Logger = Logger.getLogger("Pancake:Plugin:" + info.name).also {
 		it.parent = pancake.logger
 	}
 
