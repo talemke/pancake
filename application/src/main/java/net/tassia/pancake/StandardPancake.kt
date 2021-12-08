@@ -1,15 +1,13 @@
 package net.tassia.pancake
 
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import net.tassia.pancake.database.StandardDatabase
 import net.tassia.pancake.event.EventManager
 import net.tassia.pancake.plugin.StandardPluginManager
 import net.tassia.pancake.plugin.http.HttpPlugin
 import net.tassia.pancake.scheduler.StandardScheduler
-import java.util.concurrent.locks.ReentrantLock
 import java.util.logging.Logger
 import javax.sql.DataSource
-import kotlin.concurrent.withLock
 
 class StandardPancake(override val logger: Logger, source: DataSource) : Pancake() {
 
@@ -44,11 +42,17 @@ class StandardPancake(override val logger: Logger, source: DataSource) : Pancake
 
 		// Done!
 		logger.info("Done! Running Pancake v$VERSION")
-		waitForShutdown()
+		scheduler.eventLoop.start()
 	}
 
 	override fun shutdown() {
 		logger.info("Shutting down...")
+
+		// Exit core event loop
+		logger.fine("Cancelling asynchronous jobs...")
+		runBlocking {
+			scheduler.eventLoop.cancelAndJoin()
+		}
 
 		// Disable plugins
 		runBlocking {
@@ -56,25 +60,16 @@ class StandardPancake(override val logger: Logger, source: DataSource) : Pancake
 			pluginManager.disablePlugins()
 		}
 
+		// Terminate core event loop
+		logger.fine("Terminating scheduler...")
+		scheduler.eventLoop.cancel()
+
 		// Flush caches
+		logger.fine("Flushing caches...")
 		// TODO
 
 		// Done!
 		logger.info("Good bye!")
-
-		// Release shutdown lock
-		shutdownCondition.signal()
-	}
-
-
-
-	private val shutdownLock = ReentrantLock()
-	private val shutdownCondition = shutdownLock.newCondition()
-
-	private fun waitForShutdown() {
-		shutdownLock.withLock {
-			shutdownCondition.await()
-		}
 	}
 
 }

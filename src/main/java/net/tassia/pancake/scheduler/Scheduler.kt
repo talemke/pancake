@@ -1,6 +1,5 @@
 package net.tassia.pancake.scheduler
 
-import kotlinx.coroutines.Job
 import net.tassia.pancake.plugin.Plugin
 
 /**
@@ -10,7 +9,22 @@ import net.tassia.pancake.plugin.Plugin
  */
 abstract class Scheduler {
 
-	abstract fun executeAsync(name: String, plugin: Plugin, block: suspend () -> Unit): Job
+	/**
+	 * Creates & executes a new asynchronous task on the local node.
+	 *
+	 * @param name the name of the job
+	 * @param plugin the initiating plugin
+	 * @param block the block to execute
+	 * @return the created task
+	 */
+	abstract fun executeAsync(name: String, plugin: Plugin, block: AsyncFunction): Task
+
+
+
+
+
+	abstract fun createLocalDelayedTask(name: String, plugin: Plugin, delay: Long, block: AsyncFunction): Task
+	abstract fun createLocalRepeatingTask(name: String, plugin: Plugin, delay: Long, initialDelay: Long, block: AsyncFunction): Task
 
 	// TODO: Scheduled/Repeating Tasks
 
