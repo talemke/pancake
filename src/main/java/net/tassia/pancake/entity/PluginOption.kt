@@ -1,15 +1,7 @@
 package net.tassia.pancake.entity
 
-interface PluginOption : DatabaseEntity<PluginOption> {
+interface PluginOption : Option<PluginOption> {
 
 	val pluginID: String
-	val option: String
-	val description: String?
-	val defaultValue: String
-	val currentValue: String?
-
-	val isSystemOption: Boolean
-
-	val effectiveValue: String
 
 }

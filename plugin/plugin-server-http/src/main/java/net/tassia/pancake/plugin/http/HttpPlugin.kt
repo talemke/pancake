@@ -34,10 +34,12 @@ class HttpPlugin(pancake: Pancake) : Plugin(pancake, HttpPlugin) {
 
 	override suspend fun onEnable() {
 		// Load routes
+		logger.fine("Loading routes...")
 		val router = Router()
 		callEvent(RegisterRoutesEvent(router))
 
 		// Create engine
+		logger.fine("Binding to ${config.hostname}:${config.port}...")
 		val engine = embeddedServer(Netty, host = config.hostname, port = config.port) {
 			installRouting(router)
 			installContentNegotiation()

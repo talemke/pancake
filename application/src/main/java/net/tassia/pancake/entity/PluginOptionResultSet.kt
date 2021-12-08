@@ -11,6 +11,8 @@ internal class PluginOptionResultSet(result: ResultSet) : PluginOption {
 	override val defaultValue: String = result.getString("DefaultValue")
 	override val currentValue: String? = result.getString("CurrentValue")
 
+	override val isSystemOption: Boolean = result.getBoolean("IsSystemOption")
+
 	override val effectiveValue: String = currentValue ?: defaultValue
 
 	override fun reload(transaction: Transaction): PluginOption {
