@@ -1,0 +1,68 @@
+:root {
+
+	--danger: #ff0000;
+	--danger-dark: #7f0000;
+
+	/* Generic */
+	--pancake-main-color: #008eff;
+	--pancake-main-hover-color: #007ee5;
+
+	/* Backgrounds */
+	--pancake-background: #ffffff;
+	--pancake-background-popup: #ffffff;
+	--pancake-background-sidebar: #f7f9fa;
+	--pancake-background-selected: #d4edff;
+	--pancake-background-hover: #ebf6ff;
+
+	/* Borders */
+	--pancake-border-color: #b8d1e5;
+	--pancake-border-hover-color: #80c6ff;
+
+	/* Text */
+	--pancake-text: #565360;
+	--pancake-text-danger: #c22731;
+	--pancake-label: #908e9b;
+	--pancake-disabled: #e1dfe9;
+	--pancake-dark-text: #ffffff;
+
+	--font-sans: 'Nunito', sans-serif;
+	--font-mono: 'Consolas', monospace;
+
+	--primary: #8739f9;
+	--secondary: #37b9f1;
+	--gray: #f2f5f5;
+
+	--text: #565360;
+	--label: #908e9b;
+	--disabled: #e1dfe9;
+
+	--sm1: 0.25rem;
+	--sm2: 0.5rem;
+	--sm3: 0.75rem;
+
+	--md1: 1rem;
+	--md2: 1.25rem;
+	--md3: 1.5rem;
+
+	--lg1: 2rem;
+	--lg2: 3rem;
+	--lg3: 4rem;
+
+	--border-radius: 3px;
+	--border-light: 1px solid #dfe5eb;
+
+	--link-color: #8a8699;
+	--link-color-hover: var(--secondary);
+
+	--header-background: #19191c;
+	--header-color-title: #ffffff;
+	--header-color-title-hover: #92d4ee;
+	--header-search-background: #09090c;
+	--header-search-color: #9f9f9f;
+	--header-search-background-focus: #ffffff;
+	--header-search-color-focus: var(--text);
+
+	--alert-background: #19191c;
+	--alert-color: #ffffff;
+
+}
