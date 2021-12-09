@@ -19,6 +19,10 @@ class HttpTransaction(val plugin: Plugin, @PublishedApi internal val call: Appli
 		call.respond(status, data)
 	}
 
+	suspend fun respondText(data: String, status: HttpStatusCode) {
+		call.respondText(data, status = status)
+	}
+
 	suspend fun respondStatus(status: HttpStatusCode) {
 		// Generate data
 		val data = StatusResponse[status.value]

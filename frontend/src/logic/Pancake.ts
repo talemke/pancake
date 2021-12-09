@@ -4,16 +4,9 @@ export * from "./Types";
 export { config as Config } from "./config/config";
 export { en_us as Language } from "./language/en-us";
 
+import { API as ApiClass } from "./api/API";
+export const API: ApiClass = new ApiClass();
 
-// API
-import { API as ApiClass } from "./API";
-const ApiInstance = new ApiClass();
-export function API(): ApiClass {
-	return ApiInstance;
-}
-
-
-// Utility class
 export class Pancake {
 
 	public static readonly ProjectName = "Pancake";

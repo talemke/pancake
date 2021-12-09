@@ -7,7 +7,9 @@ import net.tassia.pancake.Pancake
 import net.tassia.pancake.database.Transaction
 import net.tassia.pancake.plugin.Plugin
 import net.tassia.pancake.plugin.PluginInformation
+import net.tassia.pancake.plugin.http.routing.installAuthenticationRoutes
 import net.tassia.pancake.plugin.http.routing.registerGenericRoutes
+import net.tassia.pancake.plugin.http.routing.registerLegalRoutes
 import net.tassia.pancake.server.http.event.RegisterRoutesEvent
 import net.tassia.pancake.server.http.HttpServer
 import net.tassia.pancake.server.http.plugin.*
@@ -26,7 +28,9 @@ class HttpPlugin(pancake: Pancake) : Plugin(pancake, HttpPlugin) {
 
 		// Add listener
 		listenSync<RegisterRoutesEvent> {
+			it.router.installAuthenticationRoutes(this)
 			it.router.registerGenericRoutes(this)
+			it.router.registerLegalRoutes(this)
 		}
 	}
 

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { link } from "svelte-spa-router";
 	import { Format, Language, Pancake } from "../../logic/Pancake";
 import Link from "../text/Link.svelte";
 </script>
@@ -19,10 +18,12 @@ import Link from "../text/Link.svelte";
 			<div class="child child-2">
 				<Link href={Pancake.ProjectURL}>Pancake</Link>
 				&ensp;-&ensp;
-				<Link href={Pancake.ReleaseURL}><code>{Pancake.ReleaseName}</code></Link>
+				<Link href={Pancake.ReleaseURL}>{Pancake.ReleaseName}</Link>
 			</div>
 
 			<div class="child child-3">
+				<Link href="/docs/">{Format(Language.footer_docs)}</Link>
+				&ensp;-&ensp;
 				<Link href={Pancake.FeedbackURL}>{Format(Language.footer_feedback)}</Link>
 			</div>
 
