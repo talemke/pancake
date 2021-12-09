@@ -49,7 +49,7 @@
 					<TextInput class="w-100" type="text" label={Format(Language.auth_login_username)} />
 					<TextInput class="w-100" type="password" label={Format(Language.auth_login_password)} />
 
-					<Button class="w-100" on:click={handleLogin}>
+					<Button class="w-100" type="primary" on:click={handleLogin}>
 						{Format(Language.auth_login_button_login)}
 					</Button>
 
