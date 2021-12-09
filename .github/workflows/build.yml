@@ -21,3 +21,18 @@ jobs:
         run: "gradle assemble"
       - name: "Test Project"
         run: "gradle build"
+
+  frontend:
+    name: "Frontend"
+    runs-on: "ubuntu-latest"
+    container:
+      image: "node:10"
+    steps:
+      - name: "Checkout Repository"
+        uses: "actions/checkout@v2"
+      - name: "Fetch Dependencies"
+        run: "yarn"
+      - name: "Validate Project"
+        run: "yarn run check"
+      - name: "Build Project"
+        run: "yarn run build"
