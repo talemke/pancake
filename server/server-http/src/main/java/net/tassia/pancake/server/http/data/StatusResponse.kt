@@ -21,6 +21,8 @@ data class StatusResponse(
 		val Forbidden = StatusResponse(403, "Forbidden", "The client does not have access to the given action.")
 		val NotFound = StatusResponse(404, "Not Found", "The requested resource does not exist or is private.")
 
+		val InternalServerError = StatusResponse(500, "Internal Server Error", "The server encountered in internal from which it could not recover.")
+
 
 
 		operator fun get(code: Int): StatusResponse? {
@@ -32,6 +34,8 @@ data class StatusResponse(
 				401 -> Unauthorized
 				403 -> Forbidden
 				404 -> NotFound
+
+				500 -> InternalServerError
 
 				else -> null
 			}
