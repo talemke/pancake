@@ -23,7 +23,7 @@
 		setLoading(true);
 
 		// Unset loading
-		API().AuthLogin(formUsername, formPassword)
+		API.AuthLogin(formUsername, formPassword)
 			.catch(HandleError)
 			.then(() => {
 				// TODO
