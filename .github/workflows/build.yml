@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: "Checkout Repository"
         uses: "actions/checkout@v2"
+      - name: "Navigate to Frontend Directory"
+        run: "cd frontend"
       - name: "Fetch Dependencies"
         run: "yarn"
       - name: "Validate Project"
