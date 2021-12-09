@@ -13,6 +13,6 @@
 	}
 </script>
 
-<button class={generateClass(className, active, type)}>
+<button class={generateClass(className, active, type)} on:click>
 	<slot />
 </button>

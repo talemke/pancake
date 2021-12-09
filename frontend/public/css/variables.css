@@ -22,6 +22,9 @@
 	--pancake-disabled: #e1dfe9;
 	--pancake-dark-text: #ffffff;
 
+	--font-sans: 'Nunito', sans-serif;
+	--font-mono: 'Consolas', monospace;
+
 	--primary: #8739f9;
 	--secondary: #37b9f1;
 	--gray: #f2f5f5;
@@ -42,11 +45,18 @@
 	--lg2: 3rem;
 	--lg3: 4rem;
 
+	--border-radius: 3px;
 	--border-light: 1px solid #dfe5eb;
 
 	--link-color: #8a8699;
 	--link-color-hover: var(--secondary);
 
 	--header-background: #19191c;
+	--header-color-title: #ffffff;
+	--header-color-title-hover: #92d4ee;
+	--header-search-background: #09090c;
+	--header-search-color: #9f9f9f;
+	--header-search-background-focus: #ffffff;
+	--header-search-color-focus: var(--text);
 
 }

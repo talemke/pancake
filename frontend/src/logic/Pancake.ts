@@ -1,9 +1,7 @@
-// Functions & types
 export * from "./Helpers";
 export * from "./Types";
 
-
-// Language
+export { config as Config } from "./config/config";
 export { en_us as Language } from "./language/en-us";
 
 
