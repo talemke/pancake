@@ -3,17 +3,17 @@
 	import {API} from "../../logic/Pancake";
 	import LoadingSpinner from "../../components/feedback/LoadingSpinner.svelte";
 	import Alert from "../../components/alert/Alert.svelte";
-	import TermsOfService from "./TermsOfService.svelte";
+	import Cookies from "./Cookies.svelte";
 </script>
 
 <Page>
-	<h1>Terms of Service</h1>
+	<h1>Cookies</h1>
 
 	<p>
-		{#await API.FetchTermsOfService()}
+		{#await API.FetchCookies()}
 			<LoadingSpinner />
 		{:then content}
-			<TermsOfService>{content}</TermsOfService>
+			<Cookies>{content}</Cookies>
 		{:catch error}
 			<Alert type="error">{error}</Alert>
 		{/await}

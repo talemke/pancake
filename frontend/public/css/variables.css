@@ -1,5 +1,8 @@
 :root {
 
+	--danger: #ff0000;
+	--danger-dark: #7f0000;
+
 	/* Generic */
 	--pancake-main-color: #008eff;
 	--pancake-main-hover-color: #007ee5;
@@ -58,5 +61,8 @@
 	--header-search-color: #9f9f9f;
 	--header-search-background-focus: #ffffff;
 	--header-search-color-focus: var(--text);
+
+	--alert-background: #19191c;
+	--alert-color: #ffffff;
 
 }
