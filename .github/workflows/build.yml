@@ -39,3 +39,29 @@ jobs:
       - name: "Build Project"
         working-directory: "./frontend"
         run: "yarn run build"
+      - name: "Upload Static Site"
+        uses: "actions/upload-artifact@v2"
+        with:
+          name: "static-site"
+          path: "frontend/public/"
+
+  bundle:
+    name: "Bundle Application"
+    runs-on: "ubuntu-latest"
+    container:
+      image: "gradle"
+    needs: ["backend", "frontend"]
+    steps:
+      - name: "Checkout Repository"
+        uses: "actions/checkout@v2"
+      - name: "Include Frontend"
+        run: "echo TODO"
+      - name: "Start Gradle Daemon"
+        run: "gradle clean"
+      - name: "Bundle Project"
+        run: "gradle shadowJar"
+      - name: "Upload Bundled Application"
+        uses: "actions/upload-artifact@v2"
+        with:
+          name: "pancake-bundled"
+          path: "application/build/libs/pancake-*-all.jar"
