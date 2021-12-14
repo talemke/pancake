@@ -52,13 +52,16 @@
 		font-weight: 600;
 		color: var(--header-search-color);
 
-		border: none;
+		border: var(--header-search-border);
 		border-radius: var(--border-radius);
 		outline: none;
-		box-shadow: inset 0 0 0 1px #7f7f7f7f;
 
 		-webkit-transition: flex-grow 0.3s, background-color 0.3s, color 0.3s;
 		transition: flex-grow 0.3s, background-color 0.3s, color 0.3s;
+	}
+
+	.header-search:hover {
+		background-color: var(--header-search-background-hover);
 	}
 
 	.header-search:focus {

@@ -57,10 +57,12 @@
 	--header-background: #19191c;
 	--header-color-title: #ffffff;
 	--header-color-title-hover: #92d4ee;
-	--header-search-background: #09090c;
 	--header-search-color: #9f9f9f;
-	--header-search-background-focus: #ffffff;
 	--header-search-color-focus: var(--text);
+	--header-search-background: #151519;
+	--header-search-background-hover: #111115;
+	--header-search-background-focus: #ffffff;
+	--header-search-border: 1px solid #09090c;
 
 	--alert-background: #19191c;
 	--alert-color: #ffffff;
