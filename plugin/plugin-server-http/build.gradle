@@ -6,3 +6,9 @@ dependencies {
 	api project(':server:server-http')
 
 }
+
+processResources {
+	from("$rootDir/frontend/public") {
+		into("net/tassia/pancake/plugin/http/static")
+	}
+}
