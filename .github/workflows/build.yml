@@ -54,12 +54,13 @@ jobs:
     steps:
       - name: "Checkout Repository"
         uses: "actions/checkout@v2"
-      - name: "Download Static Site"
+      - name: "Clear Frontend"
+        run: "rm -rf frontend/public"
+      - name: "Bundle Frontend"
         uses: "actions/download-artifact@v2"
         with:
           name: "static-site"
-      - name: "Bundle Frontend"
-        run: "rm -rf frontend/public/ && unzip static-site.zip -d frontend/public/"
+          path: "frontend/public/"
       - name: "Start Gradle Daemon"
         run: "gradle clean"
       - name: "Bundle Project"
